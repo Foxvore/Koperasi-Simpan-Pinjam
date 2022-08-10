@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>E-COOP - Koperasi Digital/Login</title>
+
+	<!-- Favicon -->
+	<link rel="icon" href="assets/img/icon2.png">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="assets/aos/aos.css">
+	<link rel="stylesheet" type="text/css" href="assets/local/login.css">
+</head>
+<body>
+	<div class="container" data-aos="zoom-in-up">
+		<div class="bg">
+			<div class="box signin">
+				<h2>Already Have An Acccount?</h2>
+				<button class="signinBtn">Sign In</button>
+			</div>
+			<div class="box signup">
+				<h2>Don't Have An Acccount?</h2>
+				<button class="signupBtn">Sign Up</button>
+			</div>
+		</div>
+		<div class="formBox">
+			<div class="form signinForm">
+				<form>
+					<h3><b>Sign In</b></h3>
+					<input type="email" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password">
+					<ul>
+						<li><input type="submit" value="Login" id="login"></li>
+						<li><a href="index.html" id="back1">Back</a><br></li>
+					</ul>
+					<a href="#" class="forgot">Forgot Password</a>	
+				</form>
+			</div>
+			<div class="form signupForm">
+				<form>
+					<h3><b>Sign Up</b></h3>
+					<input type="email" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password">
+					<input type="password" name="confirm_password" placeholder="Re-enter Password">
+					<ul>
+					<li><input type="submit" value="Register" id="register"></li>
+					<li><a href="homepage.html" id="back2">Back</a></li>
+					</ul>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		const signinBtn = document.querySelector('.signinBtn');
+		const signupBtn = document.querySelector('.signupBtn');
+		const formBox = document.querySelector('.formBox');
+		const body =  document.querySelector('body')
+
+		signupBtn.onclick = function () {
+			formBox.classList.add('active')
+			body.classList.add('active')
+		}
+
+		signinBtn.onclick = function () {
+			formBox.classList.remove('active')
+			body.classList.remove('active')
+		}
+
+		function aos_init() {
+    		AOS.init({
+     		duration: 800,
+      		easing: 'slide',
+      		once: true,
+      		mirror: false
+    		});
+  		}
+  		window.addEventListener('load', () => {
+    		aos_init();
+  		});
+	</script>
+	<script src="assets/aos/aos.js"></script>
+</body>
+</html>
