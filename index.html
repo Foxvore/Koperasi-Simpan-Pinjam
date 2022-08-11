@@ -33,7 +33,6 @@
 					<ul>
 						<li><router-link to="/" class="nav-link scrollto">Homepage</router-link></li>
 						<li><router-link to="/layanan" class="nav-link scrollto">Layanan</router-link></li>
-						<li><router-link to="/alur" class="nav-link scrollto">Alur</router-link></li>
 						<li><router-link to="/simpan" class="nav-link scrollto">Simpam</router-link></li>
 						<li><router-link to="/pinjam" class="nav-link scrollto">Pinjam</router-link></li>
 						<li><a class="nav-link scrollto" href="login.html">Login</a></li>
@@ -194,11 +193,13 @@
 					</section>
 
 					<!-- ======= Dokumen Section ======= -->
-					<section id="dokumen" class="dokumen" data-aos="fade-up">
-						<h2><b><i>Dokumen Yang Dibutuhkan</i></b></h2><br>
-						<div class="card m-auto" id="c-dokumen">
-							<img src="src/assets/img/ktp.png">
-							<p class="m-auto">KTP</p>
+					<section id="dokumen" class="dokumen">
+						<div data-aos="fade-up">
+							<h2><b><i>Dokumen Yang Dibutuhkan</i></b></h2><br>
+							<div class="card m-auto" id="c-dokumen">
+								<img src="src/assets/img/ktp.png">
+								<p class="m-auto">KTP</p>
+							</div>
 						</div>
 					</section>
 				</main>
@@ -219,35 +220,35 @@
 							<h2><b><i>Layanan Yang Tersedia</i></b></h2><br>
 							<div class="container">
 								<div class="row">
-									<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-										<div class="icon-box">
-											<div class="icon"><i class="bi bi-safe-fill"></i></i></i></div>
-											<h4 class="title"><a href="#simpan">Simpanan</a></h4>
-											<p class="description">Simpanan aman dengan cara yang mudah. Dapatkan Bonus Simpanan sebesar 9% per tahun.</p>
-										</div>
+								<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+								<div class="icon-box">
+									<div class="icon"><i class="bi bi-safe-fill"></i></i></i></div>
+									<h4 class="title"><a href="#simpanan" class="scrollto">Simpanan</a></h4>
+									<p class="description">Simpanan aman dengan cara yang mudah. Dapatkan Bonus Simpanan sebesar 9% per tahun.</p>
+								</div>
+								</div>
+								<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+									<div class="icon-box">
+									<div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+									<h4 class="title"><a href="#pinjaman" class="scrollto">Pinjaman</a></h4>
+									<p class="description">Ajukan pinjaman kapanpun dan dimanapun dengan jumlan dan waktu yang bisa di sesuaikan.</p>
 									</div>
-									<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-										<div class="icon-box">
-											<div class="icon"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-											<h4 class="title"><a href="#pinjam">Pinjaman</a></h4>
-											<p class="description">Ajukan pinjaman kapanpun dan dimanapun dengan jumlan dan waktu yang bisa di sesuaikan.</p>
-										</div>
+								</div>
+								<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+									<div class="icon-box">
+									<div class="icon"><i class="fa-solid fa-check-to-slot"></i></div>
+									<h4 class="title"><a href="#simpanan" class="scrollto">Penarikan</a></h4>
+									<p class="description">Ambil uang simpananmu* tanpa syarat dan ketentuan apapun.</p>
+									<p class="description text-muted">*) jenis simpanan tertentu</p>
 									</div>
-									<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-										<div class="icon-box">
-											<div class="icon"><i class="fa-solid fa-check-to-slot"></i></div>
-											<h4 class="title"><a href="#penarikan">Penarikan</a></h4>
-											<p class="description">Ambil uang simpananmu* tanpa syarat dan ketentuan apapun.</p>
-											<p class="description text-muted">*) jenis simpanan tertentu</p>
-										</div>
-									</div>
-									<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-										<div class="icon-box">
-											<div class="icon"><i class="fa-solid fa-money-bill-transfer"></i></i></div>
-											<h4 class="title"><a href="#pengembalian">Pengembalian</a></h4>
-											<p class="description">Rincian pembayaran setiap bulan terjadwal dengan jelas dan dapat disesuaikan oleh pengguna.</p>
-										</div>
-									</div>	
+								</div>
+								<div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+								<div class="icon-box">
+									<div class="icon"><i class="fa-solid fa-money-bill-transfer"></i></i></div>
+									<h4 class="title"><a href="#pinjaman" class="scrollto">Pengembalian</a></h4>
+									<p class="description">Rincian pembayaran setiap bulan terjadwal dengan jelas dan dapat disesuaikan oleh pengguna.</p>
+								</div>
+								</div>	
 								</div>
 							</div>
 						</div>
@@ -321,40 +322,10 @@
       					</div>
   					</section>
 
-					<!-- ======= Pinjaman Section ======= -->
-					<section id="pinjaman" class="pinjaman">
-						
-					</section>
-
-					<!-- ======= Penarikan Section ======= -->
-					<section id="penarikan" class="penarikan">
-						
-					</section>
-
-					<!-- ======= Pengembalian Section ======= -->
-					<section id="pengembalian" class="pengembalian">
-						
-					</section>
-				</main>
-			`}
-		const Alur = {
-			template: `
-				<!-- ======= Alur Section ======= -->
-				<section id="alur" class="alur">
-					<div class="a-container" data-aos="fade-up">  		
-						<h2>Bingung Caranya Melakukan Simpanan Dan Mengajukan Pinjaman? Pelajarin Lebih Lanjut Di Bawah</h2>
-						<ul>
-							<li><a href="#simpan" class="btn-flow scrollto">Alur Simpanan</a></li>
-							<li><a href="#pinjam" class="btn-flow scrollto">Alur Pinjaman</a></li>
-						</ul>	
-					</div>
-				</section>
-
-				<main id="main">
 					<!-- Alur Simpan Section -->
 					<section id="simpan" class="simpan">
 						<div data-aos="fade-up">
-							<h2><b><i>Alur Melakukan Simpanan</i></b></h2><br>
+							<h2><b><i>Alur Melakukan Simpanan & Penarikan</i></b></h2><br>
 							<div class="a-simpan" id="a-simpan">
 								<ul>
 									<li>
@@ -408,10 +379,30 @@
 						</div>
 					</section>
 
+					<!-- ======= Pinjaman Section ======= -->
+					<section id="pinjaman" class="pinjaman">
+						<div data-aos="fade-up">
+							<h2><b><i>Pinjaman</i></b></h2><br>
+							<div class="card mb-3 m-auto" style="width: 950px; height: 250px;" id="c-pinjam">
+								<div class="row g-0">
+									<div class="col-md-4" id="card-img">
+										<img src="src/assets/img/pinjam.png" class="img-fluid" alt="Pinjaman">
+									</div>
+									<div class="col-md-8" id="card-body">
+										<div class="card-body">
+											<h5 class="card-title"><b>E-COOP<span>.</span></b></h5>
+											<p class="card-text">Pinjaman adalah salah satu layanan untuk memberikan pinjaman berupa uang kepada anggota koperasi. Anggota dapat mengatur jumlah pinjaman dan tenor waktu sesuai dengan yang mereka inginkan. <b>E-COOP<span>.</span></b> menetapkan bunga sebesar 12% per tahun / 1% perbulan.</p>
+										</div>
+									</div>
+								</div
+							</div>
+						</div>
+					</section>
+
 					<!-- Alur Pinjam Section -->
 					<section id="pinjam" class="pinjam">
 						<div data-aos="fade-up">
-							<h2><b><i>Alur Pengajukan Pinjaman</i></b></h2><br>
+							<h2><b><i>Alur Pengajukan Pinjaman & Pengembalian</i></b></h2><br>
 							<div class="a-pinjam" id="a-pinjam">
 								<ul>
 									<li>
@@ -485,15 +476,13 @@
 		const routes = [
 			{ path: '/', component: Homepage },
 			{ path: '/layanan', component: Layanan },
-			{ path: '/alur', component: Alur },
 			{ path: '/simpan', component: Simpan },
 			{ path: '/pinjam', component: Pinjam },
 		]
 
 		const router = VueRouter.createRouter({
-		// 4. Provide the history implementation to use. We are using the hash history for simplicity here.
-		history: VueRouter.createWebHashHistory(),
-		routes, // short for `routes: routes`
+			history: VueRouter.createWebHashHistory(),
+			routes,
 		})
 
 		const app = Vue.createApp({})
