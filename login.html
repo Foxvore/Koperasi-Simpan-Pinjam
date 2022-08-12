@@ -7,30 +7,36 @@
 	<title>E-COOP - Koperasi Digital/Login</title>
 
 	<!-- Favicon -->
-	<link rel="icon" href="assets/img/icon2.png">
+	<link rel="icon" href="src/assets/img/icon2.png">
 
 	<!-- CSS -->
-	<link rel="stylesheet" href="assets/aos/aos.css">
-	<link rel="stylesheet" type="text/css" href="assets/local/login.css">
+	<link rel="stylesheet" href="src/assets/aos/aos.css">
+	<link rel="stylesheet" type="text/css" href="src/assets/local/login.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 </head>
 <body>
 	<div class="container" data-aos="zoom-in-up">
 		<div class="bg">
 			<div class="box signin">
-				<h2>Already Have An Acccount?</h2>
-				<button class="signinBtn">Sign In</button>
+				<h2>Sudah Punya Akun?</h2>
+				<button class="signinBtn">Masuk</button>
 			</div>
 			<div class="box signup">
-				<h2>Don't Have An Acccount?</h2>
-				<button class="signupBtn">Sign Up</button>
+				<h2>Belum Punya Akun?</h2>
+				<button class="signupBtn">Daftar</button>
 			</div>
 		</div>
 		<div class="formBox">
 			<div class="form signinForm">
 				<form>
 					<h3><b>Sign In</b></h3>
-					<input type="email" name="email" placeholder="Email">
-					<input type="password" name="password" placeholder="Password">
+					<input type="email" name="email" placeholder="Email" required>
+					<div class="content">
+						<input type="password" name="password" placeholder="Password" id="pw" required>
+						<span class="show-hide">
+							<i class="fa-solid fa-eye"></i>
+						</span>
+					</div>
 					<ul>
 						<li><input type="submit" value="Login" id="login"></li>
 						<li><a href="index.html" id="back1">Back</a><br></li>
@@ -41,12 +47,22 @@
 			<div class="form signupForm">
 				<form>
 					<h3><b>Sign Up</b></h3>
-					<input type="email" name="email" placeholder="Email">
-					<input type="password" name="password" placeholder="Password">
-					<input type="password" name="confirm_password" placeholder="Re-enter Password">
+					<input type="email" name="email" placeholder="Email" required>
+					<div class="content">
+						<input type="password" name="password" placeholder="Password" id="pw" required>
+						<span class="show-hide">
+							<i class="fa-solid fa-eye"></i>
+						</span>
+					</div>
+					<div class="content">
+						<input type="password" name="confirm_password" placeholder="Re-enter Password" id="pw" required>
+						<span class="show-hide2">
+							<i class="fa-solid fa-eye"></i>
+						</span>
+					</div>
 					<ul>
-					<li><input type="submit" value="Register" id="register"></li>
-					<li><a href="homepage.html" id="back2">Back</a></li>
+						<li><input type="submit" value="Register" id="register"></li>
+						<li><a href="index.html" id="back2">Back</a></li>
 					</ul>
 				</form>
 			</div>
@@ -79,7 +95,19 @@
   		window.addEventListener('load', () => {
     		aos_init();
   		});
+
+		const pass_field = document.querySelector("#pw");
+        const show_btn = document.querySelector("i");
+        show_btn.addEventListener("click", function(){
+           	if (pass_field.type === "password"){
+             	pass_field.type = "text";
+             	show_btn.classList.add("hide");
+           	} else {
+             	pass_field.type = "password";
+             	show_btn.classList.remove("hide");
+           	}
+        });
 	</script>
-	<script src="assets/aos/aos.js"></script>
+	<script src="src/assets/aos/aos.js"></script>
 </body>
 </html>

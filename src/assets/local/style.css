@@ -425,6 +425,12 @@ section {
   }
 }
 
+@media (max-width: 768px) {
+  section {
+    padding: 30px 0;
+  }
+}
+
 /*===== Backgorund Color =====*/
 #definisi { /* Homepage */
   background-color: #F1F1F1;
@@ -465,11 +471,6 @@ section {
 
 #pinjam {
   background-color: #F1F1F1;
-}
-
-/*==== Other CSS =====*/
-#fitur .card-text {
-  font-weight: 500px;
 }
 
 /*Responsive Section*/
@@ -525,6 +526,10 @@ section {
 
   #fitur p {
     font-size: 20px;
+  }
+
+  #fitur .card-text {
+    font-weight: 500px;
   }
 
   .g-timeline {
@@ -802,11 +807,38 @@ section {
     box-shadow: 0 0 0 3px rgba(255, 176, 55, 0.5);
   }
 
+  /* #c-pinjam {
+    border: none;
+    background-color: #F1F1F1;
+  } */
+
+  #pinjaman .card {
+    width: 300px;
+    padding: 15px;
+  }
+
+  #pinjaman h5 {
+    font-size: 20px;
+  }
+
+  #card-body {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    max-width: 600px;
+  }
+
+  #card-img {
+    width: 205px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   #a-pinjam {
     position: relative;
     margin: 0 auto;
     padding: 0 0;
-    width: 700px;
+    width: 510px;
     box-sizing: border-box;
     top: 75px;
   }
@@ -814,9 +846,9 @@ section {
   #a-pinjam:before {
     content: '';
     position: absolute;
-    left: 5%;
+    left: 6%;
     width: 2px;
-    height: 123%;
+    height: 265%;
     background-color: #c5c5cc;
   }
     
@@ -830,11 +862,11 @@ section {
     float: right;
     text-align: left;
     clear: both;
-    top: -50px;
-    right: 194px;
+    top: -40px;
+    right: 173px;
     list-style: none;
     position: relative;
-    width: 70%;
+    width: 60%;
     padding: 0px 40px;
     box-sizing: border-box;
   }
@@ -848,11 +880,13 @@ section {
     padding: 0;
     font-weight: 600;
     color: #FFB037;
+    font-size: 20px;
   }
     
   #a-pinjam ul li p {
     margin: 10px 0 0;
     padding: 0;
+    font-size: 14px;
   }
     
   #a-pinjam ul li .no h4 {
@@ -866,8 +900,8 @@ section {
     width: 40px;
     height: 35px;
     text-align: center;
-    top: 15px;
-    left: -50px;
+    top: 10px;
+    left: -20px;
     margin: 0;
     padding: 8px 16px;
     background-color: #FFB037;
@@ -1021,6 +1055,33 @@ section {
     box-shadow: 0 0 0 3px rgba(255, 176, 55, 0.5);
   }
 
+  /* #c-pinjam {
+    border: none;
+    background-color: #F1F1F1;
+  } */
+
+  #pinjaman .card {
+    width: 340px;
+    padding: 15px;
+  }
+
+  #pinjaman h5 {
+    font-size: 20px;
+  }
+
+  #card-body {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    max-width: 600px;
+  }
+
+  #card-img {
+    width: 225px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   #a-pinjam {
     position: relative;
     margin: 0 auto;
@@ -1035,7 +1096,7 @@ section {
     position: absolute;
     left: 6%;
     width: 2px;
-    height: 150%;
+    height: 225%;
     background-color: #c5c5cc;
   }
     
@@ -1171,7 +1232,7 @@ section {
     position: relative;
     margin: 0 auto;
     padding: 0 0;
-    width: 590px;
+    width: 650px;
     box-sizing: border-box;
     top: 75px;
   }
@@ -1196,7 +1257,7 @@ section {
     text-align: left;
     clear: both;
     top: -40px;
-    right: 190px;
+    right: 210px;
     list-style: none;
     position: relative;
     width: 60%;
@@ -1242,11 +1303,38 @@ section {
     box-shadow: 0 0 0 3px rgba(255, 176, 55, 0.5);
   }
 
+  /* #c-pinjam {
+    border: none;
+    background-color: #F1F1F1;
+  } */
+
+  #pinjaman .card {
+    width: 380px;
+    padding: 15px;
+  }
+
+  #pinjaman h5 {
+    font-size: 20px;
+  }
+
+  #card-body {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    max-width: 600px;
+  }
+
+  #card-img {
+    width: 225px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   #a-pinjam {
     position: relative;
     margin: 0 auto;
     padding: 0 0;
-    width: 590px;
+    width: 650px;
     box-sizing: border-box;
     top: 75px;
   }
@@ -1256,7 +1344,7 @@ section {
     position: absolute;
     left: 6%;
     width: 2px;
-    height: 150%;
+    height: 210%;
     background-color: #c5c5cc;
   }
     
@@ -1271,7 +1359,7 @@ section {
     text-align: left;
     clear: both;
     top: -40px;
-    right: 190px;
+    right: 210px;
     list-style: none;
     position: relative;
     width: 60%;
@@ -1370,6 +1458,10 @@ section {
 
   #fitur p {
     font-size: 16px;
+  }
+
+  #fitur .card-text {
+    font-weight: 500px;
   }
 
   .g-timeline {
@@ -1660,6 +1752,31 @@ section {
     box-shadow: 0 0 0 3px rgba(255, 176, 55, 0.5);
   }
 
+  /* #c-pinjam {
+    border: none;
+    background-color: #F1F1F1;
+  } */
+
+  #pinjaman .card {
+    width: 700px; 
+    height: 205px;
+  }
+
+  #pinjaman h5 {
+    font-size: 20px;
+  }
+
+  #card-body {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 14px;
+    max-width: 600px;
+  }
+
+  #card-img {
+    width: 205px;
+  }
+
   #a-pinjam {
     position: relative;
     margin: 0 auto;
@@ -1674,7 +1791,7 @@ section {
     position: absolute;
     left: 5%;
     width: 2px;
-    height: 123%;
+    height: 190%;
     background-color: #c5c5cc;
   }
     
@@ -1784,6 +1901,10 @@ section {
   #fitur span {
     color: black;
     font-size: 500%;
+  }
+
+  #fitur .card-text {
+    font-weight: 500px;
   }
 
   #fitur p {
@@ -2150,6 +2271,11 @@ section {
     background-color: #F1F1F1;
   } */
 
+  #pinjaman .card {
+    width: 950px; 
+    height: 250px;
+  }
+
   #pinjaman h5 {
     font-size: 24px;
   }
@@ -2180,7 +2306,7 @@ section {
     position: absolute;
     left: 50%;
     width: 2px;
-    height: 165%;
+    height: 242%;
     background-color: #c5c5cc;
   }
     
@@ -2599,7 +2725,7 @@ section {
     position: absolute;
     left: 50%;
     width: 2px;
-    height: 155%;
+    height: 244%;
     background-color: #c5c5cc;
   }
     

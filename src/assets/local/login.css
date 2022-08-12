@@ -189,6 +189,46 @@ body.active {
 	text-decoration: none;
 }
 
+.show-hide {
+	position: absolute;
+	right: 62px;
+	top: 185px;
+}
+
+.show-hide i{
+	font-size: 19px;
+	cursor: pointer;
+	display: none;
+}
+
+.show-hide i.hide:before{
+	content: '\f070';
+}
+
+input:valid ~ .show-hide i{
+	display: block;
+}
+
+.show-hide2 {
+	position: absolute;
+	right: 62px;
+	top: 254px;
+}
+
+.show-hide2 i{
+	font-size: 19px;
+	cursor: pointer;
+	display: none;
+}
+
+.show-hide2 i.hide:before{
+	content: '\f070';
+}
+
+input:valid ~ .show-hide2 i{
+	display: block;
+}
+
 @media screen and (min-width: 320px) and (max-width: 768px) { /*Phone & Tablet*/
 	.container {
 		max-width: 300px;
