@@ -6,31 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ngide</title>
     <link rel="stylesheet" href="ngide.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
-	<div class="wrapper">
-        <span class="minus">-</span>
-        <span class="num">02</span>
-        <span class="plus">+</span>
-      </div>
-    <script>
-        const plus = document.querySelector(".plus"),
-        minus = document.querySelector(".minus"),
-        num = document.querySelector(".num");
-        let a = 2;
-        plus.addEventListener("click", ()=>{
-            a++;
-            a = (a < 10) ? "0" + a : a;
-            num.innerText = a;
-        });
-
-    minus.addEventListener("click", ()=>{
-        if(a > 1){
-            a--;
-            a = (a < 10) ? "0" + a : a;
-            num.innerText = a;
-        }
-    });
-    </script>
+    <div class="slider-container">
+        <div class="value-container">
+            <button class="minus"><i class="bi bi-dash" id="minus"></i></button>
+            <span id="j-simpan">Rp. 2.000.000</span>
+            <button class="plus"><i class="bi bi-plus" id="plus"></i></button>
+         </div>
+        <input type="range" min="1" max="25" value="1" class="slider" id="s-simpan">
+    </div>
+    
+    <div class="slider-container">
+        <div class="value-container">
+            <button class="minus"><i class="bi bi-dash" id="minus"></i></button>
+            <span id="j-bulan">1 Bulan</span>
+            <button class="plus"><i class="bi bi-plus" id="plus"></i></button>
+        </div>
+        <input type="range" min="1" max="12" value="1" class="slider" id="s-bulan">
+    </div>
+    <script src="ngide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
