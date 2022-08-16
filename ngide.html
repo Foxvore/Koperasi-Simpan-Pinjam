@@ -10,24 +10,87 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
-    <div class="slider-container">
-        <div class="value-container">
-            <button class="minus"><i class="bi bi-dash" id="minus"></i></button>
-            <span id="j-simpan">Rp. 2.000.000</span>
-            <button class="plus"><i class="bi bi-plus" id="plus"></i></button>
-         </div>
-        <input type="range" min="1" max="25" value="1" class="slider" id="s-simpan">
-    </div>
-    
-    <div class="slider-container">
-        <div class="value-container">
-            <button class="minus"><i class="bi bi-dash" id="minus"></i></button>
-            <span id="j-bulan">1 Bulan</span>
-            <button class="plus"><i class="bi bi-plus" id="plus"></i></button>
-        </div>
-        <input type="range" min="1" max="12" value="1" class="slider" id="s-bulan">
-    </div>
+    <main id="main">
+        <section id="kalkulator-s" class="kalkulator-s">
+            <div class="container">
+                <h2><b>Kalkulator Simpanan</b></h2><br>
+                <div class="card-group" id="c-calc">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>9</span>%</h5>
+                            <p class="card-text">Bonus Simpanan Per Tahun</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>1-12</span> Bulan</h5>
+                            <p class="card-text">Jangka Waktu Simpanan</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>2-50</span> Juta</h5>
+                            <p class="card-text">Jumlah Simpanan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container text-center" id="slider">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <p>Saya Ingin Menyimpan Sebesar :</p>
+                            <div class="slider-container">
+                                <div class="value-container">
+                                    <button class="minus"><i class="bi bi-dash" id="k-simpan"></i></button>
+                                    <span id="j-simpan">Rp. 2.000.000</span>
+                                    <button class="plus"><i class="bi bi-plus" id="t-simpan"></i></button>
+                                </div>
+                                <input type="range" min="1" max="25" value="1" class="slider" id="s-simpan">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <p>Dalam Jangka Waktu :</p>
+                            <div class="slider-container">
+                                <div class="value-container">
+                                    <button class="minus"><i class="bi bi-dash" id="k-bulan"></i></button>
+                                    <span id="j-bulan">1 Bulan</span>
+                                    <button class="plus"><i class="bi bi-plus" id="t-bulan"></i></button>
+                                </div>
+                                <input type="range" min="1" max="12" value="1" class="slider" id="s-bulan">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-group" id="j-calc">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>Bonus Per Bulan</span></h5>
+                            <p class="card-text">Rp. 0.000.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>Total Bonus</span></h5>
+                            <p class="card-text">Rp. 0.000.000</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><span>Jumlah Akhir Simpanan</span></h5>
+                            <p class="card-text">Rp. 0.000.000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
     <script src="ngide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<!-- 
+    Kekurangan
+    1. Tombol plus minus belum bisa
+ -->

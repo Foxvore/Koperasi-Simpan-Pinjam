@@ -6,7 +6,6 @@ const kSimpan = document.getElementById("minus");
 
 sSimpan.addEventListener('input', function() {
     let value = (this.value-this.min)/(this.max-this.min)*100
-    this.style.background = `linear-gradient(to right, #fad88d 0%, #FFB037 ${value}%, #FFFFFF ${value}%, #FFFFFF 100%)` 
     switch (this.value) {
         case '1':
             jSimpan.innerHTML = "Rp. 2.000.000" 
@@ -88,26 +87,13 @@ sSimpan.addEventListener('input', function() {
     };
 })
 
-// Tenor Waktu
+// Tenor Waktu 
 const jBulan = document.getElementById("j-bulan");
 const sBulan = document.getElementById("s-bulan");
-const tBulan = document.getElementById("plus");
-const kBulan = document.getElementById("minus");
+const tBulan = document.getElementById("t-bulan");
+const kBulan = document.getElementById("k-bulan");
 
 sBulan.addEventListener('input', function() {
     let value = (this.value-this.min)/(this.max-this.min)*100
-    this.style.background = `linear-gradient(to right, #fad88d 0%, #FFB037 ${value}%, #FFFFFF ${value}%, #FFFFFF 100%)` 
     jBulan.innerHTML = this.value + " Bulan";
-})
-
-document.addEventListener('click', function (e) {
-    if (e.target === minus){
-        console.log(e.target);
-        slider.value-=1; 
-        console.log(slider.value);   
-    } else if (e.target === plus){
-        console.log(e.target);
-        slider.value += 1;
-        console.log(slider.value);   
-    }
 })

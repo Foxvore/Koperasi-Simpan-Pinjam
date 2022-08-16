@@ -1,17 +1,58 @@
 /* Google fonts import link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-* {
-  font-family: 'Poppins',sans-serif;
-}
-body{
+body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #F1F1F1;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+}
+span {
+  color: #FFB037;
+}
+
+#main h2 {
+  text-align: center;
+  color: black;
+  text-shadow: 2px 2px 2px #9A9A9A;
+}
+
+/*===== Sections General =====*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h3 {
+  margin: 15px 0 0 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.section-title p {
+  margin: 15px auto 0 auto;
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .section-title p {
+    width: 50%;
+  }
+}
+
+#kalkulator-s {
+  background-color: #FFFFFF;
 }
 
 .slider-container {
@@ -31,14 +72,18 @@ body{
 }
 
 .value-container {
+  margin-bottom: 10px;
+}
+
+.value-container span {
   color: #000000;
   font-size: 25px;
 }
 
 .slider {
-  width: 60%;
-  height: 10px;
-  background: linear-gradient(to right, #fad88d 0%, #FFB037 0%, #FFFFFF 0%, #FFFFFF 100%);
+  width: 90%;
+  height: 5px;
+  background: linear-gradient(to right, #fad88d, #FFB037);
   transition: backgound 450ms ease-in;
   -webkit-appearance: none;
   border-radius: 25px;
@@ -50,8 +95,43 @@ body{
   appearance: none;
   height: 20px;
   width: 20px;
-  background-color: #FFB037;
+  background-color: #FFFFFF;
   border-radius: 50%;
-  border: 4px solid #FFFFFF;
+  border: 4px solid #FFB037;
   box-shadow: 2px 8px 13px -3px rgba(116, 114, 114, 0.75);
+}
+
+#slider {
+  margin-bottom: 40px;
+}
+
+#slider p {
+  text-align: left;
+  margin-left: 35px;
+}
+
+#c-calc {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#c-calc span {
+  font-size: 300%;
+}
+
+#c-calc h5 {
+  color: #FFB037;
+}
+
+#c-calc p {
+  font-weight: 500;
+}
+
+#j-calc .card {
+  border: none;
+  text-align: center;
+}
+
+#j-calc span {
+  font-weight: 600;
 }

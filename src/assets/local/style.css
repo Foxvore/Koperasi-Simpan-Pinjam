@@ -257,6 +257,7 @@ span {
   background: url("../img/bg-h.png") top center;
   background-size: cover;
   position: relative;
+  box-shadow: 2px 0 35px 0 rgba(68, 88, 144, 0.5);
 }
 
 #home:before {
@@ -351,7 +352,7 @@ span {
   background-size: cover;
   position: relative;
   z-index: 1;
-  box-shadow: 2px 0 35px 0 rgba(68, 88, 144, 0.9);
+  box-shadow: 2px 0 35px 0 rgba(68, 88, 144, 0.5);
 }
 
 #layanan:before {
