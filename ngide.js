@@ -1,9 +1,6 @@
 // Jumlah Simpanan
 const jSimpan = document.getElementById("j-simpan");
 const sSimpan = document.getElementById("s-simpan");
-// const tSimpan = document.getElementById("plus");
-// const kSimpan = document.getElementById("minus");
-
 sSimpan.addEventListener('input', function() {
     let value = (this.value-this.min)/(this.max-this.min)*100
     switch (this.value) {
@@ -90,9 +87,6 @@ sSimpan.addEventListener('input', function() {
 // Jumlah pinjaman
 const jPinjam = document.getElementById("j-pinjam");
 const sPinjam = document.getElementById("s-pinjam");
-// const tPinjam = document.getElementById("plus");
-// const kPinjam = document.getElementById("minus");
-
 sPinjam.addEventListener('input', function() {
     let value = (this.value-this.min)/(this.max-this.min)*100
     switch (this.value) {
@@ -320,9 +314,6 @@ sPinjam.addEventListener('input', function() {
 // Tenor Simpan
 const jsBulan = document.getElementById("js-bulan");
 const ssBulan = document.getElementById("ss-bulan");
-// const tBulan = document.getElementById("t-bulan");
-// const kBulan = document.getElementById("k-bulan");
-
 ssBulan.addEventListener('input', function() {
     let value = (this.value-this.min)/(this.max-this.min)*100
     jsBulan.innerHTML = this.value + " Bulan";
@@ -331,10 +322,11 @@ ssBulan.addEventListener('input', function() {
 // Tenor Pinjam 
 const jpBulan = document.getElementById("jp-bulan");
 const spBulan = document.getElementById("sp-bulan");
-// const tBulan = document.getElementById("t-bulan");
-// const kBulan = document.getElementById("k-bulan");
-
 spBulan.addEventListener('input', function() {
     let value = (this.value-this.min)/(this.max-this.min)*100
     jpBulan.innerHTML = this.value + " Bulan";
 })
+
+// Perhitungan Simpanan
+
+// Perhitungan Pinjaman
