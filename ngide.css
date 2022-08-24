@@ -13,6 +13,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
+
 span {
   color: #FFB037;
 }
@@ -57,6 +58,10 @@ section {
 
 #kalkulator-p {
   background-color: #FFFFFF;
+}
+
+#profile {
+  background-color: #F1F1F1;
 }
 
 /* Responsive Phone */
@@ -550,25 +555,32 @@ section {
     background: linear-gradient(135deg, #fad88d, #FFB037);
   }
   
-  .content form .user-details, .simpan-details{
+  .content form .user-details, 
+  .simpan-details, 
+  .bank-details {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 20px 0 12px 0;
   }
   
-  form .user-details .input-box, .simpan-details .input-box{
+  form .user-details .input-box, 
+  .simpan-details .input-box, 
+  .bank-details .input-box {
     margin-bottom: 15px;
     width: calc(100% / 2 - 20px);
   }
   
-  form .input-box span.details{
+  form .input-box span.details,
+  form .bank-details span.details {
     display: block;
     font-weight: 500;
     margin-bottom: 5px;
   }
   
-  .simpan-details .input-box input, .user-details .input-box input, select{
+  .simpan-details .input-box input, 
+  .user-details .input-box input, 
+  .bank-details .input-box input, select{
     height: 45px;
     width: 100%;
     outline: none;
@@ -589,8 +601,14 @@ section {
     height: 45px;
     margin: 35px 0
   }
+
+  form .btn-bank{
+    height: 35px;
+    margin-bottom: 20px;
+  }
   
-  form .button input{
+  form .button input,
+  form .btn-bank input {
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -604,8 +622,44 @@ section {
     background: #FFB037;
   }
   
-  form .button input:hover{
+  form .button input:hover,
+  form .btn-bank input:hover {
     background: #ffc955;
+  }
+
+  #profile .nav-link {
+    color: #000000;
+    border: 0;
+    padding: 12px 15px 12px 0;
+    transition: 0.3s;
+    border-radius: 0;
+    border-right: 2px solid #000000;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: left;
+    width: 150px;
+  }
+  
+  #profile .nav-link:hover {
+    color: #FFB037;
+  }
+  
+  #profile .nav-link.active {
+    color: #FFB037;
+    border-color: #FFB037;
+    background-color: #F1F1F1;
+  }
+  
+  .tab-content {
+    margin-left: 15px;
+  }
+
+  .tab-content p {
+    text-align: right;
+  }
+  
+  #table-bank {
+    text-align: center;
   }
 }
 

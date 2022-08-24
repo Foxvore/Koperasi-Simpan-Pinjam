@@ -12,6 +12,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
 }
+
 span {
   color: #FFB037;
 }
@@ -2115,9 +2116,9 @@ section {
     border: 0;
     padding: 12px 15px 12px 0;
     transition: 0.3s;
-    color: #364547;
+    color: #212627;
     border-radius: 0;
-    border-right: 2px solid #364547;
+    border-right: 2px solid #212627;
     font-weight: 600;
     font-size: 15px;
   }
