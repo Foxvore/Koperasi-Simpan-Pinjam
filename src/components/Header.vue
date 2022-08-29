@@ -1,6 +1,6 @@
 <template>
     <!-- ======= Header ======= -->
-	<header id="header" class="fixed-top">
+	<header id="header" class="fixed-top"> <!-- header-scrolled -->
 		<div class="container d-flex align-items-center justify-content-between">
 			<h1 class="logo"><a href="#"><b>E-COOP<span>.</span></b></a></h1>
 			<nav id="navbar" class="navbar">
@@ -9,6 +9,7 @@
 					<li><router-link to="/service" class="nav-link scrollto">Layanan</router-link></li>
 					<li><router-link to="/simpan" class="nav-link scrollto">Simpam</router-link></li>
 					<li><router-link to="/pinjam" class="nav-link scrollto">Pinjam</router-link></li>
+					<li><router-link to="/profile" class="nav-link scrollto">profile</router-link></li>
 					<li><router-link to="/signup" class="nav-link scrollto">Sign Up</router-link></li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
@@ -19,7 +20,7 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
 }
 </script>
 
