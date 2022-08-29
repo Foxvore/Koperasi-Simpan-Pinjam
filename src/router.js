@@ -3,6 +3,7 @@ import SignUp from './components/SignUp.vue'
 import Service from './components/Service.vue'
 import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
+import Profile from './components/Profile.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -30,12 +31,18 @@ const routes = [
         name: 'Pinjam',
         component: Pinjam,
         path: '/pinjam'
+    },
+    {
+        name: 'Profile',
+        component: Profile,
+        path: '/profile'
     }
 ]
 
 const router = createRouter ({
     history: createWebHistory(),
-    routes
+    routes,
+    linkActiveClass: 'active'
 })
 
 export default router
