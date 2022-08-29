@@ -296,7 +296,7 @@ export default {
     Header
   },
   mounted() {
-     window.scrollTo(0,0)
+    window.scrollTo(0,0)
   }
 };
 </script>
@@ -541,7 +541,7 @@ export default {
   top: -50px;
 }
 
-.content {
+#a-simpan .content {
   padding-bottom: 50px;
 }
 
@@ -681,7 +681,7 @@ export default {
   top: -50px;
 }
 
-.content {
+#a-pinjam .content {
   padding-bottom: 50px;
 }
 

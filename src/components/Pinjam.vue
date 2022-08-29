@@ -17,7 +17,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><span>1</span>%</h5>
-                            <p class="card-text">Bunga Simpanan Per Bulan</p>
+                            <p class="card-text">Bunga Pinjaman Per Bulan</p>
                         </div>
                     </div>
                     <div class="card">
@@ -96,7 +96,7 @@
                 <div class="title">Formulir Pinjaman</div>
                     <div class="content">
                         <form action="#">
-                            <div class="simpan-details">
+                            <div class="pinjam-details">
                                 <div class="input-box">
                                     <span class="details">Jumlah Pinjaman</span>
                                     <input type="text" placeholder="Jumlah Pinjaman" id="t-pinjam" value="Rp. 2.000.000" disabled>
@@ -169,8 +169,8 @@ export default {
         Header
     },
     mounted() {
-     window.scrollTo(0,0)
-  }
+        window.scrollTo(0,0)
+    }
 }
 </script>
 
@@ -364,7 +364,7 @@ export default {
 }
   
 .content form .user-details, 
-.content form .simpan-details {
+.content form .pinjam-details {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -372,7 +372,7 @@ export default {
 }
   
 form .user-details .input-box, 
-form .simpan-details .input-box {
+form .pinjam-details .input-box {
     margin-bottom: 15px;
     width: calc(100% / 2 - 20px);
 }
@@ -383,7 +383,7 @@ form .input-box span.details {
     margin-bottom: 5px;
 }
   
-.simpan-details .input-box input, 
+.pinjam-details .input-box input, 
 .user-details .input-box input, select{
     height: 45px;
     width: 100%;
@@ -397,7 +397,7 @@ form .input-box span.details {
 }
   
 .user-details .input-box input:focus,
-.simpan-details .input-box input:focus {
+.pinjam-details .input-box input:focus {
     border-color: #FFB037;
 }
   

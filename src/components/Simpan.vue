@@ -162,8 +162,8 @@ export default {
         Header
     },
     mounted() {
-     window.scrollTo(0,0)
-  }
+        window.scrollTo(0,0)
+    }
 }
 </script>
 
