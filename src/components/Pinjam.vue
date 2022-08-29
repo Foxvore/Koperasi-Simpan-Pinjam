@@ -114,19 +114,19 @@
                             <div class="user-details">
                                 <div class="input-box">
                                     <span class="details">Nama</span>
-                                    <input type="text" placeholder="Masukan Nama" required>
+                                    <input type="text" placeholder="Masukan Nama" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Nomor KTP</span>
-                                    <input type="text" placeholder="Masukan No KTP" required>
+                                    <input type="text" placeholder="Masukan No KTP" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Nomor Telfon</span>
-                                    <input type="text" placeholder="Masukan No Telp" required>
+                                    <input type="text" placeholder="Masukan No Telp" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Jenis Kelamin</span>
-                                    <select name="gender" id="gender">
+                                    <select name="gender" id="gender" disabled>
                                         <option value="0">Masukan Jenis Kelamin</option>
                                         <option value="laki-laki">Laki-Laki</option>
                                         <option value="perempuan">Perempuan</option>
@@ -134,22 +134,23 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Tempat Lahir</span>
-                                    <select name="tempat" id="tempat">
+                                    <select name="tempat" id="tempat" disabled>
                                         <option value="0">Masukan Tempat Lahir</option>
                                     </select>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Tanggal Lahir</span>
-                                    <input type="date" required>
+                                    <input type="date" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Alamat</span>
-                                    <input type="text" placeholder="Masukan Alamat" required>
+                                    <input type="text" placeholder="Masukan Alamat" disabled>
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Pekerjaan</span>
-                                    <input type="text" placeholder="Masukan Pekerjaan (select option)" required>
+                                    <input type="text" placeholder="Masukan Pekerjaan (select option)" disabled>
                                 </div>
+                                <p class="text-muted">*Jika data diri anda tidak sesuai, silahkan ubah di halaman <a href="/profile">profile</a></p>
                             </div>
                             <div class="button">
                                 <input type="submit" value="Ajukan Pinjaman">

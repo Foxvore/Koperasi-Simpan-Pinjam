@@ -21,6 +21,11 @@ body {
 
 a {
   text-decoration: none;
+  color: #FFB037;
+}
+
+a:hover {
+  color: #ffc955;
 }
 
 h1, h2, h3, h4, h5, h6 {
