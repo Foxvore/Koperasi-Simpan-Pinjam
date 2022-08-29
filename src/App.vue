@@ -81,4 +81,38 @@ span {
   visibility: visible;
   opacity: 1;
 }
+
+/*===== Sections General =====*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h3 {
+  margin: 15px 0 0 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.section-title p {
+  margin: 15px auto 0 auto;
+  font-weight: 600;
+}
+
+@media (min-width: 1024px) {
+  .section-title p {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 30px 0;
+  }
+}
 </style>
