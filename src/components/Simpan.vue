@@ -160,7 +160,10 @@ export default {
     name : 'Simpan',
     components : {
         Header
-    }
+    },
+    mounted() {
+     window.scrollTo(0,0)
+  }
 }
 </script>
 

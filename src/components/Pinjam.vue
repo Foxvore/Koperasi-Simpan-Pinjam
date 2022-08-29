@@ -167,7 +167,10 @@ export default {
     name : 'Pinjam',
     components : {
         Header
-    }
+    },
+    mounted() {
+     window.scrollTo(0,0)
+  }
 }
 </script>
 
