@@ -9,7 +9,7 @@
     </section>
 
     <main id="main">
-        <section>
+        <section id="user-data" class="user-data">
             <div class="container">
                 <div class="d-flex align-items-start">
                     <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -92,9 +92,9 @@
                                         </div>
                                     </form>
                                     <hr>
-                                    <form action="">
+                                    <div>
                                         <div id="btn-bank">
-                                            <a href=""><i class="bi bi-safe2"></i> Tambah Bank</a>
+                                            <a href="#"><i class="bi bi-safe2"></i> Tambah Bank</a>
                                         </div>
                                         <table class="table" id="table-bank">
                                             <thead>
@@ -114,12 +114,20 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-simpan" role="tabpanel" aria-labelledby="v-pills-simpan-tab" tabindex="0">...</div>
-                        <div class="tab-pane fade" id="v-pills-pinjam" role="tabpanel" aria-labelledby="v-pills-pinjam-tab" tabindex="0">...</div>
+                        <div class="tab-pane fade" id="v-pills-simpan" role="tabpanel" aria-labelledby="v-pills-simpan-tab" tabindex="0">
+                            <div class="containers" id="containers">
+                                <div class="title">Simpananmu</div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-pinjam" role="tabpanel" aria-labelledby="v-pills-pinjam-tab" tabindex="0">
+                            <div class="containers" id="containers">
+                                <div class="title">Pinjamanmu</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,29 +202,30 @@ export default {
     }
 }
 
-.nav-link {
+#user-data .nav-link {
     color: #000;
+    margin-bottom: 5px;
 }
 
-.nav-link:hover {
+#user-data .nav-link:hover {
     color: #FFB037;
 }
 
-.tabs {
+#user-data .tabs {
     width: 200px;
 }
 
-.tabs span {
+#user-data .tabs span {
     color: #000;
     font-size: 18px;
 }
 
-.tabs i {
+#user-data .tabs i {
     font-size: 50px;
     margin: 10px;
 }
 
-.nav-pills .nav-link.active {
+#user-data .nav-pills .nav-link.active {
     color: #000;
     background: #FFB037;
     border: 2px solid #000;
@@ -306,7 +315,7 @@ form .button input {
 }
   
 form .button input:hover,
-form #btn-bank:hover {
+div #btn-bank:hover {
     background: #ffc955;
 }
 
