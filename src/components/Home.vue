@@ -6,7 +6,7 @@
         <div class="h-container" data-aos="fade-up">
         <h3>Selamat Datang</h3>
         <h2>Daftar sekarang dan nikmati berbagai keuntungan yang bisa kamu dapatkan setelah menjadi anggota <b>E-COOP<span>.</span></b></h2>
-        <a href="#" class="btn-daftar scrollto">Daftar Sekarang</a>
+        <a href="/signup" class="btn-daftar scrollto">Daftar Sekarang</a>
         </div>
     </section>
 
@@ -159,6 +159,9 @@ export default {
   name : "Home",
   components : {
     Header
+  },
+  mounted() {
+     window.scrollTo(0,0)
   }
 }
 </script>
