@@ -4,40 +4,36 @@
             <div class="user signinBx">
                 <div class="imgBx"><img src="../assets/signin.jpg"></div>
                 <div class="formBx">
-                    <form action="">
-                        <a href="/"><i class="bi bi-x-lg"></i></a>
-                        <h2>Login</h2>
-                        <input type="email" name="email" placeholder="Email">
-                        <input type="password" name="password" placeholder="Password">
-                        <input type="submit" value="Login">
-                        <p class="signup">Don't have an account? <a href="#" v-on:click="toggleForm">Sign Up.</a></p>
-                    </form>
+                    <a href="/"><i class="bi bi-x-lg"></i></a>
+                    <h2>Login</h2>
+                    <input type="email" name="email" placeholder="Email">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="submit" value="Login">
+                    <p class="signup">Don't have an account? <a href="#" v-on:click="toggleForm">Sign Up.</a></p>
                 </div>
             </div>
             <div class="user signupBx">
                 <div class="formBx">
-                    <form action="">
-                        <a href="/"><i class="bi bi-x-lg"></i></a>
-                        <h2>Create An Account</h2>
-                        <div>
-                            <input type="email" name="email" placeholder="Email" v-model="state.email" />
-                            <span v-if="v$.email.$error" id="error">
-                                {{ v$.email.$errors[0].$message }}
-                            </span>
+                    <a href="/"><i class="bi bi-x-lg"></i></a>
+                    <h2>Create An Account</h2>
+                    <div>
+                        <input type="email" name="email" placeholder="Email" v-model="state.email" />
+                        <span v-if="v$.email.$error" id="error">
+                            {{ v$.email.$errors[0].$message }}
+                        </span>
 
-                            <input type="password" name="password" placeholder="Create Password" v-model="state.password.password">
-                            <span v-if="v$.password.password.$error" id="error">
-                                {{ v$.password.password.$errors[0].$message }}
-                            </span>
+                        <input type="password" name="password" placeholder="Create Password" v-model="state.password.password">
+                        <span v-if="v$.password.password.$error" id="error">
+                            {{ v$.password.password.$errors[0].$message }}
+                        </span>
 
-                            <input type="password" name="cPassword" placeholder="Confirm Password" v-model="state.password.confirm">
-                            <span v-if="v$.password.confirm.$error" id="error">
-                                {{ v$.password.confirm.$errors[0].$message }}
-                            </span>
-                        </div>
-                        <input type="submit" value="Sign Up">
-                        <p class="signin">Already Have An Account? <a href="#" v-on:click="toggleForm">Login.</a></p>
-                    </form>
+                        <input type="password" name="cPassword" placeholder="Confirm Password" v-model="state.password.confirm">
+                        <span v-if="v$.password.confirm.$error" id="error">
+                            {{ v$.password.confirm.$errors[0].$message }}
+                        </span>
+                    </div>
+                    <input type="submit" value="Sign Up" v-on:click="submitForm">
+                    <p class="signin">Already Have An Account? <a href="#" v-on:click="toggleForm">Login.</a></p>
                 </div>
                 <div class="imgBx"><img src="../assets/signup.jpg"></div>
             </div>
@@ -84,6 +80,9 @@ export default {
             toggleForm() {
                 var containers = document.querySelector('.containers')
                 containers.classList.toggle('active')
+            },
+            submitForm() {
+                console.log("success");
             }
         },
     }
@@ -172,14 +171,14 @@ export default {
         width: 50%;
         height: 100%;
         background: #fff;
-        display: flex;
+        display: grid;
         justify-content: center;
         align-items: center;
         padding: 40px;
         transition: 0.5s;
     }
 
-    #signin .containers .signinBx .formBx form h2 {
+    #signin .containers .signinBx .formBx h2 {
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 2px;
@@ -189,7 +188,7 @@ export default {
         color: #3d3d3d;
     }
 
-    #signin .containers .signinBx .formBx form i {
+    #signin .containers .signinBx .formBx i {
         position: absolute;
         top: 25px;
         right: 25px;
@@ -198,7 +197,7 @@ export default {
         color: #333;
     }
 
-    #signin .containers .signupBx .formBx form i {
+    #signin .containers .signupBx .formBx i {
         position: absolute;
         top: 25px;
         left: 25px;
@@ -207,7 +206,7 @@ export default {
         color: #333;
     }
 
-    #signin .containers .signupBx .formBx form h2 {
+    #signin .containers .signupBx .formBx h2 {
         font-size: 18px;
         font-weight: 600;
         letter-spacing: 2px;
@@ -217,7 +216,7 @@ export default {
         color: #ED950F;
     }
 
-    #signin .containers .user .formBx form input {
+    #signin .containers .user .formBx input {
         position: relative;
         width: 100%;
         padding: 10px;
@@ -232,7 +231,7 @@ export default {
         font-weight: 300;
     }
 
-    #signin .containers .signinBx .formBx form input[type="submit"] {
+    #signin .containers .signinBx .formBx input[type="submit"] {
         max-width: 100px;
         background: #3d3d3d;
         color: #fff;
@@ -242,7 +241,7 @@ export default {
         transition: 0.5s;
     }
 
-    #signin .containers .signupBx .formBx form input[type="submit"] {
+    #signin .containers .signupBx .formBx input[type="submit"] {
         max-width: 100px;
         background: #ED950F;
         color: #fff;
@@ -252,7 +251,7 @@ export default {
         transition: 0.5s;
     }
 
-    #signin .containers .user .formBx form .signup {
+    #signin .containers .user .formBx .signup {
         position: relative;
         margin-top: 20px;
         font-size: 12px;
@@ -262,12 +261,12 @@ export default {
         font-weight: 300px;
     }
 
-    #signin .containers .user .formBx form .signup a {
+    #signin .containers .user .formBx .signup a {
         font-weight: 600;
         color: #ED950F;
     }
 
-    #signin .containers .user .formBx form .signin {
+    #signin .containers .user .formBx .signin {
         position: relative;
         margin-top: 20px;
         font-size: 12px;
@@ -277,7 +276,7 @@ export default {
         font-weight: 300px;
     }
 
-    #signin .containers .user .formBx form .signin a {
+    #signin .containers .user .formBx .signin a {
         font-weight: 600;
         color: #3d3d3d;
     }
@@ -341,7 +340,7 @@ export default {
             width: 100%;
         }
 
-        #signin .containers .signupBx .formBx form i {
+        #signin .containers .signupBx .formBx i {
             position: absolute;
             top: 30px;
             right: 30px;
