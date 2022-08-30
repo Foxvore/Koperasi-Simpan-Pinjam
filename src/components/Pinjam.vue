@@ -12,7 +12,6 @@
         <!-- ====== Calculator Section -->
         <section class="calc" id="calc">
             <div class="container">
-                <h2><b>Kalkulator Pinjaman</b></h2><br>
                 <div class="card-group" id="c-calc">
                     <div class="card">
                         <div class="card-body">
@@ -175,7 +174,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*===== Hero Section =====*/
 #h-pinjam {
     width: 100%;

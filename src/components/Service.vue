@@ -301,7 +301,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /*=== Hero Section ====*/
 #layanan {
   width: 100%;

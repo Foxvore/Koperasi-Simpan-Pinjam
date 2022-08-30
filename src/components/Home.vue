@@ -166,7 +166,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*===== Hero Section =====*/
 #home {
   width: 100%;

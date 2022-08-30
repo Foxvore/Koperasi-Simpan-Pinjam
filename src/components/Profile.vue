@@ -34,7 +34,7 @@
                     </div>
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                            <div class="containers" id="containers">
+                            <div class="containers1" id="containers1">
                                 <div class="title">Data Diri</div>
                                 <p>Status : Active</p>
                                 <div class="content">
@@ -119,12 +119,38 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-simpan" role="tabpanel" aria-labelledby="v-pills-simpan-tab" tabindex="0">
-                            <div class="containers" id="containers">
+                            <div class="containers1" id="containers1">
                                 <div class="title">Simpananmu</div>
+                                <div class="content">
+                                    <form action="#">
+                                        <div class="user-details">
+                                            <div class="input-box">
+                                                <span class="details">Total Simpanan Wajib</span>
+                                                <input type="text" value="Rp. 0" disabled>
+                                            </div>
+                                            <div class="input-box">
+                                                <span class="details">Total Simpanan Sukarela</span>
+                                                <input type="text" value="Rp. 0" disabled>
+                                            </div>
+                                            <div class="input-box">
+                                                <span class="details">Total Simpanan Berjangka</span>
+                                                <input type="text" value="Rp. 0" disabled>
+                                            </div>
+                                            <div class="input-box">
+                                                <span class="details">Simpanan Yang Dapat Ditarik</span>
+                                                <input type="text" value="Rp. 0" disabled>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="jangka-detail">
+
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-pinjam" role="tabpanel" aria-labelledby="v-pills-pinjam-tab" tabindex="0">
-                            <div class="containers" id="containers">
+                            <div class="containers1" id="containers1">
                                 <div class="title">Pinjamanmu</div>
                             </div>
                         </div>
@@ -148,7 +174,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*===== Hero Section =====*/
 #profile {
     width: 100%;
@@ -202,6 +228,12 @@ export default {
     }
 }
 
+/*===== Background Color =====*/
+#user-data {
+    background: #f1f1f1;
+}
+
+/*===== Main Section =====*/
 #user-data .nav-link {
     color: #000;
     margin-bottom: 5px;
@@ -235,8 +267,8 @@ export default {
     padding-right: 10px;
 }
 
-#container{
-    max-width: 936px;
+#containers1 {
+    width: 1034px;
     width: 100%;
     background-color: #fff;
     padding: 25px 30px;
@@ -244,13 +276,17 @@ export default {
     box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
 
-#containers .title{
+#v-pills-simpan .containers1 {
+    width: 1034px;
+}
+
+#containers1 .title{
     font-size: 25px;
     font-weight: 500;
     position: relative;
 }
   
-#containers .title::before{
+#containers1 .title::before{
     content: "";
     position: absolute;
     left: 0;

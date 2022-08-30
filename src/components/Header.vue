@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /*===== Header =====*/
 #header {
   transition: all 0.5s;
