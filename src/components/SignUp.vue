@@ -6,9 +6,18 @@
                 <div class="formBx">
                     <a href="/"><i class="bi bi-x-lg"></i></a>
                     <h2>Login</h2>
-                    <input type="email" name="email" placeholder="Email">
-                    <input type="password" name="password" placeholder="Password">
-                    <input type="submit" value="Login">
+                    <div>
+                        <input type="email" name="email" placeholder="Email" v-model="state.email" />
+                        <span v-if="v$.email.$error" id="error">
+                            {{ v$.email.$errors[0].$message }}
+                        </span>
+
+                        <input type="password" name="password" placeholder="Password" v-model="state.password.password" />
+                        <span v-if="v$.password.password.$error" id="error">
+                            {{ v$.password.password.$errors[0].$message }}
+                        </span>
+                    </div>
+                    <input type="submit" value="Login" v-on:click="submitForm" />
                     <p class="signup">Don't have an account? <a href="#" v-on:click="toggleForm">Sign Up.</a></p>
                 </div>
             </div>
@@ -22,17 +31,17 @@
                             {{ v$.email.$errors[0].$message }}
                         </span>
 
-                        <input type="password" name="password" placeholder="Create Password" v-model="state.password.password">
+                        <input type="password" name="password" placeholder="Create Password" v-model="state.password.password" />
                         <span v-if="v$.password.password.$error" id="error">
                             {{ v$.password.password.$errors[0].$message }}
                         </span>
 
-                        <input type="password" name="cPassword" placeholder="Confirm Password" v-model="state.password.confirm">
+                        <input type="password" name="cPassword" placeholder="Confirm Password" v-model="state.password.confirm" />
                         <span v-if="v$.password.confirm.$error" id="error">
                             {{ v$.password.confirm.$errors[0].$message }}
                         </span>
                     </div>
-                    <input type="submit" value="Sign Up" v-on:click="submitForm">
+                    <input type="submit" value="Sign Up" v-on:click="submitForm" />
                     <p class="signin">Already Have An Account? <a href="#" v-on:click="toggleForm">Login.</a></p>
                 </div>
                 <div class="imgBx"><img src="../assets/signup.jpg"></div>
