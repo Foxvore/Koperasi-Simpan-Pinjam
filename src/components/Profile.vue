@@ -107,10 +107,10 @@
                                             </thead>
                                             <tbody class="table-group-divider">
                                                 <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>BNI</td>
-                                                    <td>Irham Maulana Johani</td>
-                                                    <td>8185186185816581</td>
+                                                    <th scope="row">0</th>
+                                                    <td>-</td>
+                                                    <td>-</td>
+                                                    <td>-</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -141,10 +141,6 @@
                                                 <input type="text" value="Rp. 0" disabled>
                                             </div>
                                         </div>
-                                        <hr>
-                                        <div class="jangka-detail">
-
-                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -159,6 +155,7 @@
             </div>
         </section>
     </main>
+    <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 </template>
 
 <script>

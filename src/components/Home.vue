@@ -151,6 +151,7 @@
             </div>
         </section>
     </main>
+    <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 </template>
 
 <script>
@@ -161,7 +162,7 @@ export default {
     Header
   },
   mounted() {
-    window.scrollTo(0,0)
+    window.scrollTo(0,0);
   }
 }
 </script>
