@@ -11,6 +11,7 @@
 					<li><router-link to="/pinjam" class="nav-link scrollto">Pinjam</router-link></li>
 					<li><router-link to="/profile" class="nav-link scrollto">Profile</router-link></li>
 					<li><router-link to="/signup" class="nav-link scrollto">Sign Up</router-link></li>
+					<li><a to="#" class="nav-link scrollto" v-on:click="logOut">Log Out</a></li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
@@ -20,7 +21,13 @@
 
 <script>
 export default {
-    name: 'Header'
+    name: 'Header',
+    methods: {
+      logOut() {
+        localStorage.clear();
+        alert("Log Out Success");
+      }
+    }
 }
 </script>
 
@@ -206,5 +213,9 @@ export default {
 .navbar-mobile .getstarted,
 .navbar-mobile .getstarted:focus {
   margin: 15px;
+}
+
+.nav-link {
+  cursor: pointer;
 }
 </style>
