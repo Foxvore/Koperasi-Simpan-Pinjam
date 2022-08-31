@@ -1,5 +1,5 @@
 <template>
-    <!-- ======= Header ======= -->
+  <!-- ======= Header ======= -->
 	<header id="header" class="fixed-top header-scrolled"> <!-- header-scrolled -->
 		<div class="container d-flex align-items-center justify-content-between">
 			<h1 class="logo"><a href="#"><b>E-COOP<span>.</span></b></a></h1>
