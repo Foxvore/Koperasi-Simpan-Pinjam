@@ -4,45 +4,49 @@
             <div class="user signinBx">
                 <div class="imgBx"><img src="../assets/signin.jpg"></div>
                 <div class="formBx">
-                    <a href="/"><i class="bi bi-x-lg"></i></a>
-                    <h2>Login</h2>
-                    <div>
-                        <input type="email" name="email" placeholder="Email" v-model="state.email" />
-                        <span v-if="v$.email.$error" id="error">
-                            {{ v$.email.$errors[0].$message }}
-                        </span>
+                    <!-- <form action=""> -->
+                        <a href="/"><i class="bi bi-x-lg"></i></a>
+                        <h2>Login</h2>
+                        <div>
+                            <input type="email" name="email" placeholder="Email" v-model="email" />
+                            <span v-if="v$.email.$error" id="error">
+                                {{ v$.email.$errors[0].$message }}
+                            </span>
 
-                        <input type="password" name="password" placeholder="Password" v-model="state.password.password" />
-                        <span v-if="v$.password.password.$error" id="error">
-                            {{ v$.password.password.$errors[0].$message }}
-                        </span>
-                    </div>
-                    <input type="submit" value="Login" v-on:click="submitForm" />
-                    <p class="signup">Don't have an account? <a href="#" v-on:click="toggleForm">Sign Up.</a></p>
+                            <input type="password" name="password" placeholder="Password" v-model="password" />
+                            <span v-if="v$.password.$error" id="error">
+                                {{ v$.password.$errors[0].$message }}
+                            </span>
+                        </div>
+                        <input type="submit" value="Login" v-on:click="submitForm" />
+                        <p class="signup">Don't have an account? <a href="#" v-on:click="toggleForm">Sign Up.</a></p>
+                    <!-- </form> -->
                 </div>
             </div>
             <div class="user signupBx">
                 <div class="formBx">
-                    <a href="/"><i class="bi bi-x-lg"></i></a>
-                    <h2>Create An Account</h2>
-                    <div>
-                        <input type="email" name="email" placeholder="Email" v-model="state.email" />
-                        <span v-if="v$.email.$error" id="error">
-                            {{ v$.email.$errors[0].$message }}
-                        </span>
+                    <!-- <form action=""> -->
+                        <a href="/"><i class="bi bi-x-lg"></i></a>
+                        <h2>Create An Account</h2>
+                        <div>
+                            <input type="email" name="email" placeholder="Email" v-model="email" />
+                            <span v-if="v$.email.$error" id="error">
+                                {{ v$.email.$errors[0].$message }}
+                            </span>
 
-                        <input type="password" name="password" placeholder="Create Password" v-model="state.password.password" />
-                        <span v-if="v$.password.password.$error" id="error">
-                            {{ v$.password.password.$errors[0].$message }}
-                        </span>
+                            <input type="password" name="password" placeholder="Create Password" v-model="password" />
+                            <span v-if="v$.password.$error" id="error">
+                                {{ v$.password.$errors[0].$message }}
+                            </span>
 
-                        <input type="password" name="cPassword" placeholder="Confirm Password" v-model="state.password.confirm" />
-                        <span v-if="v$.password.confirm.$error" id="error">
-                            {{ v$.password.confirm.$errors[0].$message }}
-                        </span>
-                    </div>
-                    <input type="submit" value="Sign Up" v-on:click="submitForm" />
-                    <p class="signin">Already Have An Account? <a href="#" v-on:click="toggleForm">Login.</a></p>
+                            <input type="password" name="cPassword" placeholder="Confirm Password" v-model="confirm" />
+                            <span v-if="v$.confirm.$error" id="error">
+                                {{ v$.confirm.$errors[0].$message }}
+                            </span>
+                        </div>
+                        <input type="submit" value="Sign Up" v-on:click="signUp" />
+                        <p class="signin">Already Have An Account? <a href="#" v-on:click="toggleForm">Login.</a></p>
+                    <!-- </form> -->
                 </div>
                 <div class="imgBx"><img src="../assets/signup.jpg"></div>
             </div>
@@ -51,49 +55,54 @@
 </template>
 
 <script>
-// import axios from 'axios'
-import { reactive, computed } from 'vue'
+import axios from 'axios'
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs } from '@vuelidate/validators'
 export default {
     name : 'SignUp',
-    setup() {
-        const state = reactive ({
-            email:'',
-            password: {
-                password:'',
-                confirm:''
-            }
-            
-
-        })
-
-        const rules = computed(() => {
-            return {
-                email: { required, email },
-                password: {
-                    password: { required, minLength: minLength(6) },
-                    confirm: { required, sameAs: sameAs(state.password) }
-                }
-            }
-        })
-
-        const v$ = useValidate(rules, state)
-
+    data() {
         return {
-            state,
-            v$
-        }
+            v$: useValidate(),
+            email:"",
+            password: "",
+            confirm: "",
+        };
+    },
+    validations() {
+        return {
+            email: { required, email },
+            password: { required, minLength: minLength(6) },
+            confirm: { required, sameAs: sameAs(this.password) }
+        };
     },
     methods : {
         toggleForm() {
             var containers = document.querySelector('.containers')
             containers.classList.toggle('active')
         },
-        submitForm() {
-            console.log("success");
+        async signUp() {
+            this.v$.$validate();
+            if (!this.v$.$error) {
+                let result = await axios.post('http://localhost:3000/users', {
+                    email: this.email,
+                    password: this.password,
+                });
+                if (result.status == 201) {
+                    alert("Add Success");
+                    localStorage.setItem("user-info", JSON.stringify(result.data));
+                    this.$router.push({name : 'Home'})
+                } else {
+                    alert("Add Failed");
+                }
+            }
         }
     },
+    mounted() {
+        let user = localStorage.getItem("user-info");
+        if(user) {
+            this.$router.push({name : 'Home'})
+        }
+    }
 }
 </script>
 
@@ -101,7 +110,7 @@ export default {
 /*===== Main ==== */
 #error {
     font-size: 12px;
-    color: #9A9A9A;
+    color: red;
 }
 
 #signin {
