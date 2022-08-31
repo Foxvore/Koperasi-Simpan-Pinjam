@@ -4,6 +4,7 @@ import Service from './components/Service.vue'
 import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
 import Profile from './components/Profile.vue'
+import Pegawai from './components/Pegawai.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -36,6 +37,11 @@ const routes = [
         name: 'Profile',
         component: Profile,
         path: '/profile'
+    },
+    {
+        name: 'Pegawai',
+        component: Pegawai,
+        path: '/pegawai'
     }
 ]
 
@@ -45,4 +51,4 @@ const router = createRouter ({
     linkActiveClass: 'active'
 })
 
-export default router
+export default router;
