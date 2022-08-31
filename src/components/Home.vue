@@ -1,6 +1,6 @@
 <template>
     <Header />
-    
+
     <!-- ======= Home Section ======= -->
     <section id="home" class="home">
         <div class="h-container">
@@ -152,6 +152,7 @@
         </section>
     </main>
     <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    
     <Footer />
 </template>
 
