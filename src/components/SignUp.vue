@@ -18,7 +18,7 @@
                                 {{ v$.password.$errors[0].$message }}
                             </span>
                         </div>
-                        <input type="submit" value="Login" v-on:click="submitForm" />
+                        <input type="submit" value="Login" v-on:click="login" />
                         <p class="signup">Don't have an account? <a href="#" v-on:click="toggleForm">Sign Up.</a></p>
                     <!-- </form> -->
                 </div>
@@ -88,13 +88,26 @@ export default {
                     password: this.password,
                 });
                 if (result.status == 201) {
-                    alert("Add Success");
+                    alert("Sign Up Success");
                     localStorage.setItem("user-info", JSON.stringify(result.data));
                     this.$router.push({name : 'Home'})
                 } else {
-                    alert("Add Failed");
+                    alert("Sign Up Failed");
                 }
             }
+        },
+        async login() {
+            let result = await axios.get (
+                `http://localhost:3000/users?email=${this.email}&password=${this.password}`
+            )
+            if (result.status == 200 && result.data.length > 0) {
+                alert("Login Success");
+                localStorage.setItem("user-info", JSON.stringify(result.data[0]));
+                this.$router.push({name : 'Home'})
+            } else {
+                alert("Login Failed");
+            }
+            console.warn(result);
         }
     },
     mounted() {
