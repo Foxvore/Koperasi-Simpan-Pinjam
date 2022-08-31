@@ -3,7 +3,7 @@
     
     <!-- ======= Home Section ======= -->
     <section id="home" class="home">
-        <div class="h-container" data-aos="fade-up">
+        <div class="h-container">
         <h3>Selamat Datang</h3>
         <h2>Daftar sekarang dan nikmati berbagai keuntungan yang bisa kamu dapatkan setelah menjadi anggota <b>E-COOP<span>.</span></b></h2>
         <a href="/signup" class="btn-daftar scrollto">Daftar Sekarang</a>
@@ -13,7 +13,7 @@
     <main id="main">
         <!-- ======= Definisi Section ======= -->
         <section id="definisi" class="definisi">
-            <div data-aos="fade-up" class="card mb-3 m-auto" id="c-definisi">
+            <div v-motion-slide-visible-once-bottom class="card mb-3 m-auto" id="c-definisi">
                 <div class="row g-0">
                     <div class="col-md-9">
                         <div class="card-body">
@@ -31,7 +31,7 @@
 
         <!-- ======= Keunggulan Section ======= -->
         <section id="keunggulan" class="keunggulan">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b>Keunggulan E-COOP<span>.</span></b></h2><br />
                 <div class="row justify-content-md-center">
                     <div class="col-md-auto">
@@ -61,7 +61,7 @@
 
         <!-- ======= Fitur Section ======= -->
         <section id="fitur" class="fitur">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Fitur Utama</i></b></h2><br />
                 <div class="row justify-content-md-center">
                     <div class="col-md-auto col-xs-12">
@@ -94,7 +94,7 @@
 
         <!-- ======= Timeline Section ======= -->
         <section id="timeline" class="timeline">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Cara Menjadi Anggota</i></b></h2><br />
                 <div class="g-timeline" id="g-timeline">
                     <ul>
@@ -142,7 +142,7 @@
 
         <!-- ======= Dokumen Section ======= -->
         <section id="dokumen" class="dokumen">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Dokumen Yang Dibutuhkan</i></b></h2><br />
                 <div class="card m-auto" id="c-dokumen">
                     <img src="../assets/ktp.png" />
@@ -152,14 +152,17 @@
         </section>
     </main>
     <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <Footer />
 </template>
 
 <script>
 import Header from './Header.vue'
+import Footer from './Footer.vue'
 export default {
   name : "Home",
   components : {
-    Header
+    Header,
+    Footer
   },
   mounted() {
     window.scrollTo(0,0);

@@ -3,7 +3,7 @@
     
     <!-- ======= Layanan Section ======= -->
     <section id="layanan" class="layanan">
-        <div class="l-container" data-aos="fade-up">
+        <div class="l-container">
             <h2>Layanan <b>E-COOP<span>.</span></b></h2>
         </div>
     </section>
@@ -11,7 +11,7 @@
     <main id="main">
         <!-- ======= List Section ======= -->
         <section id="list" class="list">
-            <div data-aos="fade-up">
+            <div>
                 <h2><b><i>Layanan Yang Tersedia</i></b></h2><br />
                 <div class="container">
                     <div class="row">
@@ -51,7 +51,7 @@
 
         <!-- ======= Simpanan Section ======= -->
         <section id="simpanan" class="simpanan">
-            <div class="container" data-aos="fade-up">
+            <div class="container" v-motion-slide-visible-once-bottom>
                 <div class="section-title">
                     <h2><b><i>Simpanan</i></b></h2><br />
                     <p>Ada 4 jenis simpanan yang ada di <b>E-COOP<span>.</span></b> yaitusimpanan pokok, simpanan wajib, simpanan sukarela, dan simpananberjangka.</p>
@@ -119,7 +119,7 @@
 
         <!-- ===== Alur Simpan Section ===== -->
         <section id="simpan" class="simpan">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Alur Melakukan Simpanan & Penarikan</i></b></h2><br />
                 <div class="a-simpan" id="a-simpan">
                     <ul>
@@ -176,7 +176,7 @@
 
         <!-- ======= Pinjaman Section ======= -->
         <section id="pinjaman" class="pinjaman">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Pinjaman</i></b></h2><br/>
                 <div class="card mb-3 m-auto" id="c-pinjam">
                     <div class="row g-0">
@@ -196,7 +196,7 @@
 
         <!-- ===== Alur Pinjam Section ===== -->
         <section id="pinjam" class="pinjam">
-            <div data-aos="fade-up">
+            <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Alur Pengajukan Pinjaman & Pengembalian</i></b></h2><br/>
                 <div class="a-pinjam" id="a-pinjam">
                     <ul>
@@ -287,14 +287,17 @@
         </section>
     </main>
     <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <Footer />
 </template>
 
 <script>
-import Header from './Header.vue';
+import Header from './Header.vue'
+import Footer from './Footer.vue'
 export default {
   name : "Service",
   components : {
-    Header
+    Header,
+    Footer
   },
   mounted() {
     window.scrollTo(0,0)
