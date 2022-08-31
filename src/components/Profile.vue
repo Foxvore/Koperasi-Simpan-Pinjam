@@ -156,14 +156,17 @@
         </section>
     </main>
     <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <Footer />
 </template>
 
 <script>
-import Header from './Header.vue';
+import Header from './Header.vue'
+import Footer from './Footer.vue'
 export default {
     name : 'Profile',
     components : {
-        Header
+        Header,
+        Footer
     },
     mounted() {
         window.scrollTo(0,0)
