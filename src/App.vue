@@ -12,7 +12,7 @@ export default {
 
 <style>
 /*===== Tag =====*/
-body {
+body, ul, li, p {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
