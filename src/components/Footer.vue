@@ -3,7 +3,9 @@
   <footer id="footer" class="footer">
       <div class="footer-content">
         <h3><b>E-COOP<span>.</span></b></h3>
-        <p>Koperasi digital pertama di Indonesia dengan pelayanan <br> cepat dan mudah.</p>
+        <div class="text">
+          <p>Koperasi digital pertama di Indonesia dengan pelayanan cepat dan mudah.</p>
+        </div>
         <ul class="media">
             <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
@@ -13,7 +15,7 @@
         </ul>
       </div>
       <div class="footer-bottom">
-        <p>Copyright&nbsp;&copy;2022&nbsp;<b>E-COOP<span>.&nbsp;</span></b>Designed by&nbsp;<b>Foxvore</b>.</p>
+        <p>Copyright &copy;2022&nbsp;<b>E-COOP<span>.&nbsp;</span></b>Designed by&nbsp;<b>Foxvore</b>.</p>
       </div>
     </footer>
 </template>
@@ -57,6 +59,10 @@ export default {
   font-size: 14px;
 }
 
+.text {
+  max-width: 400px;
+}
+
 .media {
   list-style: none;
   display: flex;
@@ -84,7 +90,7 @@ export default {
 }
 
 .footer-bottom {
-  background: #000;
+  background: rgba(0, 0, 0, 0.3);
   width: 100%;
   padding: 20px 0;
   text-align: center;
@@ -95,5 +101,12 @@ export default {
   word-spacing: 2px;
   display: flex;
   justify-content: center;
+}
+
+/*===== Phone S Responsive =====*/
+@media (max-width: 374px) {
+  .footer-bottom p {
+    font-size: 10px;
+  }
 }
 </style>
