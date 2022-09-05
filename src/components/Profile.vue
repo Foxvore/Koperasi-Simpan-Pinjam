@@ -1,6 +1,4 @@
 <template>
-    <Header />
-
     <!-- ====== Hero Section ====== -->
     <section id="profile" class="profile">
         <div class="l-container">
@@ -155,20 +153,11 @@
             </div>
         </section>
     </main>
-    <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    
-    <Footer />
 </template>
 
 <script>
-import Header from './Header.vue'
-import Footer from './Footer.vue'
 export default {
     name : 'Profile',
-    components : {
-        Header,
-        Footer
-    },
     mounted() {
         window.scrollTo(0,0)
     }
@@ -179,7 +168,7 @@ export default {
 /*===== Hero Section =====*/
 #profile {
     width: 100%;
-    height: 31vh;
+    height: 30vh;
     background: url("../assets/bg-u.jpg") top center;
     background-size: cover;
     position: relative;
@@ -218,10 +207,6 @@ export default {
 }
 
 @media (max-width: 786px) {
-    #profile {
-        height: 100vh;
-    }
-
     #profile h2 {
         font-size: 26px;
         line-height: 24px;
