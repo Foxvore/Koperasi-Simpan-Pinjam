@@ -1,19 +1,19 @@
 <template>
   <!-- ======= Header ======= -->
-	<header id="header" class="fixed-top header-scrolled"> <!-- header-scrolled -->
+	<header id="header" class="header fixed-top" v-on:scroll="scrollF"> <!-- header-scrolled -->
 		<div class="container d-flex align-items-center justify-content-between">
 			<h1 class="logo"><a href="#"><b>E-COOP<span>.</span></b></a></h1>
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><router-link to="/" class="nav-link scrollto">Homepage</router-link></li>
-					<li><router-link to="/service" class="nav-link scrollto">Layanan</router-link></li>
-					<li><router-link to="/simpan" class="nav-link scrollto">Simpam</router-link></li>
-					<li><router-link to="/pinjam" class="nav-link scrollto">Pinjam</router-link></li>
-					<li><router-link to="/profile" class="nav-link scrollto">Profile</router-link></li>
-					<li><router-link to="/signup" class="nav-link scrollto">Sign Up</router-link></li>
-					<li><a to="#" class="nav-link scrollto" v-on:click="logOut">Log Out</a></li>
+					<li><router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link></li>
+					<li><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
+					<li><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpam</router-link></li>
+					<li><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
+					<li class="profile"><router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link></li>
+					<li class="sign-up"><router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign Up</router-link></li>
+					<li class="logout"><a to="#" class="nav-link scrollto" v-on:click="logOut"><i class="bi bi-door-open-fill"></i>&nbsp;Log Out</a></li>
 				</ul>
-				<i class="bi bi-list mobile-nav-toggle"></i>
+				<i class="bi bi-list mobile-nav-toggle" v-on:click="mobileNav"></i>
 			</nav>
 		</div>
 	</header>
@@ -21,13 +21,55 @@
 
 <script>
 export default {
-    name: 'Header',
-    methods: {
-      logOut() {
-        localStorage.clear();
-        alert("Log Out Success");
+  name: 'Header',
+  created () {
+    window.addEventListener('scroll', this.scrollF);
+  },
+  destroyed () {
+    window.removeEventListener('scroll', this.scrollF);
+  },
+  methods: {
+    mobileNav() {
+      var navbar = document.querySelector('.navbar')
+      navbar.classList.toggle('navbar-mobile')
+
+      var navbarToggle = document.querySelector('.mobile-nav-toggle')
+      navbarToggle.classList.toggle('bi-list')
+      navbarToggle.classList.toggle('bi-x')
+    },
+    logOut() {
+      localStorage.clear();
+      alert("Log Out Success");
+      location.reload();
+    },
+    scrollF() {
+      var header = document.querySelector('.header')
+      if (window.scrollY > 100) {
+        header.classList.add('header-scrolled')
+      } else {
+        header.classList.remove('header-scrolled')
+      }
+
+      var top = document.querySelector('.back-to-top')
+      if (window.scrollY > 100) {
+        top.classList.add('active')
+      } else {
+        top.classList.remove('active')
       }
     }
+  },
+  mounted() {
+    let user = localStorage.getItem("user-info");
+    var profile = document.querySelector('.profile')
+    var signup = document.querySelector('.sign-up')
+    var logout = document.querySelector('.logout')
+    if(user) {
+      signup.classList.add('hidden')
+    } else {
+      profile.classList.add('hidden')
+      logout.classList.add('hidden')
+    }
+  }
 }
 </script>
 
@@ -91,7 +133,7 @@ export default {
 .navbar a:focus {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: left;
   font-family: "Poppins", sans-serif;
   color: #fff;
   font-size: 15px;
@@ -156,6 +198,12 @@ export default {
   }
 }
 
+@media (max-width: 768px) {
+  #header .logo a {
+    font-size: 25px;
+  }
+}
+
 .navbar-mobile {
   position: fixed;
   overflow: hidden;
@@ -200,7 +248,7 @@ export default {
 .navbar-mobile a,
 .navbar-mobile a:focus {
   padding: 10px 20px;
-  font-size: 15px;
+  font-size: 20px;
   color: #000;
 }
 
@@ -217,5 +265,20 @@ export default {
 
 .nav-link {
   cursor: pointer;
+}
+
+#navbar .nav-link i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+@media (min-width: 1000px) {
+  #navbar i {
+    display: none;
+  }
+}
+
+.hidden {
+  display: none;
 }
 </style>
