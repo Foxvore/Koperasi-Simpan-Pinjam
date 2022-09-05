@@ -1,6 +1,4 @@
 <template>
-    <Header />
-    
     <!-- ======= Layanan Section ======= -->
     <section id="layanan" class="layanan">
         <div class="l-container">
@@ -41,7 +39,7 @@
                             <div class="icon-box">
                                 <div class="icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
                                 <h4 class="title"><a href="#pinjaman" class="scrollto">Pengembalian</a></h4>
-                                <p class="description">Rincian pembayaran setiap bulan terjadwal dengan jelas dandapat disesuaikan oleh pengguna.</p>
+                                <p class="description">Rincian pembayaran setiap bulan terjadwal dengan jelas dan dapat disesuaikan oleh pengguna.</p>
                             </div>
                         </div>
                     </div>
@@ -79,7 +77,7 @@
                                 <div class="row gy-4">
                                     <div class="col-lg-12 details order-2 order-lg-1">
                                         <h3>Simpanan Pokok</h3>
-                                        <p class="fst-italic">Simpanan pokok adalah sejumlah uang yang telah di tentukan koperasi dan wajib dibayarkan oleh anggota kepada koperasi pada saat masuk menjadi anggota. [E-Coop menetapkansebesar Rp. ]</p>
+                                        <p class="fst-italic">Simpanan pokok adalah sejumlah uang yang telah di tentukan koperasi dan wajib dibayarkan oleh anggota kepada koperasi pada saat masuk menjadi anggota. [E-Coop menetapkan sebesar Rp. ]</p>
                                         <p>Simpanan pokok tidak dapat diambil selama yang bersangkutan menjadi anggota.</p>
                                     </div>
                                 </div>
@@ -178,14 +176,13 @@
         <section id="pinjaman" class="pinjaman">
             <div v-motion-slide-visible-once-bottom>
                 <h2><b><i>Pinjaman</i></b></h2><br/>
-                <div class="card mb-3 m-auto" id="c-pinjam">
+                <div class="card m-auto" id="c-pinjam">
                     <div class="row g-0">
-                        <div class="col-md-4" id="card-img">
-                            <img src="../assets/pinjam.png" class="img-fluid" alt="Pinjaman"/>
+                        <div class="col-md-2 card-image" >
+                            <img src="../assets/pinjam.png" class="img" alt="Pinjaman" />
                         </div>
                         <div class="col-md-8" id="card-body">
                             <div class="card-body">
-                                <h5 class="card-title"><b>E-COOP<span>.</span></b></h5>
                                 <p class="card-text">Pinjaman adalah salah satu layanan untuk memberikan pinjaman berupa uang kepada anggota koperasi. Anggota dapat mengatur jumlah pinjaman dan tenor waktu sesuai dengan yang mereka inginkan. <b>E-COOP<span>.</span></b> menetapkan bunga sebesar 12% per tahun / 1% perbulan.</p>
                             </div>
                         </div>
@@ -286,20 +283,11 @@
             </div>
         </section>
     </main>
-    <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    
-    <Footer />
 </template>
 
 <script>
-import Header from './Header.vue'
-import Footer from './Footer.vue'
 export default {
   name : "Service",
-  components : {
-    Header,
-    Footer
-  },
   mounted() {
     window.scrollTo(0,0)
   }
@@ -310,7 +298,7 @@ export default {
 /*=== Hero Section ====*/
 #layanan {
   width: 100%;
-  height: 31vh;
+  height: 30vh;
   background: url("../assets/bg-l.jpg") top center;
   background-size: cover;
   position: relative;
@@ -350,7 +338,7 @@ export default {
 
 @media (max-width: 786px) {
   #layanan {
-    height: 100vh;
+    height: 50vh;
   }
 
   #layanan h2 {
@@ -360,8 +348,8 @@ export default {
   }
 }
 
+/*===== Background Color =====*/
 #list {
-  /* Layanan */
   background-color: #f1f1f1;
 }
 
@@ -382,8 +370,8 @@ export default {
   background-color: #f1f1f1;
 }
 
+/*===== Main Section =====*/
 #list .icon-box {
-  /* Layanan */
   width: 300px;
   height: 310px;
   padding: 20px 30px;
@@ -614,14 +602,11 @@ export default {
   box-shadow: 0 0 0 3px rgba(255, 176, 55, 0.5);
 }
 
-/* #c-pinjam {
-    border: none;
-    background-color: #F1F1F1;
-  } */
-
 #pinjaman .card {
   width: 950px;
-  height: 250px;
+  height: 100%;
+  box-shadow: 8px 8px #ffb037;
+  border: 1px solid #000;
 }
 
 #pinjaman h5 {
@@ -629,15 +614,19 @@ export default {
 }
 
 #card-body {
-  margin-top: 20px;
-  margin-left: 25px;
+  margin: 20px;
   font-size: 18px;
-  max-width: 700px;
+  width: 658px;
+  padding: 30px 16px;
 }
 
-#card-img {
-  top: -10px;
+#pinjaman .card-image {
+  padding: 10px;
   width: 250px;
+}
+
+#pinjaman .img {
+  width: 230px;
 }
 
 #a-pinjam {
@@ -654,7 +643,7 @@ export default {
   position: absolute;
   left: 50%;
   width: 2px;
-  height: 255%;
+  height: 241%;
   background-color: #c5c5cc;
 }
 
@@ -752,5 +741,320 @@ export default {
   background-color: #ffb037;
   border-radius: 20px;
   box-shadow: 0 0 0 3px rgba(255, 176, 55, 0.5);
+}
+
+/*===== Large Laptop/PC Responsive  */
+@media (min-width: 1440px) {
+  #list .icon-box {
+    padding: 50px 30px;
+  }
+
+  #a-simpan,
+  #a-pinjam {
+    width: 1300px;
+  }
+
+  #a-simpan:before {
+    height: 104%;
+  }
+
+  #a-pinjam:before {
+    height: 190%;
+  }
+}
+
+/*===== Tablet Responsive =====*/
+@media (min-width: 768px) and (max-width: 900px) {
+  #list .icon-box {
+    margin: 0 30px;
+    padding: 40px 30px;
+  }
+
+  #a-simpan:before {
+    left: 10%;
+    height: 105%;
+  }
+
+  #a-pinjam:before {
+    left: 10%;
+    height: 190%;
+  }
+
+  #a-simpan ul li,
+  #a-pinjam ul li{
+    width: 70%;
+  }
+
+  #a-simpan ul li .no,
+  #a-pinjam ul li .no {
+    width: 40px;
+  }
+
+  #a-simpan ul li:nth-child(odd),
+  #a-simpan ul li:nth-child(even),
+  #a-pinjam ul li:nth-child(odd), 
+  #a-pinjam ul li:nth-child(even) {
+    float: right;
+    text-align: left;
+    right: 160px;
+  }
+
+  #a-simpan ul li:nth-child(odd) .no,
+  #a-simpan ul li:nth-child(even) .no,
+  #a-pinjam ul li:nth-child(odd) .no,
+  #a-pinjam ul li:nth-child(even) .no {
+    left: -40px;
+  }
+
+  #a-simpan ul li:nth-child(odd):before,
+  #a-simpan ul li:nth-child(even):before,
+  #a-pinjam ul li:nth-child(odd):before,
+  #a-pinjam ul li:nth-child(even):before {
+    left: -40px;
+  }
+
+  #pinjaman .card {
+    width: 700px;
+    height: 230px;
+  }
+
+  #pinjaman .img {
+    width: 180px;
+  }
+
+  #pinjaman .card-image {
+    padding: 20px;
+    width: 200px;
+    height: 230px;
+  }
+
+  #card-body {
+    margin: 37px 0;
+    font-size: 16px;
+    width: 490px;
+    height: 155px;
+    padding: 0 0;
+  }
+}
+
+/*===== Phone L Responsive =====*/
+@media (min-width: 425px) and (max-width: 600px) {
+  #list .icon-box {
+    margin: 0 50px;
+    padding: 50px 30px;
+  }
+
+  #a-simpan:before {
+    left: 5%;
+    height: 145%;
+  }
+
+  #a-pinjam:before {
+    left: 5%;
+    height: 190%;
+  }
+
+  #a-simpan ul li,
+  #a-pinjam ul li{
+    width: 40%;
+  }
+
+  #a-simpan ul li .no,
+  #a-pinjam ul li .no {
+    width: 40px;
+  }
+
+  #a-simpan ul li:nth-child(odd),
+  #a-simpan ul li:nth-child(even),
+  #a-pinjam ul li:nth-child(odd), 
+  #a-pinjam ul li:nth-child(even) {
+    float: right;
+    text-align: left;
+    right: 475px;
+  }
+
+  #a-simpan ul li:nth-child(odd) .no,
+  #a-simpan ul li:nth-child(even) .no,
+  #a-pinjam ul li:nth-child(odd) .no,
+  #a-pinjam ul li:nth-child(even) .no {
+    left: -40px;
+  }
+
+  #a-simpan ul li:nth-child(odd):before,
+  #a-simpan ul li:nth-child(even):before,
+  #a-pinjam ul li:nth-child(odd):before,
+  #a-pinjam ul li:nth-child(even):before {
+    left: -40px;
+  }
+
+  #pinjaman .card {
+    width: 380px;
+    height: 100%;
+  }
+
+  #pinjaman .img {
+    width: 200px;
+    margin: 0 79px;
+  }
+
+  #pinjaman .card-image {
+    padding-top: 30px;
+    width: 380px;
+  }
+
+  #card-body {
+    margin: 0 0;
+    font-size: 16px;
+    text-align: center;
+    padding-bottom: 30px;
+    width: 378px;
+  }
+}
+
+/*===== Phone M Responsive =====*/
+@media (min-width: 350px) and (max-width: 424px) {
+  #list .icon-box {
+    margin: 0 50px;
+    padding: 40px 30px;
+  }
+
+  #a-simpan:before {
+    left: 5%;
+    height: 170%;
+  }
+
+  #a-pinjam:before {
+    left: 5%;
+    height: 315%;
+  }
+
+  #a-simpan ul li,
+  #a-pinjam ul li{
+    width: 35%;
+  }
+
+  #a-simpan ul li .no,
+  #a-pinjam ul li .no {
+    width: 40px;
+  }
+
+  #a-simpan ul li:nth-child(odd),
+  #a-simpan ul li:nth-child(even),
+  #a-pinjam ul li:nth-child(odd), 
+  #a-pinjam ul li:nth-child(even) {
+    float: right;
+    text-align: left;
+    right: 520px;
+  }
+
+  #a-simpan ul li:nth-child(odd) .no,
+  #a-simpan ul li:nth-child(even) .no,
+  #a-pinjam ul li:nth-child(odd) .no,
+  #a-pinjam ul li:nth-child(even) .no {
+    left: -40px;
+  }
+
+  #a-simpan ul li:nth-child(odd):before,
+  #a-simpan ul li:nth-child(even):before,
+  #a-pinjam ul li:nth-child(odd):before,
+  #a-pinjam ul li:nth-child(even):before {
+    left: -40px;
+  }
+
+  #pinjaman .card {
+    width: 310px;
+    height: 100%;
+  }
+
+  #pinjaman .img {
+    width: 200px;
+    margin: 0 44px;
+  }
+
+  #pinjaman .card-image {
+    padding-top: 30px;
+    width: 308px;
+  }
+
+  #card-body {
+    margin: 0 0;
+    font-size: 16px;
+    text-align: center;
+    width: 308px;
+    padding: 0 0 20px 0;
+  }
+}
+
+/*===== Phone S Responsive =====*/
+@media (max-width: 374px) {
+  #list .icon-box {
+    margin: 0 50px;
+    padding: 25px 20px;
+  }
+
+  #a-simpan:before {
+    left: 5%;
+    height: 190%;
+  }
+
+  #a-pinjam:before {
+    left: 5%;
+    height: 360%;
+  }
+
+  #a-simpan ul li,
+  #a-pinjam ul li{
+    width: 30%;
+  }
+
+  #a-simpan ul li .no,
+  #a-pinjam ul li .no {
+    width: 40px;
+  }
+
+  #a-simpan ul li:nth-child(odd),
+  #a-simpan ul li:nth-child(even),
+  #a-pinjam ul li:nth-child(odd), 
+  #a-pinjam ul li:nth-child(even) {
+    float: right;
+    text-align: left;
+    right: 579px;
+  }
+
+  #a-simpan ul li:nth-child(odd) .no,
+  #a-simpan ul li:nth-child(even) .no,
+  #a-pinjam ul li:nth-child(odd) .no,
+  #a-pinjam ul li:nth-child(even) .no {
+    left: -25px;
+  }
+
+  #a-simpan ul li:nth-child(odd):before,
+  #a-simpan ul li:nth-child(even):before,
+  #a-pinjam ul li:nth-child(odd):before,
+  #a-pinjam ul li:nth-child(even):before {
+    left: -25px;
+  }
+
+  #pinjaman .card {
+    width: 290px;
+    height: 100%;
+  }
+
+  #pinjaman .img {
+    width: 200px;
+    margin: 0 34px;
+  }
+
+  #pinjaman .card-image {
+    padding-top: 20px;
+    width: 380px;
+  }
+
+  #card-body {
+    margin: 0 0;
+    font-size: 16px;
+    text-align: center;
+    padding: 0 0 20px 0;
+  }
 }
 </style>

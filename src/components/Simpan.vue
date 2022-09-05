@@ -1,6 +1,4 @@
 <template>
-    <Header />
-
     <!-- ====== Hero Section ====== -->
     <section id="h-simpan" class="h-simpan">
         <div class="l-container">
@@ -153,24 +151,14 @@
             </div>
         </section>
     </main>
-    <a href="#" class="back-to-top active d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    
-    <Footer />
 </template>
 
 <script>
-import Header from './Header.vue'
-import Footer from './Footer.vue'
 export default {
     name : 'Simpan',
-    components : {
-        Header,
-        Footer
-    },
     mounted() {
         window.scrollTo(0,0)
     },
-    
 }
 </script>
 
@@ -178,7 +166,7 @@ export default {
 /*===== Hero Section =====*/
 #h-simpan {
     width: 100%;
-    height: 31vh;
+    height: 30vh;
     background: url("../assets/bg-s.jpg") top center;
     background-size: cover;
     position: relative;
@@ -217,10 +205,6 @@ export default {
 }
 
 @media (max-width: 786px) {
-    #h-simpan {
-        height: 100vh;
-    }
-
     #h-simpan h2 {
         font-size: 26px;
         line-height: 24px;
@@ -335,8 +319,7 @@ export default {
 }
   
 #containers{
-    max-width: 1300px;
-    width: 100%;
+    width: 960px;
     background-color: #fff;
     padding: 25px 30px;
     border-radius: 5px;
@@ -422,5 +405,75 @@ form .button input {
   
 form .button input:hover {
     background: #ffc955;
+}
+
+/*===== Large Laptop/PC Responsive  */
+@media (min-width: 1440px) {
+    #containers {
+        width: 1310px;
+    }
+}
+
+/*===== Tablet Responsive  */
+@media (min-width: 768px) and (max-width: 900px) {
+    #containers {
+        width: 710px;
+    }
+}
+
+/*===== Phone L Responsive  */
+@media (min-width: 425px) and (max-width: 600px) {
+    #containers {
+        width: 400px;
+    }
+
+    form .user-details .input-box, 
+    form .simpan-details .input-box {
+        width: 100%;
+    }
+
+    #containers .text-muted {
+        font-size: 12px;
+    }
+}
+
+/*===== Phone M Responsive  */
+@media (min-width: 350px) and (max-width: 424px) {
+    #containers {
+        width: 350px;
+    }
+
+    form .user-details .input-box, 
+    form .simpan-details .input-box {
+        width: 100%;
+    }
+
+    #containers .text-muted {
+        font-size: 12px;
+    }
+
+    form .button input {
+        font-size: 16px;
+    }
+}
+
+/*===== Phone S Responsive  */
+@media (max-width: 374px) {
+    #containers {
+        width: 296px;
+    }
+
+    form .user-details .input-box, 
+    form .simpan-details .input-box {
+        width: 100%;
+    }
+
+    #containers .text-muted {
+        font-size: 12px;
+    }
+
+    form .button input {
+        font-size: 13px;
+    }
 }
 </style>
