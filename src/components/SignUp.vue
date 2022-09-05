@@ -66,6 +66,7 @@ export default {
             email:"",
             password: "",
             confirm: "",
+            role: "member"
         };
     },
     validations() {
@@ -86,6 +87,7 @@ export default {
                 let result = await axios.post('http://localhost:3000/users', {
                     email: this.email,
                     password: this.password,
+                    role: this.role, 
                 });
                 if (result.status == 201) {
                     alert("Sign Up Success");
