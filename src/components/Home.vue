@@ -1,13 +1,16 @@
 <template>
+  <Header />
   <!-- ======= Home Section ======= -->
   <section id="home" class="home">
     <div class="h-container">
-      <h3>Selamat Datang</h3>
-      <h2>
+      <h3 class="judul">Selamat Datang</h3>
+      <h2 class="subjudul">
         Daftar sekarang dan nikmati berbagai keuntungan yang bisa kamu dapatkan
         setelah menjadi anggota <b>E-COOP<span>.</span></b>
       </h2>
-      <a href="/signup" class="btn-daftar scrollto">Daftar Sekarang</a>
+      <div class="button">
+        <a href="/signup" class="btn-daftar scrollto">Daftar Sekarang</a>
+      </div>
     </div>
   </section>
 
@@ -183,14 +186,38 @@
       </div>
     </section>
   </main>
+  <Footer />
 </template>
 
 <script>
+import Header from './Header.vue'
+import Footer from './Footer.vue'
 export default {
   name: "Home",
   mounted() {
-    window.scrollTo(0, 0);
-  }
+    window.scrollTo(0, 0)
+    let user = localStorage.getItem("user-info");
+    const daftar = document.querySelector(".button");
+    const subtitle = document.querySelector(".subjudul");
+    const title = document.querySelector(".judul");
+    if(user) {
+      daftar.classList.add('hidden')
+      title.classList.remove('hidden')
+      subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
+    } else {
+      daftar.classList.remove('hidden')
+      title.classList.add('hidden')
+    }
+
+    let cnvrt = JSON.parse(user);
+        if(cnvrt.role === "pegawai") {
+          subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat (<b>E-COOP<span>.</span></b>)"
+        }
+  },
+  components : {
+    Header,
+    Footer
+  },
 };
 </script>
 
@@ -494,6 +521,10 @@ export default {
 #c-dokumen p {
   font-size: 20px;
   font-weight: 500;
+}
+
+.hidden {
+  display: none;
 }
 
 /*===== Large Laptop/PC Responsive =====*/ 
