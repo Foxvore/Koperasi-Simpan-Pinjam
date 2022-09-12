@@ -5,10 +5,12 @@
 			<h1 class="logo"><a href="#"><b>E-COOP<span>.</span></b></a></h1>
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li><router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link></li>
-					<li><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
-					<li><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link></li>
-					<li><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
+					<li class="home"><router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link></li>
+					<li class="service"><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
+					<li class="simpan"><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link></li>
+					<li class="psimpan"><router-link to="/psimpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Simpanan</router-link></li>
+					<li class="pinjam"><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
+					<!-- <li class="ppinjam"><router-link to="/ppinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pengajuan Pinjaman</router-link></li> -->
 					<li class="profile"><router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link></li>
 					<li class="sign-up"><router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign In</router-link></li>
 					<li class="logout"><a to="#" class="nav-link scrollto" v-on:click="logOut"><i class="bi bi-door-open-fill"></i>&nbsp;Log Out</a></li>
@@ -84,14 +86,27 @@ export default {
   },
   mounted() {
     let user = localStorage.getItem("user-info");
-    var profile = document.querySelector('.profile')
+    var service = document.querySelector('.service')
+    var simpan = document.querySelector('.simpan')
+    var pinjam = document.querySelector('.pinjam')
     var signup = document.querySelector('.sign-up')
     var logout = document.querySelector('.logout')
-    if(user) {
+    var psimpan = document.querySelector('.psimpan')
+    // var ppinjam = document.querySelector('.ppinjam')
+    if (user) {
       signup.classList.add('hidden')
+      let cnvrt = JSON.parse(user);
+      if (cnvrt.role === "member") {
+        psimpan.classList.add('hidden')
+      } else if (cnvrt.role === "pegawai") {
+        service.classList.add('hidden')
+        simpan.classList.add('hidden')
+        pinjam.classList.add('hidden')
+      }
     } else {
       profile.classList.add('hidden')
       logout.classList.add('hidden')
+      psimpan.classList.add('hidden')
     }
   }
 }
