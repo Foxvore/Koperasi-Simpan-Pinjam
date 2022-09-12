@@ -9,12 +9,36 @@
 
     <main id="main" class="main">
         <!--===== Table Section =====-->
-        <section id="table" class="table">
+        <section id="data-table" class="data-table">
             <div class="container">
                 <h2><b><i>Pengajuan Simpanan</i></b></h2>
                 <br />
+                <table id="psimpan" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Jumlah</th>
+                            <th>Jangka</th>
+                            <th>No Telpon</th>
+                            <th>No KTP</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Irham Maulana Johani</td>
+                            <td>Rp. 10.000.000</td>
+                            <td>10 Bulan</td>
+                            <td>085211616326</td>
+                            <td>12345678910</td>
+                            <td>x v</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
+    <Footer />
 </template>
 
 <script>
@@ -26,8 +50,10 @@ export default {
         Header,
         Footer
     },
-    methods: {
-        
+    mounted() {
+        $(document).ready(function () {
+            $('#psimpan').DataTable();
+        });
     }
 };
 </script>
@@ -83,27 +109,4 @@ export default {
 }
 
 /*===== Main Section =====*/
-.src-bar {
-    width: 30%;
-    margin-bottom: 20px;
-}
-
-#table-psimpan {
-    text-align: center;
-}
-
-#btn-info, 
-#btn-decline,
-#btn-accept {
-    font-size: 20px;
-    margin: 5px;
-    color: #000;
-    cursor: pointer;
-}
-
-#btn-info:hover, 
-#btn-decline:hover, 
-#btn-accept:hover {
-    color : #FFB037;
-}
 </style>
