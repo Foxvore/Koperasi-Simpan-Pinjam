@@ -267,8 +267,10 @@ export default {
         this.akun_bank = result.data;
 
         const status = document.querySelector(".status");
-        const code = document.querySelector(".anggota");
+        const anggota = document.querySelector(".anggota");
+        const pegawai = document.querySelector(".pegawai")
         const pekerjaan = document.querySelector(".pekerjaan");
+        const jabatan = document.querySelector(".jabatan");
         const bank = document.querySelector(".table-bank");
         const hr = document.querySelector(".hr");
         const simpanan = document.querySelector(".simpanan");
@@ -281,12 +283,15 @@ export default {
         let cnvrt = JSON.parse(user);
         if(cnvrt.role === "pegawai") {
             status.classList.add("hidden")
-            code.classList.add("hidden")
+            anggota.classList.add("hidden")
             pekerjaan.classList.add("hidden")
             bank.classList.add("hidden")
             hr.classList.add("hidden")
             simpanan.classList.add("hidden")
             pinjaman.classList.add("hidden")
+        } else if (cnvrt.role === "member") {
+            pegawai.classList.add("hidden")
+            jabatan.classList.add("hidden")
         }
 
         if(!user) {
