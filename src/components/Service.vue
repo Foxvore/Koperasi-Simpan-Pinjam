@@ -1,4 +1,5 @@
 <template>
+    <Header />
     <!-- ======= Layanan Section ======= -->
     <section id="layanan" class="layanan">
         <div class="l-container">
@@ -283,13 +284,20 @@
             </div>
         </section>
     </main>
+    <Footer />
 </template>
 
 <script>
+import Header from './Header.vue'
+import Footer from './Footer.vue'
 export default {
   name : "Service",
   mounted() {
     window.scrollTo(0,0)
+  },
+  components : {
+    Header,
+    Footer
   }
 };
 </script>
@@ -851,7 +859,7 @@ export default {
 
   #a-pinjam:before {
     left: 5%;
-    height: 190%;
+    height: 280%;
   }
 
   #a-simpan ul li,
@@ -988,7 +996,8 @@ export default {
 /*===== Phone S Responsive =====*/
 @media (max-width: 374px) {
   #list .icon-box {
-    margin: 0 50px;
+    width: 255px;
+    margin: 0 30px;
     padding: 25px 20px;
   }
 
