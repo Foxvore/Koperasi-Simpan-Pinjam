@@ -105,7 +105,7 @@
                                 </div>
                                 <div class="input-box">
                                     <span class="details">Pilih Bank Tujuan</span>
-                                    <input type="text" placeholder="No Rekening Koperasi (select option)">
+                                    <input type="text" placeholder="No Rekening Anggota (select option)">
                                 </div>
                             </div>
                             <hr>
