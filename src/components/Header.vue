@@ -1,16 +1,16 @@
 <template>
   <!-- ======= Header ======= -->
-	<header id="header" class="header fixed-top" v-on:scroll="scrollF"> <!-- header-scrolled -->
+	<header id="header" class="header fixed-top" v-on:scroll="scrollF">
 		<div class="container d-flex align-items-center justify-content-between">
 			<h1 class="logo"><a href="#"><b>E-COOP<span>.</span></b></a></h1>
 			<nav id="navbar" class="navbar">
 				<ul>
 					<li><router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link></li>
 					<li><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
-					<li><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpam</router-link></li>
+					<li><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link></li>
 					<li><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
 					<li class="profile"><router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link></li>
-					<li class="sign-up"><router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign Up</router-link></li>
+					<li class="sign-up"><router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign In</router-link></li>
 					<li class="logout"><a to="#" class="nav-link scrollto" v-on:click="logOut"><i class="bi bi-door-open-fill"></i>&nbsp;Log Out</a></li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle" v-on:click="mobileNav"></i>
@@ -38,9 +38,33 @@ export default {
       navbarToggle.classList.toggle('bi-x')
     },
     logOut() {
-      localStorage.clear();
-      alert("Log Out Success");
-      location.reload();
+      this.$swal({
+        title: 'Yakin Mau Log Out?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#289672',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Iya',
+        cancelButtonText: 'Tidak',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear();
+          const Toast = this.$swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Log Out Successfull!'
+          })
+          setTimeout(location.reload.bind(location), 1500);
+        }
+      })
     },
     scrollF() {
       var header = document.querySelector('.header')
@@ -272,13 +296,13 @@ export default {
   margin-right: 10px;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (min-width: 1000px) {
   #navbar i {
     display: none;
   }
-}
-
-.hidden {
-  display: none;
 }
 </style>
