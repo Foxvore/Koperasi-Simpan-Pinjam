@@ -207,16 +207,17 @@ export default {
     if(user) {
       daftar.classList.add('hidden')
       title.classList.remove('hidden')
-      subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
+      
+      let cnvrt = JSON.parse(user)
+      if(cnvrt.role === "pegawai") {
+        subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat (<b>E-COOP<span>.</span></b>)"
+      } else if(cnvrt.role === "member") {
+        subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
+      }
     } else if (!user) {
       daftar.classList.remove('hidden')
       title.classList.add('hidden')
     }
-
-    // let cnvrt = JSON.parse(user)
-    // if(cnvrt.role === "pegawai") {
-    //   subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat (<b>E-COOP<span>.</span></b>)"
-    // }
   }
 }
 </script>
