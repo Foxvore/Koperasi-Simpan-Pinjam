@@ -194,8 +194,12 @@ import Header from './Header.vue'
 import Footer from './Footer.vue'
 export default {
   name: "Home",
+  components : {
+    Header,
+    Footer
+  },
   mounted() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     let user = localStorage.getItem("user-info");
     const daftar = document.querySelector(".button");
     const subtitle = document.querySelector(".subjudul");
@@ -204,21 +208,17 @@ export default {
       daftar.classList.add('hidden')
       title.classList.remove('hidden')
       subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
-    } else {
+    } else if (!user) {
       daftar.classList.remove('hidden')
       title.classList.add('hidden')
     }
 
-    let cnvrt = JSON.parse(user);
-        if(cnvrt.role === "pegawai") {
-          subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat (<b>E-COOP<span>.</span></b>)"
-        }
-  },
-  components : {
-    Header,
-    Footer
-  },
-};
+    // let cnvrt = JSON.parse(user)
+    // if(cnvrt.role === "pegawai") {
+    //   subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat (<b>E-COOP<span>.</span></b>)"
+    // }
+  }
+}
 </script>
 
 <style scoped>
