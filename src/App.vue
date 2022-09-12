@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <Header />
 		<router-view /> 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <Footer />
 	</div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
 export default {
   name: 'App',
-  components : {
-    Header,
-    Footer
-  },
 }
 </script>
 
