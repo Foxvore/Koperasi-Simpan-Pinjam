@@ -4,7 +4,7 @@ import Service from './components/Service.vue'
 import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
 import Profile from './components/Profile.vue'
-import Pegawai from './components/Pegawai.vue'
+import PSimpan from './components/PSimpan.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -39,9 +39,9 @@ const routes = [
         path: '/profile'
     },
     {
-        name: 'Pegawai',
-        component: Pegawai,
-        path: '/pegawai'
+        name: 'PSimpan',
+        component: PSimpan,
+        path: '/psimpan'
     }
 ]
 
