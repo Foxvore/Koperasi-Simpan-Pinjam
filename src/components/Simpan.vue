@@ -1,4 +1,5 @@
 <template>
+    <Header />
     <!-- ====== Hero Section ====== -->
     <section id="h-simpan" class="h-simpan">
         <div class="l-container">
@@ -39,7 +40,7 @@
                                 <div class="value-container">
                                     <!-- <button class="minus"><i class="bi bi-dash" id="k-simpan"></i></button> -->
                                     <span id="j-simpan">Rp. 2.000.000</span>
-                                    <!-- <button class="plus"><i class="bi bi-plus" id="t-simpan"></i></button> -->
+                                    <!-- <button class="plus" v-on:click="plus"><i class="bi bi-plus" id="t-simpan"></i></button> -->
                                 </div>
                                 <input type="range" min="1" max="25" value="1" class="slider" id="s-simpan">
                             </div>
@@ -117,7 +118,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Jenis Kelamin</span>
-                                <select name="gender" id="gender" disabled>
+                                <select name="gender" id="gender" disabled class="form-select">
                                     <option value="0">Masukan Jenis Kelamin</option>
                                     <option value="laki-laki">Laki-Laki</option>
                                     <option value="perempuan">Perempuan</option>
@@ -125,7 +126,7 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Tempat Lahir</span>
-                                <select name="tempat" id="tempat" disabled>
+                                <select name="tempat" id="tempat" disabled class="form-select">
                                     <option value="0">Masukan Tempat Lahir</option>
                                 </select>
                             </div>
@@ -150,15 +151,170 @@
                 </div>
             </div>
         </section>
+
+        <!--===== Table Section =====-->
+        <section id="table" class="table">
+            <div class="container">
+                <h2><b><i>Pengajuan Simpanan</i></b></h2><br />
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a href="" id="btn-info"><i class="fa-solid fa-circle-info"></i></a>
+                                <a href="" id="btn-decline"><i class="fa-solid fa-xmark"></i></a>
+                                <a href="" id="btn-accept"><i class="fa-solid fa-check"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
+    <Footer />
 </template>
 
 <script>
+import Header from './Header.vue'
+import Footer from './Footer.vue'
 export default {
     name : 'Simpan',
     mounted() {
         window.scrollTo(0,0)
+        // Jumlah Simpanan
+        const jSimpan = document.getElementById("j-simpan");
+        const sSimpan = document.getElementById("s-simpan");
+        const tSimpan = document.getElementById("t-simpan");
+        sSimpan.addEventListener('input', function() {
+            switch (this.value) {
+                case '1':
+                    jSimpan.innerHTML = "Rp. 2.000.000" 
+                    tSimpan.value = "Rp. 2.000.000"
+                    break;
+                case '2':
+                    jSimpan.innerHTML = "Rp. 3.000.000"
+                    tSimpan.value = "Rp. 3.000.000"  
+                    break;
+                case '3':
+                    jSimpan.innerHTML = "Rp. 4.000.000"
+                    tSimpan.value = "Rp. 4.000.000"  
+                    break;
+                case '4':
+                    jSimpan.innerHTML = "Rp. 5.000.000" 
+                    tSimpan.value = "Rp. 5.000.000" 
+                    break;
+                case '5':
+                    jSimpan.innerHTML = "Rp. 6.000.000"
+                    tSimpan.value = "Rp. 6.000.000"  
+                    break;
+                case '6':
+                    jSimpan.innerHTML = "Rp. 7.000.000" 
+                    tSimpan.value = "Rp. 7.000.000" 
+                    break;
+                case '7':
+                    jSimpan.innerHTML = "Rp. 8.000.000"
+                    tSimpan.value = "Rp. 8.000.000"  
+                    break;
+                case '8':
+                    jSimpan.innerHTML = "Rp. 9.000.000"
+                    tSimpan.value = "Rp. 9.000.000"  
+                    break;
+                case '9':
+                    jSimpan.innerHTML = "Rp. 10.000.000"
+                    tSimpan.value = "Rp. 10.000.000"  
+                    break;
+                case '10':
+                    jSimpan.innerHTML = "Rp. 11.000.000"
+                    tSimpan.value = "Rp. 11.000.000" 
+                    break;
+                case '11':
+                    jSimpan.innerHTML = "Rp. 12.000.000"
+                    tSimpan.value = "Rp. 12.000.000" 
+                    break;
+                case '12':
+                    jSimpan.innerHTML = "Rp. 13.000.000"
+                    tSimpan.value = "Rp. 13.000.000" 
+                    break;
+                case '13':
+                    jSimpan.innerHTML = "Rp. 14.000.000"
+                    tSimpan.value = "Rp. 14.000.000" 
+                    break;
+                case '14':
+                    jSimpan.innerHTML = "Rp. 15.000.000"
+                    tSimpan.value = "Rp. 15.000.000" 
+                    break;
+                case '15':
+                    jSimpan.innerHTML = "Rp. 16.000.000"
+                    tSimpan.value = "Rp. 16.000.000" 
+                    break;
+                case '16':
+                    jSimpan.innerHTML = "Rp. 17.000.000"
+                    tSimpan.value = "Rp. 17.000.000" 
+                    break;
+                case '17':
+                    jSimpan.innerHTML = "Rp. 18.000.000"
+                    tSimpan.value = "Rp. 18.000.000" 
+                    break;
+                case '18':
+                    jSimpan.innerHTML = "Rp. 19.000.000"
+                    tSimpan.value = "Rp. 19.000.000" 
+                    break;
+                case '19':
+                    jSimpan.innerHTML = "Rp. 20.000.000"
+                    tSimpan.value = "Rp. 20.000.000" 
+                    break;
+                case '20':
+                    jSimpan.innerHTML = "Rp. 25.000.000"
+                    tSimpan.value = "Rp. 25.000.000"  
+                    break;
+                case '21':
+                    jSimpan.innerHTML = "Rp. 30.000.000"
+                    tSimpan.value = "Rp. 30.000.000"  
+                    break;
+                case '22':
+                    jSimpan.innerHTML = "Rp. 35.000.000"
+                    tSimpan.value = "Rp. 35.000.000"  
+                    break;
+                case '23':
+                    jSimpan.innerHTML = "Rp. 40.000.000"
+                    tSimpan.value = "Rp. 40.000.000"  
+                    break;
+                case '24':
+                    jSimpan.innerHTML = "Rp. 45.000.000"
+                    tSimpan.value = "Rp. 45.000.000"  
+                    break;
+                case '25':
+                    jSimpan.innerHTML = "Rp. 50.000.000"
+                    tSimpan.value = "Rp. 50.000.000"  
+                    break;
+                default:
+                    console.log('default');
+            };
+        })
+
+        // Tenor Simpan
+        const jsBulan = document.getElementById("js-bulan");
+        const ssBulan = document.getElementById("ss-bulan");
+        const jkSimpan = document.getElementById("jk-simpan");
+        ssBulan.addEventListener('input', function() {
+            jsBulan.innerHTML = this.value + " Bulan";
+            jkSimpan.value = this.value + " Bulan";
+        })
     },
+    components : {
+        Header,
+        Footer
+    }
 }
 </script>
 
@@ -405,6 +561,21 @@ form .button input {
   
 form .button input:hover {
     background: #ffc955;
+}
+
+#btn-info, 
+#btn-decline,
+#btn-accept {
+    font-size: 20px;
+    margin: 5px;
+    color: #000;
+    cursor: pointer;
+}
+
+#btn-info:hover, 
+#btn-decline:hover, 
+#btn-accept:hover {
+    color : #FFB037;
 }
 
 /*===== Large Laptop/PC Responsive  */
