@@ -1,0 +1,109 @@
+<template>
+    <Header />
+    <!-- ====== Hero Section ====== -->
+    <section id="h-simpan" class="h-simpan">
+        <div class="l-container">
+            <h2>Simpanan <b>E-COOP<span>.</span></b></h2><br>
+        </div>
+    </section>
+
+    <main id="main" class="main">
+        <!--===== Table Section =====-->
+        <section id="table" class="table">
+            <div class="container">
+                <h2><b><i>Pengajuan Simpanan</i></b></h2>
+                <br />
+        </section>
+    </main>
+</template>
+
+<script>
+import Header from './Header.vue'
+import Footer from './Footer.vue'
+export default {
+    name: 'PSimpan',
+    components : {
+        Header,
+        Footer
+    },
+    methods: {
+        
+    }
+};
+</script>
+
+<style scoped>
+/*===== Hero Section =====*/
+#h-simpan {
+    width: 100%;
+    height: 30vh;
+    background: url("../assets/bg-s.jpg") top center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    box-shadow: 2px 0 35px 0 rgba(68, 88, 144, 0.5);
+}
+
+#h-simpan:before {
+    content: "";
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+#h-simpan .l-container {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 15px;
+}
+
+#h-simpan h2 {
+    color: #fff;
+    font-size: 40px;
+    max-width: 80%;
+}
+
+@media (max-width: 786px) {
+    #h-simpan h2 {
+        font-size: 26px;
+        line-height: 24px;
+        margin-bottom: 30px;
+    }
+}
+
+/*===== Main Section =====*/
+.src-bar {
+    width: 30%;
+    margin-bottom: 20px;
+}
+
+#table-psimpan {
+    text-align: center;
+}
+
+#btn-info, 
+#btn-decline,
+#btn-accept {
+    font-size: 20px;
+    margin: 5px;
+    color: #000;
+    cursor: pointer;
+}
+
+#btn-info:hover, 
+#btn-decline:hover, 
+#btn-accept:hover {
+    color : #FFB037;
+}
+</style>
