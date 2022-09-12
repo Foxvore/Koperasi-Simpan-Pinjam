@@ -89,6 +89,7 @@ export default {
     var service = document.querySelector('.service')
     var simpan = document.querySelector('.simpan')
     var pinjam = document.querySelector('.pinjam')
+    var profile = document.querySelector('.profile')
     var signup = document.querySelector('.sign-up')
     var logout = document.querySelector('.logout')
     var psimpan = document.querySelector('.psimpan')
@@ -103,7 +104,7 @@ export default {
         simpan.classList.add('hidden')
         pinjam.classList.add('hidden')
       }
-    } else {
+    } else if (!user) {
       profile.classList.add('hidden')
       logout.classList.add('hidden')
       psimpan.classList.add('hidden')
