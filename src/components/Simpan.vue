@@ -151,35 +151,6 @@
                 </div>
             </div>
         </section>
-
-        <!--===== Table Section =====-->
-        <section id="table" class="table">
-            <div class="container">
-                <h2><b><i>Pengajuan Simpanan</i></b></h2><br />
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tanggal</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a href="" id="btn-info"><i class="fa-solid fa-circle-info"></i></a>
-                                <a href="" id="btn-decline"><i class="fa-solid fa-xmark"></i></a>
-                                <a href="" id="btn-accept"><i class="fa-solid fa-check"></i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
     </main>
     <Footer />
 </template>
