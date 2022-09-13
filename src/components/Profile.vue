@@ -117,7 +117,7 @@
                                                     <td>{{ item.bank }}</td>
                                                     <td>
                                                         <a id="btn-details" data-bs-toggle="modal" data-bs-target="#detailBank"><i class="fa-solid fa-circle-info"></i></a>
-                                                        <a href="" id="btn-delete"><i class="fa-solid fa-trash"></i></a>
+                                                        <a href="" id="btn-delete" v-on:click="deleteData(item.id)"><i class="fa-solid fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -263,9 +263,6 @@ export default {
             pill.classList.add('flex-column')
         }
 
-        let result = await axios.get("http://localhost:3000/bank");
-        this.akun_bank = result.data;
-
         const status = document.querySelector(".status");
         const anggota = document.querySelector(".anggota");
         const pegawai = document.querySelector(".pegawai")
@@ -297,6 +294,9 @@ export default {
         if(!user) {
             this.$router.push({name : 'Home'})
         }
+
+        let a_bank = await axios.get("http://localhost:3000/bank");
+        this.akun_bank = a_bank.data;
     },
     components : {
         Header,
@@ -341,6 +341,9 @@ export default {
                     title: 'Input Failed!'
                 })
             }
+        },
+        async deleteData(id) {
+            let result = await axios.delete("http://localhost:3000/bank/" + id);
         }
     }
 }
