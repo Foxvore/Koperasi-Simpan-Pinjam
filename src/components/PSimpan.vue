@@ -9,7 +9,7 @@
 
     <main id="main" class="main">
         <!--===== Table Section =====-->
-        <section id="data-table" class="data-table">
+        <section id="table-psimpan" class="table-psimpan">
             <div class="container">
                 <h2><b><i>Pengajuan Simpanan</i></b></h2>
                 <br />
@@ -21,6 +21,7 @@
                             <th>Jangka</th>
                             <th>No Telpon</th>
                             <th>No KTP</th>
+                            <th>Tanggal</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -31,7 +32,11 @@
                             <td>10 Bulan</td>
                             <td>085211616326</td>
                             <td>12345678910</td>
-                            <td>x v</td>
+                            <td>25-2-2023</td>
+                            <td>
+                                <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
+                                <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -51,9 +56,21 @@ export default {
         Footer
     },
     mounted() {
+        window.scrollTo(0,0)
+        
         $(document).ready(function () {
             $('#psimpan').DataTable();
         });
+
+        let user = localStorage.getItem("user-info");
+        if (!user) {
+            this.$router.push({name : 'Home'})
+        } else if (user) {
+            let cnvrt = JSON.parse(user);
+            if (cnvrt.role === "member") {
+                this.$router.push({name : 'Home'})
+            }
+        }
     }
 };
 </script>
@@ -109,4 +126,10 @@ export default {
 }
 
 /*===== Main Section =====*/
+.btn-decline i,
+.btn-accept i {
+    color: #000;
+    margin: 0 5px;
+    font-size: 18px;
+}
 </style>
