@@ -477,6 +477,16 @@ export default {
             jpBulan.innerHTML = this.value + " Bulan";
             jkPinjam.value = this.value + " Bulan";
         })
+
+        let user = localStorage.getItem("user-info");
+        if (!user) {
+            this.$router.push({name : 'Home'})
+        } else if (user) {
+            let cnvrt = JSON.parse(user);
+            if (cnvrt.role === "pegawai") {
+                this.$router.push({name : 'Home'})
+            }
+        }
     },
     components : {
         Header,
