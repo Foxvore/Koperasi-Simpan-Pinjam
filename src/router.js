@@ -4,6 +4,7 @@ import Service from './components/Service.vue'
 import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
 import Profile from './components/Profile.vue'
+import DAnggota from './components/DAnggota.vue'
 import PSimpan from './components/PSimpan.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -37,6 +38,11 @@ const routes = [
         name: 'Profile',
         component: Profile,
         path: '/profile'
+    },
+    {
+        name: 'DAnggota',
+        component: DAnggota,
+        path: '/danggota'
     },
     {
         name: 'PSimpan',
