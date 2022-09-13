@@ -5,7 +5,7 @@ import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
 import Profile from './components/Profile.vue'
 import DAnggota from './components/DAnggota.vue'
-import PSimpan from './components/PSimpan.vue'
+import Pengajuan from './components/Pengajuan.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -45,9 +45,9 @@ const routes = [
         path: '/danggota'
     },
     {
-        name: 'PSimpan',
-        component: PSimpan,
-        path: '/psimpan'
+        name: 'Pengajuan',
+        component: Pengajuan,
+        path: '/pengajuan'
     }
 ]
 
