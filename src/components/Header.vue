@@ -9,7 +9,7 @@
 					<li class="service"><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
 					<li class="danggota"><router-link to="/danggota" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Anggota</router-link></li>
 					<li class="simpan"><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link></li>
-					<li class="psimpan"><router-link to="/psimpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Simpanan</router-link></li>
+					<li class="pengajuan"><router-link to="/pengajuan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Transaksi</router-link></li>
 					<li class="pinjam"><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
 					<!-- <li class="ppinjam"><router-link to="/ppinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pengajuan Pinjaman</router-link></li> -->
 					<li class="profile"><router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link></li>
@@ -66,6 +66,7 @@ export default {
             title: 'Log Out Successfull!'
           })
           setTimeout(location.reload.bind(location), 1500);
+          this.$router.push({name : 'Home'})
         }
       })
     },
@@ -93,14 +94,15 @@ export default {
     var profile = document.querySelector('.profile')
     var signup = document.querySelector('.sign-up')
     var logout = document.querySelector('.logout')
-    var psimpan = document.querySelector('.psimpan')
+    var danggota = document.querySelector('.danggota')
+    var pengajuan = document.querySelector('.pengajuan')
     // var ppinjam = document.querySelector('.ppinjam')
     if (user) {
       signup.classList.add('hidden')
       let cnvrt = JSON.parse(user);
       if (cnvrt.role === "member") {
         danggota.classList.add('hidden')
-        psimpan.classList.add('hidden')
+        pengajuan.classList.add('hidden')
       } else if (cnvrt.role === "pegawai") {
         service.classList.add('hidden')
         simpan.classList.add('hidden')
@@ -109,7 +111,8 @@ export default {
     } else if (!user) {
       profile.classList.add('hidden')
       logout.classList.add('hidden')
-      psimpan.classList.add('hidden')
+      pengajuan.classList.add('hidden')
+      danggota.classList.add('hidden')
     }
   }
 }
