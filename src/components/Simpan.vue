@@ -144,7 +144,7 @@
                             </div>
                             <p class="text-muted">*Jika data diri anda tidak sesuai, silahkan ubah di halaman <a href="/profile">profile</a></p>
                         </div>
-                        <div class="button">
+                        <div class="button-submit">
                             <input type="submit" value="Ajukan Simpanan Berjangka">
                         </div>
                     </form>
@@ -282,14 +282,19 @@ export default {
             jkSimpan.value = this.value + " Bulan";
         })
 
+        const btn = document.querySelector('.button-submit')
+        const p_link = document.querySelector('.text-muted')
         let user = localStorage.getItem("user-info");
-        if (!user) {
-            this.$router.push({name : 'Home'})
-        } else if (user) {
+        if (user) {
+            btn.classList.remove("hidden")
+            p_link.classList.remove("hidden")
             let cnvrt = JSON.parse(user);
             if (cnvrt.role === "pegawai") {
                 this.$router.push({name : 'Home'})
             }
+        } else if (!user) {
+            btn.classList.add("hidden")
+            p_link.classList.add("hidden")
         }
     },
     components : {
@@ -521,12 +526,12 @@ form .input-box span.details {
     border-color: #FFB037;
 }
   
-form .button{
+form .button-submit{
     height: 45px;
     margin: 35px 0
 }
   
-form .button input {
+form .button-submit input {
     height: 100%;
     width: 100%;
     border-radius: 5px;
@@ -540,7 +545,7 @@ form .button input {
     background: #FFB037;
 }
   
-form .button input:hover {
+form .button-submit input:hover {
     background: #ffc955;
 }
 
@@ -604,7 +609,7 @@ form .button input:hover {
         font-size: 12px;
     }
 
-    form .button input {
+    form .button-submit input {
         font-size: 16px;
     }
 }
@@ -624,7 +629,7 @@ form .button input:hover {
         font-size: 12px;
     }
 
-    form .button input {
+    form .button-submit input {
         font-size: 13px;
     }
 }

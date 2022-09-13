@@ -275,24 +275,20 @@ export default {
         let user = localStorage.getItem("user-info");
         if(!user) {
             this.$router.push({name : 'Home'})
-        }
-        
-        let cnvrt = JSON.parse(user);
-        if(cnvrt.role === "pegawai") {
-            status.classList.add("hidden")
-            anggota.classList.add("hidden")
-            pekerjaan.classList.add("hidden")
-            bank.classList.add("hidden")
-            hr.classList.add("hidden")
-            simpanan.classList.add("hidden")
-            pinjaman.classList.add("hidden")
-        } else if (cnvrt.role === "member") {
-            pegawai.classList.add("hidden")
-            jabatan.classList.add("hidden")
-        }
-
-        if(!user) {
-            this.$router.push({name : 'Home'})
+        } else if (user) {
+            let cnvrt = JSON.parse(user);
+            if(cnvrt.role === "member") {
+                pegawai.classList.add("hidden")
+                jabatan.classList.add("hidden")
+            } else if(cnvrt.role === "pegawai") {
+                status.classList.add("hidden")
+                anggota.classList.add("hidden")
+                pekerjaan.classList.add("hidden")
+                bank.classList.add("hidden")
+                hr.classList.add("hidden")
+                simpanan.classList.add("hidden")
+                pinjaman.classList.add("hidden")
+            }
         }
 
         let a_bank = await axios.get("http://localhost:3000/bank");
