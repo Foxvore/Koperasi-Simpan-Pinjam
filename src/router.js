@@ -4,7 +4,7 @@ import Service from './components/Service.vue'
 import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
 import Profile from './components/Profile.vue'
-import DAnggota from './components/DAnggota.vue'
+import Anggota from './components/Anggota.vue'
 import Pengajuan from './components/Pengajuan.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -40,9 +40,9 @@ const routes = [
         path: '/profile'
     },
     {
-        name: 'DAnggota',
-        component: DAnggota,
-        path: '/danggota'
+        name: 'Anggota',
+        component: Anggota,
+        path: '/anggota'
     },
     {
         name: 'Pengajuan',
