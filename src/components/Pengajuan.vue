@@ -13,26 +13,34 @@
             <div class="container">
                 <h2><b><i>Daftar Pengajuan</i></b></h2>
                 <br />
-                <table id="psimpan" class="table table-striped table-hover" style="width:100%">
+                <table id="transaksi" class="table table-striped responsive nowrap table-hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>No Transaksi</th>
+                            <th>Id Anggota</th>
                             <th>Nama</th>
                             <th>Jumlah</th>
+                            <th>Jangka</th>
                             <th>No Telpon</th>
                             <th>Tanggal</th>
                             <th>Jenis</th>
+                            <th>Pekerjaan</th>
+                            <th>Bank</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>S001</td>
+                            <td>A004</td>
                             <td>Irham Maulana Johani</td>
                             <td>Rp. 10.000.000</td>
+                            <td>5 Bulan</td>
                             <td>085211616326</td>
-                            <td>25-2-2023</td>
-                            <td>Simpanan</td>
+                            <td>25 Oktober 22</td>
+                            <td>Simpanan Berjangka</td>
+                            <td>Dokter</td>
+                            <td>BSI - 123456778910</td>
                             <td>
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
@@ -40,11 +48,15 @@
                         </tr>
                         <tr>
                             <td>P001</td>
+                            <td>A004</td>
                             <td>Irham Maulana Johani</td>
                             <td>Rp. 50.000.000</td>
+                            <td>12 Bulan</td>
                             <td>085211616326</td>
-                            <td>25-2-2023</td>
+                            <td>30 Desember 22</td>
                             <td>Pinjaman</td>
+                            <td>Dokter</td>
+                            <td>Mandiri - 12345678910</td>
                             <td>
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
@@ -70,9 +82,26 @@ export default {
     mounted() {
         window.scrollTo(0,0)
         
-        $(document).ready(function () {
-            $('#psimpan').DataTable();
-        });
+        $(document).ready(function() {
+            $('#transaksi').DataTable( {
+                "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal( {
+                            header: function ( row ) {
+                                var data = row.data();
+                                return 'Details for '+data[1];
+                            }
+
+
+                        } ),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                            tableClass: 'table'
+                        } )
+                    }
+                }
+            } );
+        } );
 
         let user = localStorage.getItem("user-info");
         if (!user) {
@@ -141,7 +170,11 @@ export default {
 .btn-decline i,
 .btn-accept i {
     color: #000;
-    margin: 0 5px;
     font-size: 18px;
+}
+
+.btn-decline i:hover,
+.btn-accept i:hover {
+    color: #FFB037;
 }
 </style>
