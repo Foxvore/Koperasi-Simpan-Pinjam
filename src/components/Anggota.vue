@@ -12,7 +12,7 @@
             <div class="container">
                 <h2><b><i>Daftar Anggota</i></b></h2>
                 <br />
-                <table id="danggota" class="table table-striped responsive nowrap table-hover" style="width:100%">
+                <table id="anggota" class="table table-striped responsive nowrap table-hover" style="width:100%">
                     <thead>
                         <tr>
                             <th>No Anggota</th>
@@ -130,7 +130,7 @@ export default {
         window.scrollTo(0,0)
         
         $(document).ready(function() {
-            $('#danggota').DataTable( {
+            $('#anggota').DataTable( {
                 "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
                 responsive: {
                     details: {
@@ -222,9 +222,5 @@ export default {
 .btn-decline i:hover,
 .btn-accept i:hover {
     color: #FFB037;
-}
-
-.modal {
-    width : 1000px;
 }
 </style>
