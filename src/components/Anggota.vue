@@ -164,6 +164,7 @@ export default {
 </script>
 
 <style scoped>
+/*===== Hero Section =====*/
 #h-anggota {
     width: 100%;
     height: 30vh;
