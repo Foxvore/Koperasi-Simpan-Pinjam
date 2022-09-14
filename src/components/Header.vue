@@ -7,7 +7,8 @@
 				<ul>
 					<li class="home"><router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link></li>
 					<li class="service"><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
-					<li class="danggota"><router-link to="/anggota" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Anggota</router-link></li>
+					<li class="pegawai"><router-link to="/pegawai" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Pegawai</router-link></li>
+					<li class="anggota"><router-link to="/anggota" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Anggota</router-link></li>
 					<li class="simpan"><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link></li>
 					<li class="pengajuan"><router-link to="/pengajuan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Transaksi</router-link></li>
 					<li class="pinjam"><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
@@ -94,14 +95,16 @@ export default {
     var profile = document.querySelector('.profile')
     var signup = document.querySelector('.sign-up')
     var logout = document.querySelector('.logout')
-    var danggota = document.querySelector('.danggota')
+    var anggota = document.querySelector('.anggota')
+    var pegawai = document.querySelector('.pegawai')
     var pengajuan = document.querySelector('.pengajuan')
     // var ppinjam = document.querySelector('.ppinjam')
     if (user) {
       signup.classList.add('hidden')
       let cnvrt = JSON.parse(user);
       if (cnvrt.role === "member") {
-        danggota.classList.add('hidden')
+        anggota.classList.add('hidden')
+        pegawai.classList.add('hidden')
         pengajuan.classList.add('hidden')
       } else if (cnvrt.role === "pegawai") {
         service.classList.add('hidden')
@@ -112,7 +115,8 @@ export default {
       profile.classList.add('hidden')
       logout.classList.add('hidden')
       pengajuan.classList.add('hidden')
-      danggota.classList.add('hidden')
+      anggota.classList.add('hidden')
+      pegawai.classList.add('hidden')
     }
   }
 }
