@@ -295,8 +295,7 @@ export default {
 }
 
 @media (min-width: 1024px) {
-  #home,
-  #layanan {
+  #home {
     background-attachment: fixed;
   }
 }
