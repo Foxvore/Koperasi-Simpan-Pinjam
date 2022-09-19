@@ -44,7 +44,7 @@ span {
 
 /*===== Custom Scrollbar =====*/
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
