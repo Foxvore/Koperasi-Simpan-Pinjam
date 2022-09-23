@@ -12,44 +12,51 @@
 
             <li class="nav-item">
                 <router-link to="/dashboard" class="nav-link">
-                    <i class="bi bi-grid"></i>
+                    <i class="fa-solid fa-cubes"></i>
                     <span>Dashboard</span>
                 </router-link>
             </li>
 
             <li class="nav-item">
-                <router-link to="/" class="nav-link">
-                    <i class="bi bi-person"></i>
+                <router-link to="/a-akun" class="nav-link">
+                    <i class="fa-solid fa-user-lock"></i>
+                    <span>Akun Pegawai</span>
+                </router-link>
+            </li>
+
+            <li class="nav-item">
+                <router-link to="/a-pegawai" class="nav-link">
+                    <i class="fa-solid fa-user-tie"></i>
                     <span>Pegawai</span>
                 </router-link>
             </li>
 
             <li class="nav-item">
-                <router-link to="/" class="nav-link">
-                    <i class="bi bi-question-circle"></i>
+                <router-link to="/a-anggota" class="nav-link">
+                    <i class="fa-solid fa-users"></i>
                     <span>Anggota</span>
                 </router-link>
             </li>
 
             <li class="nav-item">
-                <router-link to="/" class="nav-link">
-                    <i class="bi bi-envelope"></i>
+                <router-link to="/a-simpanan" class="nav-link">
+                    <i class="bi bi-safe2-fill"></i>
                     <span>Simpanan</span>
                 </router-link>
             </li>
 
             <li class="nav-item">
-                <router-link to="/" class="nav-link">
-                    <i class="bi bi-card-list"></i>
+                <router-link to="/a-pinjaman" class="nav-link">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
                     <span>Pinjaman</span>
                 </router-link>
             </li>
 
-            <li class="nav-item">
-                <router-link to="/" class="nav-link">
-                    <i class="bi bi-box-arrow-in-right"></i>
+            <li class="nav-item logout" v-on:click="logOut">
+                <a class="nav-link">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     <span>Logout</span>
-                </router-link>
+                </a>
             </li>
         </ul>
     </aside>
@@ -57,7 +64,39 @@
 
 <script>
 export default {
-    name: "Sidebar"
+    name: "Sidebar",
+    methods: {
+        logOut() {
+            this.$swal({
+                title: 'Yakin Mau Log Out?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#289672',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Iya',
+                cancelButtonText: 'Tidak',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                localStorage.clear();
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Log Out Successfull!'
+                })
+                setTimeout(location.reload.bind(location), 1500);
+                this.$router.push({name : 'Home'})
+                }
+            })
+            }
+    }
 }
 </script>
 
@@ -101,7 +140,7 @@ export default {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
-  box-shadow: 0px 0px 20px rgba(19, 23, 31, 0.5);
+  box-shadow: 0px 0px 20px rgba(19, 23, 31, 0.3);
   background-color: #fff;
 }
 
@@ -204,5 +243,9 @@ export default {
 
 .sidebar-nav .nav-link:not(.collapsed) .bi-chevron-down {
   transform: rotate(180deg);
+}
+
+ul li {
+    cursor: pointer;
 }
 </style>

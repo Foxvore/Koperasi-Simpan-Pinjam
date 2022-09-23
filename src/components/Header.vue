@@ -5,17 +5,36 @@
 			<h1 class="logo"><a href="#"><b>E-COOP<span>.</span></b></a></h1>
 			<nav id="navbar" class="navbar">
 				<ul>
-					<li class="home"><router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link></li>
-					<li class="service"><router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link></li>
-					<li class="pegawai"><router-link to="/pegawai" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Pegawai</router-link></li>
-					<li class="anggota"><router-link to="/anggota" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Anggota</router-link></li>
-					<li class="simpan"><router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link></li>
-					<li class="pengajuan"><router-link to="/pengajuan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Transaksi</router-link></li>
-					<li class="pinjam"><router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link></li>
-					<!-- <li class="ppinjam"><router-link to="/ppinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pengajuan Pinjaman</router-link></li> -->
-					<li class="profile"><router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link></li>
-					<li class="sign-up"><router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign In</router-link></li>
-					<li class="logout"><a to="#" class="nav-link scrollto" v-on:click="logOut"><i class="bi bi-door-open-fill"></i>&nbsp;Log Out</a></li>
+					<li class="home">
+            <router-link to="/" class="nav-link scrollto"><i class="fa-solid fa-house"></i>&nbsp;Homepage</router-link>
+          </li>
+					<li class="service">
+            <router-link to="/service" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Layanan</router-link>
+          </li>
+					<li class="pegawai">
+            <router-link to="/pegawai" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Pegawai</router-link>
+          </li>
+					<li class="anggota">
+            <router-link to="/anggota" class="nav-link scrollto"><i class="fa-solid fa-hands-holding"></i>&nbsp;Anggota</router-link>
+          </li>
+					<li class="simpan">
+            <router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link>
+          </li>
+					<li class="pengajuan">
+            <router-link to="/pengajuan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Transaksi</router-link>
+          </li>
+					<li class="pinjam">
+            <router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link>
+          </li>
+					<li class="profile">
+            <router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link>
+          </li>
+					<li class="sign-up">
+            <router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign In</router-link>
+          </li>
+					<li class="logout">
+            <a to="#" class="nav-link scrollto" v-on:click="logOut"><i class="bi bi-door-open-fill"></i>&nbsp;Log Out</a>
+          </li>
 				</ul>
 				<i class="bi bi-list mobile-nav-toggle" v-on:click="mobileNav"></i>
 			</nav>
@@ -98,7 +117,6 @@ export default {
     var anggota = document.querySelector('.anggota')
     var pegawai = document.querySelector('.pegawai')
     var pengajuan = document.querySelector('.pengajuan')
-    // var ppinjam = document.querySelector('.ppinjam')
     if (user) {
       signup.classList.add('hidden')
       let cnvrt = JSON.parse(user);
@@ -106,10 +124,15 @@ export default {
         anggota.classList.add('hidden')
         pegawai.classList.add('hidden')
         pengajuan.classList.add('hidden')
-      } else if (cnvrt.role === "pegawai") {
+      } else if (cnvrt.role === "pimpinan") {
         service.classList.add('hidden')
         simpan.classList.add('hidden')
         pinjam.classList.add('hidden')
+      } else if (cnvrt.role === "staff") {
+        service.classList.add('hidden')
+        simpan.classList.add('hidden')
+        pinjam.classList.add('hidden')
+        pegawai.classList.add('hidden')
       }
     } else if (!user) {
       profile.classList.add('hidden')
@@ -144,10 +167,6 @@ export default {
   color: #fff;
   font-size: 40px;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 3);
-}
-
-#header .logo img {
-  max-height: 40px;
 }
 
 #header.header-scrolled,

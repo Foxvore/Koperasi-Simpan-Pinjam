@@ -209,10 +209,12 @@ export default {
       title.classList.remove('hidden')
       
       let cnvrt = JSON.parse(user)
-      if(cnvrt.role === "pegawai") {
-        subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat (<b>E-COOP<span>.</span></b>)"
+      if(cnvrt.role === "pimpinan" || cnvrt.role === "staff") {
+        subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat - <b>E-COOP<span>.</span></b>"
       } else if(cnvrt.role === "member") {
         subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
+      } else if (cnvrt.role === "admin") {
+        this.$router.push({name : 'Dashboard'})
       }
     } else if (!user) {
       daftar.classList.remove('hidden')

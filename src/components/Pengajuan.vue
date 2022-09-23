@@ -90,7 +90,7 @@ export default {
                         display: $.fn.dataTable.Responsive.display.modal( {
                             header: function ( row ) {
                                 var data = row.data();
-                                return 'Details for '+data[1];
+                                return 'Details for '+data[0];
                             }
 
 
@@ -100,8 +100,8 @@ export default {
                         } )
                     }
                 }
-            } );
-        } );
+            });
+        });
 
         let user = localStorage.getItem("user-info");
         if (!user) {
@@ -110,6 +110,8 @@ export default {
             let cnvrt = JSON.parse(user);
             if (cnvrt.role === "member") {
                 this.$router.push({name : 'Home'})
+            } else if (cnvrt.role === "admin") {
+                this.$router.push({name : 'Dashboard'})
             }
         }
     }
@@ -120,7 +122,7 @@ export default {
 /*===== Hero Section =====*/
 #h-pengajuan {
     width: 100%;
-    height: 30vh;
+    height: 33vh;
     background: url("../assets/bg-pj.jpg") top center;
     background-size: cover;
     position: relative;

@@ -39,11 +39,11 @@
                                 <div class="content">
                                     <form action="#">
                                         <div class="user-details">
-                                            <div class="input-box pegawai">
+                                            <div class="input-box staff">
                                                 <span class="details">Nomor Pegawai</span>
                                                 <input type="text" placeholder="Masukan Nomor Pegawai" required>
                                             </div>
-                                            <div class="input-box anggota">
+                                            <div class="input-box member">
                                                 <span class="details">Nomor Anggota</span>
                                                 <input type="text" placeholder="Masukan Nomor Anggota" required>
                                             </div>
@@ -73,9 +73,7 @@
                                             </div>
                                             <div class="input-box teml">
                                                 <span class="details">Tempat Lahir</span>
-                                                <select name="tempat" id="tempat" class="form-select">
-                                                    <option value="0">Masukan Tempat Lahir</option>
-                                                </select>
+                                                <input type="text" placeholder="e.g Kabupaten/Kota, Provinsi" required>
                                             </div>
                                             <div class="input-box tangl">
                                                 <span class="details">Tanggal Lahir</span>
@@ -95,7 +93,7 @@
                                             </div>
                                         </div>
                                         <div class="button">
-                                            <input type="submit" value="Ajukan Perubahan Data Diri">
+                                            <input type="submit" value="Ajukan Perubahan Data Diri" class="submit">
                                         </div>
                                     </form>
                                     <hr class="hr">
@@ -103,21 +101,19 @@
                                         <div id="btn-bank">
                                             <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputBank"><i class="bi bi-safe2"></i> Tambah Bank</a>
                                         </div>
-                                        <table class="table" id="table-bank">
+                                        <table id="bank" class="table">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Bank</th>
-                                                    <th scope="col">Action</th>
+                                                    <td>Bank</td>
+                                                    <td class="action">Action</td>
                                                 </tr>
                                             </thead>
                                             <tbody class="table-group-divider">
                                                 <tr v-for="item in akun_bank" :key="item.id">
-                                                    <th>{{ item.id }}</th>
                                                     <td>{{ item.bank }}</td>
-                                                    <td>
-                                                        <a id="btn-details" data-bs-toggle="modal" data-bs-target="#detailBank"><i class="fa-solid fa-circle-info"></i></a>
-                                                        <a href="" id="btn-delete" v-on:click="deleteData(item.id)"><i class="fa-solid fa-trash"></i></a>
+                                                    <td class="action">
+                                                        <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
+                                                        <button id="btn-delete" v-on:click="deleteData(item.id)"><i class="fa-solid fa-trash"></i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -165,26 +161,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="detailBank" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="title">Bank Details</div>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" v-for="item in akun_bank" :key="item.id">
-                                            <div class="details">
-                                                <p>Bank : {{ item.bank }}</p>
-                                                <p>Nomor Rekening : {{ item.no_rek }}</p>
-                                                <p>Pemilik : {{ item.pemilik }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-simpan" role="tabpanel" aria-labelledby="v-pills-simpan-tab" tabindex="0">
                             <div class="containers1" id="containers1">
@@ -210,12 +186,92 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <hr>
+                                    <div class="container">
+                                        <table id="simpanan" class="table table-striped responsive nowrap table-hover" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Id Simpanan</th>
+                                                    <th>Status</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Jangka</th>
+                                                    <th>Per Bulan</th>
+                                                    <th>Menuju Selesai</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>S001</td>
+                                                    <td>Selesai</td>
+                                                    <td>Rp. 15.000.000</td>
+                                                    <td>5 Bulan</td>
+                                                    <td>Rp. 3.000.000</td>
+                                                    <td>Rp. 0.000.000</td>
+                                                    <td><a href="" class="btn-bayar hidden"><i class="bi bi-safe"></i> Simpan</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>S002</td>
+                                                    <td>Proses</td>
+                                                    <td>Rp. 10.000.000</td>
+                                                    <td>10 Bulan</td>
+                                                    <td>Rp. 1.000.000</td>
+                                                    <td>Rp. 3.000.000</td>
+                                                    <td class="action">
+                                                        <div class="btn-bayar">
+                                                            <a href=""><i class="bi bi-safe"></i> Simpan</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-pinjam" role="tabpanel" aria-labelledby="v-pills-pinjam-tab" tabindex="0">
                             <div class="containers1" id="containers1">
                                 <div class="title">Pinjamanmu</div>
+                                <br>
+                                <div class="container">
+                                    <table id="pinjaman" class="table table-striped responsive nowrap table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id Pinjaman</th>
+                                                <th>Status</th>
+                                                <th>Jumlah</th>
+                                                <th>Jangka</th>
+                                                <th>Per Bulan</th>
+                                                <th>Menuju Lunas</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>P001</td>
+                                                <td>Lunas</td>
+                                                <td>Rp. 15.000.000</td>
+                                                <td>5 Bulan</td>
+                                                <td>Rp. 3.000.000</td>
+                                                <td>Rp. 0.000.000</td>
+                                                <td><a href="" class="btn-bayar hidden"><i class="bi bi-cash-stack"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>P002</td>
+                                                <td>Proses</td>
+                                                <td>Rp. 10.000.000</td>
+                                                <td>10 Bulan</td>
+                                                <td>Rp. 1.000.000</td>
+                                                <td>Rp. 3.000.000</td>
+                                                <td class="action">
+                                                    <div class="btn-bayar">
+                                                        <a href=""><i class="bi bi-cash-stack"></i> Bayar</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -240,7 +296,7 @@ export default {
             bank:"",
             no_rek: "",
             pemilik: "",
-            akun_bank: []
+            akun_bank: [],
         };
     },
     validations() {
@@ -264,14 +320,15 @@ export default {
         }
 
         const status = document.querySelector(".status");
-        const anggota = document.querySelector(".anggota");
-        const pegawai = document.querySelector(".pegawai")
+        const anggota = document.querySelector(".member");
+        const pegawai = document.querySelector(".staff")
         const pekerjaan = document.querySelector(".pekerjaan");
         const jabatan = document.querySelector(".jabatan");
         const bank = document.querySelector(".table-bank");
         const hr = document.querySelector(".hr");
         const simpanan = document.querySelector(".simpanan");
         const pinjaman = document.querySelector(".pinjaman");
+        const btn_submit = document.querySelector(".submit");
         let user = localStorage.getItem("user-info");
         if(!user) {
             this.$router.push({name : 'Home'})
@@ -280,7 +337,7 @@ export default {
             if(cnvrt.role === "member") {
                 pegawai.classList.add("hidden")
                 jabatan.classList.add("hidden")
-            } else if(cnvrt.role === "pegawai") {
+            } else if(cnvrt.role === "pimpinan" || cnvrt.role === "staff") {
                 status.classList.add("hidden")
                 anggota.classList.add("hidden")
                 pekerjaan.classList.add("hidden")
@@ -288,11 +345,54 @@ export default {
                 hr.classList.add("hidden")
                 simpanan.classList.add("hidden")
                 pinjaman.classList.add("hidden")
+                btn_submit.value = "Edit Data Diri"
+            } else if (cnvrt.role === "admin") {
+                this.$router.push({name : 'Dashboard'})
             }
         }
 
         let a_bank = await axios.get("http://localhost:3000/bank");
         this.akun_bank = a_bank.data;
+
+        $(document).ready(function() {
+            $('#pinjaman').DataTable( {
+                "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal( {
+                            header: function ( row ) {
+                                var data = row.data();
+                                return 'Details for '+data[2];
+                            }
+
+                        }),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                            tableClass: 'table'
+                        })
+                    }
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            $('#simpanan').DataTable( {
+                "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
+                responsive: {
+                    details: {
+                        display: $.fn.dataTable.Responsive.display.modal( {
+                            header: function ( row ) {
+                                var data = row.data();
+                                return 'Details for '+data[2];
+                            }
+
+                        }),
+                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                            tableClass: 'table'
+                        })
+                    }
+                }
+            });
+        });
     },
     components : {
         Header,
@@ -340,7 +440,52 @@ export default {
         },
         async deleteData(id) {
             let result = await axios.delete("http://localhost:3000/bank/" + id);
-        }
+        },
+        async showInfo(id) {
+            let a_bank = await axios.get("http://localhost:3000/bank/" + id);
+            var modalWrap = null;
+            if (modalWrap !== null) {
+                modalWrap.remove();
+            }
+
+            modalWrap = document.createElement('div');
+            modalWrap.innerHTML = `
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Info Bank ${a_bank.data.bank}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Bank : ${a_bank.data.bank} </p>
+                                <p>No Rekening : ${a_bank.data.no_rek} </p>
+                                <p>Nama Pemilik : ${a_bank.data.pemilik} </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.append(modalWrap);
+
+            var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+            modal.show();
+        },
+        showHide() {
+            const noRek = document.querySelector('#noRek');
+            const show_btn = document.querySelector('#show');
+            if (noRek.type === "password") {
+                noRek.type = "text";
+                show_btn.classList.add("hide");
+            } else {
+                noRek.type = "password";
+                show_btn.classList.remove("hide");
+            }
+        },
     }
 }
 </script>
@@ -568,30 +713,50 @@ div #btn-bank:hover,
     color: #000;
 }
 
-.modal-body {
-    padding: 0 16px;
-}
-
-#table-bank {
-    text-align: center;
-    margin: 0 auto;
-}
-
-#btn-details, 
-#btn-delete {
+#btn-delete,
+#btn-info {
     font-size: 20px;
     margin: 5px;
     color: #000;
     cursor: pointer;
+    border: none;
+    background: transparent;
 }
 
-#btn-details:hover, 
-#btn-delete:hover {
+#btn-delete:hover,
+#btn-info:hover {
     color : #FFB037;
 }
 
-#detailBank .modal-body {
-    padding: 10px 16px;
+.btn-bayar a {
+    color: #000;
+}
+
+.btn-bayar i {
+    color: #000;
+    font-size: 20px;
+}
+
+#bank .action {
+    text-align: center;
+}
+
+#noRek {
+    border: none;
+    background: none;
+}
+
+.show-hide i {
+    color: rgb(71, 71, 71, 0.6);
+    cursor: pointer;
+}
+
+.show-hide i:hover {
+   color: #000; 
+}
+
+.show-hide i.hide:before {
+    content: '\f070';
 }
 
 .hidden {
@@ -670,8 +835,7 @@ div #btn-bank:hover,
     #containers1 {
         width: 100%;
     }
-
-    #btn-details, 
+ 
     #btn-delete {
         font-size: 16px;
     }
@@ -723,7 +887,6 @@ div #btn-bank:hover,
         width: 100%;
     }
 
-    #btn-details, 
     #btn-delete {
         font-size: 16px;
     }
@@ -775,7 +938,6 @@ div #btn-bank:hover,
         width: 100%;
     }
 
-    #btn-details, 
     #btn-delete {
         font-size: 15px;
     }

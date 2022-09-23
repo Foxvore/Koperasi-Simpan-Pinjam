@@ -294,6 +294,16 @@ export default {
   name : "Service",
   mounted() {
     window.scrollTo(0,0)
+
+    let user = localStorage.getItem("user-info");
+    if (user) {
+      let cnvrt = JSON.parse(user);
+      if (cnvrt.role === "pimpinan" || cnvrt.role === "staff") {
+        this.$router.push({name : 'Home'})
+      } else if (cnvrt.role === "admin") {
+        this.$router.push({name : 'Dashboard'})
+      }
+    }
   },
   components : {
     Header,
@@ -344,15 +354,23 @@ export default {
   max-width: 80%;
 }
 
-@media (max-width: 786px) {
+@media (max-width: 1000px) {
   #layanan {
-    height: 50vh;
+    height: 100vh;
+    background-attachment: fixed;
   }
 
   #layanan h2 {
-    font-size: 26px;
+    font-size: 40px;
     line-height: 24px;
     margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  #layanan h2 {
+    font-size: 28px;
+    line-height: 30px;
   }
 }
 

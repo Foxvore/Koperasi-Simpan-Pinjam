@@ -16,46 +16,49 @@
                     <thead>
                         <tr>
                             <th>No Anggota</th>
+                            <th>Status</th>
                             <th>Nama</th>
-                            <th>No KTP</th>
                             <th>No Telpon</th>
+                            <th>No KTP</th>
                             <th>Email</th>
                             <th>Gender</th>
+                            <th>Pekerjaan</th>
                             <th>Tempat Lahir</th>
                             <th>Tanggal Lahir</th>
                             <th>Alamat</th>
-                            <th>Pekerjaan</th>
-                            <th>Action</th>
+                            <th id="action">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>A001</td>
+                            <td>Active</td>
                             <td>Ammar Ayyis Azizan</td>
-                            <td>12345678910</td>
                             <td>081234567890</td>
+                            <td>12345678910</td>
                             <td>ammarngambek@gmail.com</td>
                             <td>Laki-Laki</td>
+                            <td>Web Development</td>
                             <td>Rumah Sakit</td>
                             <td>35 Oktober 1945</td>
                             <td>jl. mulu tapi beda agama no 13</td>
-                            <td>Web Development</td>
-                            <td>
+                            <td id="action">
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>A002</td>
+                            <td>Waiting</td>
                             <td>Aulia Salsabila</td>
-                            <td>12345678910</td>
                             <td>081234567890</td>
+                            <td>12345678910</td>
                             <td>aullelah@gmail.com</td>
-                            <td>Laki-Laki</td>
+                            <td>Perempuan</td>
+                            <td>Web Development</td>
                             <td>Rumah Sendiri</td>
                             <td>33 Agustus 1945</td>
                             <td>jl. tapi gaada kenangan no 30</td>
-                            <td>Web Development</td>
                             <td>
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
@@ -63,15 +66,16 @@
                         </tr>
                         <tr>
                             <td>A003</td>
+                            <td>Waiting</td>
                             <td>Mochammad Tegar Santoso</td>
-                            <td>12345678910</td>
                             <td>081234567890</td>
+                            <td>12345678910</td>
                             <td>tegarhitz@gmail.com</td>
                             <td>Laki-Laki</td>
+                            <td>Web Development</td>
                             <td>Bidan Tetangga</td>
                             <td>40 April 1945</td>
                             <td>jl. banyak duit makannya jalan no 21</td>
-                            <td>Web Development</td>
                             <td>
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
@@ -79,15 +83,16 @@
                         </tr>
                         <tr>
                             <td>A004</td>
+                            <td>Active</td>
                             <td>Irham Maulana Johani</td>
-                            <td>12345678910</td>
                             <td>081234567890</td>
+                            <td>12345678910</td>
                             <td>irhamcapek@gmail.com</td>
                             <td>Laki-Laki</td>
+                            <td>Web Development</td>
                             <td>Bidan Orang</td>
                             <td>31 Februari 1945</td>
                             <td>jl. doang jadian kagak no 25</td>
-                            <td>Web Development</td>
                             <td>
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
@@ -95,20 +100,21 @@
                         </tr>
                         <tr>
                             <td>A005</td>
+                            <td>Waiting</td>
                             <td>Muhammad Kasyifan Al Haadiy</td>
-                            <td>12345678910</td>
                             <td>081234567890</td>
+                            <td>12345678910</td>
                             <td>sipansesatk@gmail.com</td>
                             <td>Laki-Laki</td>
-                            <td>Rumah Orang</td>
-                            <td>-1 Agustus 1945</td>
-                            <td>jl. besoknya beda orang no 24</td>
                             <td>Web Development</td>
+                            <td>Rumah Orang</td>
+                            <td>42 Agustus 1945</td>
+                            <td>jl. besoknya beda orang no 24</td>
                             <td>
                                 <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
                                 <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -128,7 +134,7 @@ export default {
     },
     mounted() {
         window.scrollTo(0,0)
-        
+
         $(document).ready(function() {
             $('#anggota').DataTable( {
                 "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
@@ -137,26 +143,26 @@ export default {
                         display: $.fn.dataTable.Responsive.display.modal( {
                             header: function ( row ) {
                                 var data = row.data();
-                                return 'Details for '+data[1];
-                            }
-
-
-                        } ),
+                                return 'Details for '+data[2];
+                            },
+                        }),
                         renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
                             tableClass: 'table'
-                        } )
+                        })
                     }
                 }
-            } );
-        } );
+            });
+        });
 
-        let user = localStorage.getItem("user-info");
+        let user = localStorage.getItem("user-info"); 
         if (!user) {
             this.$router.push({name : 'Home'})
         } else if (user) {
             let cnvrt = JSON.parse(user);
             if (cnvrt.role === "member") {
                 this.$router.push({name : 'Home'})
+            } else if (cnvrt.role === "admin") {
+                this.$router.push({name : 'Dashboard'})
             }
         }
     }
@@ -167,7 +173,7 @@ export default {
 /*===== Hero Section =====*/
 #h-anggota {
     width: 100%;
-    height: 30vh;
+    height: 33vh;
     background: url("../assets/bg-da.jpg") top center;
     background-size: cover;
     position: relative;

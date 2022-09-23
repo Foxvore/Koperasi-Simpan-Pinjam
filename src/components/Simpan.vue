@@ -42,7 +42,7 @@
                                     <span id="j-simpan">Rp. 2.000.000</span>
                                     <!-- <button class="plus" v-on:click="plus"><i class="bi bi-plus" id="t-simpan"></i></button> -->
                                 </div>
-                                <input type="range" min="1" max="25" value="1" class="slider" id="s-simpan">
+                                <input type="range" min="1" max="25" class="slider" id="s-simpan" value="1">
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-6">
@@ -50,10 +50,10 @@
                             <div class="slider-container">
                                 <div class="value-container">
                                     <!-- <button class="minus"><i class="bi bi-dash" id="k-bulan"></i></button> -->
-                                    <span id="js-bulan">1 Bulan</span>
+                                    <span id="js-bulan" >1 Bulan</span>
                                     <!-- <button class="plus"><i class="bi bi-plus" id="t-bulan"></i></button> -->
                                 </div>
-                                <input type="range" min="1" max="12" value="1" class="slider" id="ss-bulan">
+                                <input type="range" min="1" max="12" class="slider" id="ss-bulan" value="1">
                             </div>
                         </div>
                     </div>
@@ -63,19 +63,19 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Bonus Per Bulan</h5>
-                            <span class="card-text" id="b-bonus">Rp. 15.000</span>
+                            <span class="card-text" id="b-bonus">Rp. 0</span>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Total Bonus</h5>
-                            <span class="card-text" id="t-bonus">Rp. 15.000</span>
+                            <span class="card-text" id="t-bonus">Rp. 0</span>
                         </div>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Jumlah Akhir Simpanan</h5>
-                            <span class="card-text" id="s-akhir">Rp. 2.015.000</span>
+                            <span class="card-text" id="s-akhir">Rp. 0</span>
                         </div>
                     </div>
                 </div>
@@ -90,35 +90,39 @@
                     <form action="#">
                         <div class="simpan-details">
                             <div class="input-box">
-                                <span class="details">Jumlah Simpanan</span>
-                                <input type="text" placeholder="Jumlah Simpanan" id="t-simpan" value="Rp. 2.000.000" disabled>
+                                <span class="details">Jumlah Simpanan (Rupiah)</span>
+                                <input type="text" placeholder="Jumlah Simpanan" id="t-simpan" readonly>
                             </div>
                             <div class="input-box">
-                                <span class="details">Jangka Waktu</span>
-                                <input type="text" placeholder="Jangka Waktu" id="jk-simpan" value="1 Bulan" disabled>
+                                <span class="details">Jangka Waktu (Bulan)</span>
+                                <input type="text" placeholder="Jangka Waktu" id="jk-simpan" readonly>
                             </div>
                             <div class="input-box">
                                 <span class="details">Pilih Bank Tujuan</span>
                                 <input type="text" placeholder="No Rekening Koperasi (select option)">
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Upload Foto KTP</span>
+                                <input type="file" class="input-file form-control form-control-lg">
                             </div>
                         </div>
                         <hr>
                         <div class="user-details">
                             <div class="input-box">
                                 <span class="details">Nama</span>
-                                <input type="text" placeholder="Masukan Nama" disabled>
+                                <input type="text" placeholder="Masukan Nama" readonly>
                             </div>
                             <div class="input-box">
                                 <span class="details">Nomor KTP</span>
-                                <input type="text" placeholder="Masukan No KTP" disabled>
+                                <input type="text" placeholder="Masukan No KTP" readonly>
                             </div>
                             <div class="input-box">
                                 <span class="details">Nomor Telfon</span>
-                                <input type="text" placeholder="Masukan No Telp" disabled>
+                                <input type="text" placeholder="Masukan No Telp" readonly>
                             </div>
                             <div class="input-box">
                                 <span class="details">Jenis Kelamin</span>
-                                <select name="gender" id="gender" disabled class="form-select">
+                                <select name="gender" id="gender" class="form-select" disabled>
                                     <option value="0">Masukan Jenis Kelamin</option>
                                     <option value="laki-laki">Laki-Laki</option>
                                     <option value="perempuan">Perempuan</option>
@@ -126,21 +130,21 @@
                             </div>
                             <div class="input-box">
                                 <span class="details">Tempat Lahir</span>
-                                <select name="tempat" id="tempat" disabled class="form-select">
+                                <select name="tempat" id="tempat" class="form-select" disabled>
                                     <option value="0">Masukan Tempat Lahir</option>
                                 </select>
                             </div>
                             <div class="input-box">
                                 <span class="details">Tanggal Lahir</span>
-                                <input type="date" disabled>
+                                <input type="date" readonly>
                             </div>
                             <div class="input-box">
                                 <span class="details">Alamat</span>
-                                <input type="text" placeholder="Masukan Alamat" disabled>
+                                <input type="text" placeholder="Masukan Alamat" readonly>
                             </div>
                             <div class="input-box">
                                 <span class="details">Pekerjaan</span>
-                                <input type="text" placeholder="Masukan Pekerjaan (select option)" disabled>
+                                <input type="text" placeholder="Masukan Pekerjaan (select option)" readonly>
                             </div>
                             <p class="text-muted">*Jika data diri anda tidak sesuai, silahkan ubah di halaman <a href="/profile">profile</a></p>
                         </div>
@@ -160,126 +164,132 @@ import Header from './Header.vue'
 import Footer from './Footer.vue'
 export default {
     name : 'Simpan',
+    components : {
+        Header,
+        Footer
+    },
     mounted() {
         window.scrollTo(0,0)
+
         // Jumlah Simpanan
-        const jSimpan = document.getElementById("j-simpan");
         const sSimpan = document.getElementById("s-simpan");
         const tSimpan = document.getElementById("t-simpan");
+        const jSimpan = document.getElementById("j-simpan");
         sSimpan.addEventListener('input', function() {
             switch (this.value) {
                 case '1':
                     jSimpan.innerHTML = "Rp. 2.000.000" 
-                    tSimpan.value = "Rp. 2.000.000"
+                    tSimpan.value = 2000000
                     break;
                 case '2':
                     jSimpan.innerHTML = "Rp. 3.000.000"
-                    tSimpan.value = "Rp. 3.000.000"  
+                    tSimpan.value = 3000000
                     break;
                 case '3':
                     jSimpan.innerHTML = "Rp. 4.000.000"
-                    tSimpan.value = "Rp. 4.000.000"  
+                    tSimpan.value = 4000000  
                     break;
                 case '4':
                     jSimpan.innerHTML = "Rp. 5.000.000" 
-                    tSimpan.value = "Rp. 5.000.000" 
+                    tSimpan.value = 5000000
                     break;
                 case '5':
                     jSimpan.innerHTML = "Rp. 6.000.000"
-                    tSimpan.value = "Rp. 6.000.000"  
+                    tSimpan.value = 6000000
                     break;
                 case '6':
                     jSimpan.innerHTML = "Rp. 7.000.000" 
-                    tSimpan.value = "Rp. 7.000.000" 
+                    tSimpan.value = 7000000
                     break;
                 case '7':
                     jSimpan.innerHTML = "Rp. 8.000.000"
-                    tSimpan.value = "Rp. 8.000.000"  
+                    tSimpan.value = 8000000
                     break;
                 case '8':
                     jSimpan.innerHTML = "Rp. 9.000.000"
-                    tSimpan.value = "Rp. 9.000.000"  
+                    tSimpan.value = 9000000 
                     break;
                 case '9':
                     jSimpan.innerHTML = "Rp. 10.000.000"
-                    tSimpan.value = "Rp. 10.000.000"  
+                    tSimpan.value = 10000000 
                     break;
                 case '10':
                     jSimpan.innerHTML = "Rp. 11.000.000"
-                    tSimpan.value = "Rp. 11.000.000" 
+                    tSimpan.value = 11000000
                     break;
                 case '11':
                     jSimpan.innerHTML = "Rp. 12.000.000"
-                    tSimpan.value = "Rp. 12.000.000" 
+                    tSimpan.value = 12000000
                     break;
                 case '12':
                     jSimpan.innerHTML = "Rp. 13.000.000"
-                    tSimpan.value = "Rp. 13.000.000" 
+                    tSimpan.value = 13000000
                     break;
                 case '13':
                     jSimpan.innerHTML = "Rp. 14.000.000"
-                    tSimpan.value = "Rp. 14.000.000" 
+                    tSimpan.value = 14000000
                     break;
                 case '14':
                     jSimpan.innerHTML = "Rp. 15.000.000"
-                    tSimpan.value = "Rp. 15.000.000" 
+                    tSimpan.value = 15000000
                     break;
                 case '15':
                     jSimpan.innerHTML = "Rp. 16.000.000"
-                    tSimpan.value = "Rp. 16.000.000" 
+                    tSimpan.value = 16000000
                     break;
                 case '16':
                     jSimpan.innerHTML = "Rp. 17.000.000"
-                    tSimpan.value = "Rp. 17.000.000" 
+                    tSimpan.value = 17000000
                     break;
                 case '17':
                     jSimpan.innerHTML = "Rp. 18.000.000"
-                    tSimpan.value = "Rp. 18.000.000" 
+                    tSimpan.value = 18000000
                     break;
                 case '18':
                     jSimpan.innerHTML = "Rp. 19.000.000"
-                    tSimpan.value = "Rp. 19.000.000" 
+                    tSimpan.value = 19000000
                     break;
                 case '19':
                     jSimpan.innerHTML = "Rp. 20.000.000"
-                    tSimpan.value = "Rp. 20.000.000" 
+                    tSimpan.value = 20000000
                     break;
                 case '20':
                     jSimpan.innerHTML = "Rp. 25.000.000"
-                    tSimpan.value = "Rp. 25.000.000"  
+                    tSimpan.value = 25000000 
                     break;
                 case '21':
                     jSimpan.innerHTML = "Rp. 30.000.000"
-                    tSimpan.value = "Rp. 30.000.000"  
+                    tSimpan.value = 30000000 
                     break;
                 case '22':
                     jSimpan.innerHTML = "Rp. 35.000.000"
-                    tSimpan.value = "Rp. 35.000.000"  
+                    tSimpan.value = 35000000 
                     break;
                 case '23':
                     jSimpan.innerHTML = "Rp. 40.000.000"
-                    tSimpan.value = "Rp. 40.000.000"  
+                    tSimpan.value = 40000000 
                     break;
                 case '24':
                     jSimpan.innerHTML = "Rp. 45.000.000"
-                    tSimpan.value = "Rp. 45.000.000"  
+                    tSimpan.value = 45000000
                     break;
                 case '25':
                     jSimpan.innerHTML = "Rp. 50.000.000"
-                    tSimpan.value = "Rp. 50.000.000"  
+                    tSimpan.value = 50000000
                     break;
                 default:
                     console.log('default');
             };
         })
 
-        // Tenor Simpan
+        // Tenor Simpanan
         const jsBulan = document.getElementById("js-bulan");
         const ssBulan = document.getElementById("ss-bulan");
         const jkSimpan = document.getElementById("jk-simpan");
         ssBulan.addEventListener('input', function() {
+            let value = (this.value-this.min)/(this.max-this.min)*100
             jsBulan.innerHTML = this.value + " Bulan";
-            jkSimpan.value = this.value + " Bulan";
+            jkSimpan.value = parseInt(this.value);
         })
 
         const btn = document.querySelector('.button-submit')
@@ -289,17 +299,15 @@ export default {
             btn.classList.remove("hidden")
             p_link.classList.remove("hidden")
             let cnvrt = JSON.parse(user);
-            if (cnvrt.role === "pegawai") {
+            if (cnvrt.role === "pimpinan" || cnvrt.role === "staff") {
                 this.$router.push({name : 'Home'})
+            } else if (cnvrt.role === "admin") {
+                this.$router.push({name : 'Dashboard'})
             }
         } else if (!user) {
             btn.classList.add("hidden")
             p_link.classList.add("hidden")
         }
-    },
-    components : {
-        Header,
-        Footer
     }
 }
 </script>
@@ -346,11 +354,23 @@ export default {
     max-width: 80%;
 }
 
-@media (max-width: 786px) {
+@media (max-width: 1000px) {
+    #h-simpan {
+        height: 100vh;
+        background-attachment: fixed;
+    }
+
     #h-simpan h2 {
-        font-size: 26px;
+        font-size: 40px;
         line-height: 24px;
         margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    #h-simpan h2 {
+        font-size: 28px;
+        line-height: 30px;
     }
 }
 
@@ -562,6 +582,14 @@ form .button-submit input:hover {
 #btn-decline:hover, 
 #btn-accept:hover {
     color : #FFB037;
+}
+
+.input-file::-webkit-file-upload-button {
+    height: 44px;
+}
+
+.hidden {
+    display: none;
 }
 
 /*===== Large Laptop/PC Responsive  */
