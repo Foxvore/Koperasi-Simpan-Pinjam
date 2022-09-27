@@ -11,9 +11,9 @@ import Dashboard from './components/Dashboard.vue'
 import A_Akun from './components/A-Akun.vue'
 import A_Pegawai from './components/A-Pegawai.vue'
 import A_Anggota from './components/A-Anggota.vue'
+import Jabatan_Pekerjaan from './components/Jabatan-Pekerjaan.vue'
 import A_Simpanan from './components/A-Simpanan.vue'
 import A_Pinjaman from './components/A-Pinjaman.vue'
-import Api from './components/Api.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -83,6 +83,11 @@ const routes = [
         path: '/a-anggota'
     },
     {
+        name: 'Jabatan-Pekerjaan',
+        component: Jabatan_Pekerjaan,
+        path: '/jabatan-pekerjaan'
+    },
+    {
         name: 'A-Simpanan',
         component: A_Simpanan,
         path: '/a-simpanan'
@@ -91,11 +96,6 @@ const routes = [
         name: 'A-Pinjaman',
         component: A_Pinjaman,
         path: '/a-pinjaman'
-    },
-    {
-        name: 'Api',
-        component: Api,
-        path: '/api'
     }
 ]
 
