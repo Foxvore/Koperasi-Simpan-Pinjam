@@ -13,128 +13,121 @@
         </div>
 
         <section>
-            <div class="container">
-                <table id="pegawai" class="table table-striped responsive nowrap table-hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>No Pegawai</th>
-                            <th>Jabatan</th>
-                            <th>Nama</th>
-                            <th>No Telpon</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Tempat Lahir</th>
-                            <th>Tanggal Lahir</th>
-                            <th>No KTP</th>
-                            <th>Alamat</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>A001</td>
-                            <td>Admin</td>
-                            <td>Ammar Ayyis Azizan</td>
-                            <td>081234567890</td>
-                            <td>ammarngambek@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Rumah Sakit</td>
-                            <td>35 Oktober 1945</td>
-                            <td>12345678910</td>
-                            <td>jl. mulu tapi beda agama no 13</td>
-                        </tr>
-                        <tr>
-                            <td>S001</td>
-                            <td>Staff</td>
-                            <td>Aulia Salsabila</td>
-                            <td>081234567890</td>
-                            <td>aullelah@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Rumah Sendiri</td>
-                            <td>33 Agustus 1945</td>
-                            <td>12345678910</td>
-                            <td>jl. tapi gaada kenangan no 30</td>
-                        </tr>
-                        <tr>
-                            <td>S002</td>
-                            <td>Staff</td>
-                            <td>Mochammad Tegar Santoso</td>
-                            <td>081234567890</td>
-                            <td>tegarhitz@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Bidan Tetangga</td>
-                            <td>40 April 1945</td>
-                            <td>12345678910</td>
-                            <td>jl. banyak duit makannya jalan no 21</td>
-                        </tr>
-                        <tr>
-                            <td>P001</td>
-                            <td>Pimpinan</td>
-                            <td>Irham Maulana Johani</td>
-                            <td>081234567890</td>
-                            <td>irhamcapek@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Bidan Orang</td>
-                            <td>31 Februari 1945</td>
-                            <td>jl. doang jadian kagak no 25</td>
-                            <td>12345678910</td>
-                        </tr>
-                        <tr>
-                            <td>S003</td>
-                            <td>Staff</td>
-                            <td>Muhammad Kasyifan Al Haadiy</td>
-                            <td>081234567890</td>
-                            <td>sipansesatk@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Rumah Orang</td>
-                            <td>-1 Agustus 1945</td>
-                            <td>12345678910</td>
-                            <td>jl. besoknya beda orang no 24</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!--===== Table Nama Bank =====-->
+            <div class="card card-pegawai">
+                <div class="table-bank">
+                    <table id="bank" class="table">
+                        <thead>
+                            <tr>
+                                <th>No Pegawai</th>
+                                <th>Jabatan</th>
+                                <th>Nama</th>
+                                <th>No Telpon</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th class="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr v-for="item in pegawai" :key="item.id">
+                                <td>{{ item.no_pegawai }}</td>
+                                <td>{{ item.m_jabatan.jabatan }}</td>
+                                <td>{{ item.nama }}</td>
+                                <td>{{ item.no_hp }}</td>
+                                <td>{{ item.email }}</td>
+                                <td>{{ item.gender }}</td>
+                                <td class="action">
+                                    <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
+                                    <!-- <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
 </template>
 
 <script>
+import axios from 'axios'
 import Sidebar from './Sidebar.vue'
 export default {
     name: "A-Pegawai",
     components : {
         Sidebar
     },
-    mounted() {
-        $(document).ready(function() {
-            $('#pegawai').DataTable( {
-                "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
-                responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal( {
-                            header: function ( row ) {
-                                var data = row.data();
-                                return 'Details for '+data[2];
-                            }
-
-
-                        } ),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
-                            tableClass: 'table'
-                        } )
-                    }
-                }
-            });
-        });
-
-        let user = localStorage.getItem("user-info");
-        if (!user) {
+    async mounted() {
+        
+        var kuki = $cookies.get("jwt")
+        if (!kuki) {
             this.$router.push({name : 'Home'})
-        } else if (user) {
-            let cnvrt = JSON.parse(user);
-            if (cnvrt.role === "member" || cnvrt.role === "staff" || cnvrt.role === "pimpinan") {
+        }
+        
+        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        if(acc) { // Login        
+            if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
+            } 
+        } 
+
+        this.getPegawai();
+    },
+    data() {
+        return {
+            pegawai: []
+        }
+    },
+    methods: {
+        async getPegawai() {
+            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai");
+            this.pegawai = pegawai.data.data;
+        },
+        async deletePegawai(id) {
+            let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
+            if (result.status === 200) {
+                this.getPegawai();
             }
+        },
+        async showInfo(id) {
+            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai?search=" + id, {withCredentials: true});
+            var modalWrap = null;
+            if (modalWrap !== null) {
+                modalWrap.remove();
+            }
+
+            modalWrap = document.createElement('div');
+            modalWrap.innerHTML = `
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Datails for ${pegawai.data.data[0].nama}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>No Pegawai : ${pegawai.data.data[0].no_pegawai} </p>
+                                <p>Jabatan : ${pegawai.data.data[0].m_jabatan.jabatan} </p>
+                                <p>Nama : ${pegawai.data.data[0].nama} </p>
+                                <p>No Telpon : ${pegawai.data.data[0].no_hp} </p>
+                                <p>Email : ${pegawai.data.data[0].email} </p>
+                                <p>Gender : ${pegawai.data.data[0].gender} </p>
+                                <p>Tempat Lahir : ${pegawai.data.data[0].tempat_lahir} </p>
+                                <p>Tanggal Lahir : ${pegawai.data.data[0].tanggal_lahir} </p>
+                                <p>Alamat : ${pegawai.data.data[0].alamat} </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.append(modalWrap);
+
+            var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+            modal.show();
         }
     }
 };
@@ -186,5 +179,30 @@ section {
     background: #fff;
     border-radius: 10px;
     padding: 15px;
+}
+
+/* Table Section */
+.card-pegawai {
+    padding: 10px;
+    background: #fff;
+    border: none;
+    width: 100%;
+}
+
+#btn-info {
+    font-size: 20px;
+    margin: 5px;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+#btn-info:hover {
+    color : #FFB037;
+}
+
+.action {
+    text-align: center;
 }
 </style>

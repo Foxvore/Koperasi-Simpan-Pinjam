@@ -39,6 +39,13 @@
             </li>
 
             <li class="nav-item">
+                <router-link to="/jabatan-pekerjaan" class="nav-link">
+                    <i class="bi bi-safe2-fill"></i>
+                    <span>Jabatan & Pekerjaan</span>
+                </router-link>
+            </li>
+
+            <li class="nav-item">
                 <router-link to="/a-simpanan" class="nav-link">
                     <i class="bi bi-safe2-fill"></i>
                     <span>Simpanan</span>
@@ -63,39 +70,40 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: "Sidebar",
     methods: {
-        logOut() {
-            this.$swal({
-                title: 'Yakin Mau Log Out?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#289672',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Iya',
-                cancelButtonText: 'Tidak',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                localStorage.clear();
-                const Toast = this.$swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 1500,
-                    timerProgressBar: true,
-                })
+      logOut() {
+        this.$swal({
+          title: 'Yakin Mau Log Out?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#289672',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Iya',
+          cancelButtonText: 'Tidak',
+          reverseButtons: true
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+              await axios.get("http://localhost:8080/api/v1/logout", {withCredentials: true});
+              const Toast = this.$swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 2000,
+                  timerProgressBar: true,
+              })
 
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Log Out Successfull!'
-                })
-                setTimeout(location.reload.bind(location), 1500);
-                this.$router.push({name : 'Home'})
-                }
-            })
-            }
+              Toast.fire({
+                  icon: 'success',
+                  title: 'Log Out Successfull!'
+              })
+            setTimeout(location.reload.bind(location), 2000);
+            this.$router.push({name : 'Home'})
+          }
+        })
+      }
     }
 }
 </script>

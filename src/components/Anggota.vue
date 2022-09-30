@@ -12,111 +12,35 @@
             <div class="container">
                 <h2><b><i>Daftar Anggota</i></b></h2>
                 <br />
-                <table id="anggota" class="table table-striped responsive nowrap table-hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>No Anggota</th>
-                            <th>Status</th>
-                            <th>Nama</th>
-                            <th>No Telpon</th>
-                            <th>No KTP</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Pekerjaan</th>
-                            <th>Tempat Lahir</th>
-                            <th>Tanggal Lahir</th>
-                            <th>Alamat</th>
-                            <th id="action">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>A001</td>
-                            <td>Active</td>
-                            <td>Ammar Ayyis Azizan</td>
-                            <td>081234567890</td>
-                            <td>12345678910</td>
-                            <td>ammarngambek@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Web Development</td>
-                            <td>Rumah Sakit</td>
-                            <td>35 Oktober 1945</td>
-                            <td>jl. mulu tapi beda agama no 13</td>
-                            <td id="action">
-                                <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
-                                <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
-                            </td>
-                        </tr>
-                        <!-- <tr>
-                            <td>A002</td>
-                            <td>Waiting</td>
-                            <td>Aulia Salsabila</td>
-                            <td>081234567890</td>
-                            <td>12345678910</td>
-                            <td>aullelah@gmail.com</td>
-                            <td>Perempuan</td>
-                            <td>Web Development</td>
-                            <td>Rumah Sendiri</td>
-                            <td>33 Agustus 1945</td>
-                            <td>jl. tapi gaada kenangan no 30</td>
-                            <td>
-                                <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
-                                <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>A003</td>
-                            <td>Waiting</td>
-                            <td>Mochammad Tegar Santoso</td>
-                            <td>081234567890</td>
-                            <td>12345678910</td>
-                            <td>tegarhitz@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Web Development</td>
-                            <td>Bidan Tetangga</td>
-                            <td>40 April 1945</td>
-                            <td>jl. banyak duit makannya jalan no 21</td>
-                            <td>
-                                <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
-                                <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>A004</td>
-                            <td>Active</td>
-                            <td>Irham Maulana Johani</td>
-                            <td>081234567890</td>
-                            <td>12345678910</td>
-                            <td>irhamcapek@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Web Development</td>
-                            <td>Bidan Orang</td>
-                            <td>31 Februari 1945</td>
-                            <td>jl. doang jadian kagak no 25</td>
-                            <td>
-                                <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
-                                <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>A005</td>
-                            <td>Waiting</td>
-                            <td>Muhammad Kasyifan Al Haadiy</td>
-                            <td>081234567890</td>
-                            <td>12345678910</td>
-                            <td>sipansesatk@gmail.com</td>
-                            <td>Laki-Laki</td>
-                            <td>Web Development</td>
-                            <td>Rumah Orang</td>
-                            <td>42 Agustus 1945</td>
-                            <td>jl. besoknya beda orang no 24</td>
-                            <td>
-                                <a href="" class="btn-decline"><i class="fa-solid fa-xmark"></i></a>
-                                <a href="" class="btn-accept"><i class="fa-solid fa-check"></i></a>
-                            </td>
-                        </tr> -->
-                    </tbody>
-                </table>
+                <div class="table-bank">
+                    <table id="bank" class="table">
+                        <thead>
+                            <tr>
+                                <th>No Anggota</th>
+                                <th>Nama</th>
+                                <th>Pekerjaan</th>
+                                <th>No Telpon</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th class="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr v-for="item in anggota" :key="item.id">
+                                <td>{{ item.no_anggota }}</td>
+                                <td>{{ item.nama }}</td>
+                                <td>{{ item.m_pekerjaan.pekerjaan }}</td>
+                                <td>{{ item.no_hp }}</td>
+                                <td>{{ item.email }}</td>
+                                <td>{{ item.gender }}</td>
+                                <td class="action">
+                                    <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
+                                    <!-- <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
@@ -124,6 +48,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 export default {
@@ -132,38 +57,81 @@ export default {
         Header,
         Footer
     },
-    mounted() {
+    async mounted() {
         window.scrollTo(0,0)
 
-        $(document).ready(function() {
-            $('#anggota').DataTable( {
-                "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
-                responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal( {
-                            header: function ( row ) {
-                                var data = row.data();
-                                return 'Details for '+data[2];
-                            },
-                        }),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
-                            tableClass: 'table'
-                        })
-                    }
-                }
-            });
-        });
-
-        let user = localStorage.getItem("user-info"); 
-        if (!user) {
+        var kuki = $cookies.get("jwt")
+        if (!kuki) {
             this.$router.push({name : 'Home'})
-        } else if (user) {
-            let cnvrt = JSON.parse(user);
-            if (cnvrt.role === "member") {
-                this.$router.push({name : 'Home'})
-            } else if (cnvrt.role === "admin") {
+        }
+
+        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        if(acc) { // Login        
+            if (acc.data.data.role === 1 ) { // Admin
                 this.$router.push({name : 'Dashboard'})
+            } else if (acc.data.data.role === 4) { // Member
+                this.$router.push({name : 'Home'})
             }
+        }
+
+        this.getAnggota();
+    },
+    data() {
+        return {
+            anggota: []
+        }
+    },
+    methods: {
+        async getAnggota() {
+            let anggota = await axios.get("http://localhost:8080/api/v1/anggota");
+            this.anggota = anggota.data.data;
+        },
+        async deleteAnggota(id) {
+            let result = await axios.delete("http://localhost:8080/api/v1/anggota/" + id);
+            if (result.status === 200) {
+                this.getAnggota();
+            }
+        },
+        async showInfo(id) {
+            let anggota = await axios.get("http://localhost:8080/api/v1/anggota?search=" + id, {withCredentials: true});
+            var modalWrap = null;
+            if (modalWrap !== null) {
+                modalWrap.remove();
+            }
+
+            modalWrap = document.createElement('div');
+            modalWrap.innerHTML = `
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Datails for ${anggota.data.data[0].nama}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>No Pegawai : ${anggota.data.data[0].no_pegawai} </p>
+                                <p>Nama : ${anggota.data.data[0].nama} </p>
+                                <p>Jabatan : ${anggota.data.data[0].m_pekerjaan.pekerjaan} </p>
+                                <p>No Telpon : ${anggota.data.data[0].no_hp} </p>
+                                <p>Email : ${anggota.data.data[0].email} </p>
+                                <p>Gender : ${anggota.data.data[0].gender} </p>
+                                <p>No KTP : ${anggota.data.data[0].no_ktp} </p>
+                                <p>Tempat Lahir : ${anggota.data.data[0].tempat_lahir} </p>
+                                <p>Tanggal Lahir : ${anggota.data.data[0].tanggal_lahir} </p>
+                                <p>Alamat : ${anggota.data.data[0].alamat} </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.append(modalWrap);
+
+            var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
+            modal.show();
         }
     }
 }

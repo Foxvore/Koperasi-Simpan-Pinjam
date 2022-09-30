@@ -65,13 +65,12 @@ export default {
             email:"",
             password: "",
             confirm: "",
-            role: "member"
         };
     },
     validations() {
         return {
             email: { required, email },
-            password: { required, minLength: minLength(6) },
+            password: { required, minLength: minLength(8) },
             confirm: { required, sameAs: sameAs(this.password) }
         };
     },
@@ -83,10 +82,9 @@ export default {
         async signUp() {
             this.v$.$validate();
             if (!this.v$.$error) {
-                let result = await axios.post('http://localhost:3000/users', {
+                let result = await axios.post('http://localhost:8080/api/v1/signup', {
                     email: this.email,
                     password: this.password,
-                    role: this.role, 
                 });
                 if (result.status === 201) {
                     const Toast = this.$swal.mixin({
@@ -101,8 +99,9 @@ export default {
                         icon: 'success',
                         title: 'Sign Up Successfull!'
                     })
-                    localStorage.setItem("user-info", JSON.stringify(result.data));
-                    this.$router.push({name : 'Home'})
+                    this.$router.push({name : 'SignUp'})
+                    var containers = document.querySelector('.containers')
+                    containers.classList.remove('active')
                 } 
             } else {
                 const Toast = this.$swal.mixin({
@@ -117,12 +116,15 @@ export default {
                     icon: 'error',
                     title: 'Sign Up Failed!'
                 })
-             }
+            }
         },
         async login() {
             this.v$.$validate();
-            let result = await axios.get(`http://localhost:3000/users?email=${this.email}&password=${this.password}`)
-            if (result.status === 200 && result.data.length > 0) {
+            let result = await axios.post(`http://localhost:8080/api/v1/login`, {
+                email: this.email,
+                password: this.password,
+            }, {withCredentials: true});
+            if (result.status === 200 && result.data.status === "Success") {
                 const Toast = this.$swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -135,7 +137,6 @@ export default {
                     icon: 'success',
                     title: 'Login Successfull!'
                 })
-                localStorage.setItem("user-info", JSON.stringify(result.data[0]));
                 this.$router.push({name : 'Home'})
             } else {
                 const Toast = this.$swal.mixin({
@@ -184,13 +185,13 @@ export default {
                 pass_field.type = "password";
                 show_btn.classList.remove("hide");
             }
-        }
+        },  
     },
-    mounted() {
-        let user = localStorage.getItem("user-info");
-        if(user) {
+    async mounted() {
+        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        if(acc.status === 200) {
             this.$router.push({name : 'Home'})
-        };
+        }
     }
 }
 </script>

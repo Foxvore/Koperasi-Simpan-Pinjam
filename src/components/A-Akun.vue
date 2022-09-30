@@ -13,71 +13,185 @@
         </div>
 
         <section class="section akun">
-            <div class="container">
-                <table id="babi" class="table table-striped responsive nowrap table-hover" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Password</th>
-                            <th>Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Josh</td>
-                            <td>josh@test.com</td>
-                            <td>josh123</td>
-                            <td>Leader</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!--===== Table Rekening Bank =====-->
+            <div class="card card-akun">
+                <div class="table-akun">
+                    <div id="btn-akun">
+                        <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputAkun"><i class="fa-solid fa-user-lock"></i> Tambah Akun Pegawai</a>
+                    </div>
+                    <table id="akun" class="table">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Role</th>
+                                <th class="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr v-for="item in akun" :key="item.id">
+                                <td>{{ item.nama }}</td>
+                                <td>{{ item.m_akun.email }}</td>
+                                <td>
+                                    <input type="password" :value="item.m_akun.password" readonly>
+                                </td>
+                                <td>{{ item.m_akun.m_role.role }}</td>
+                                <td class="action">
+                                    <button id="btn-delete" v-on:click="deleteRekening(item.id)"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--===== Modal Akun =====-->
+            <div class="modal fade" id="inputAkun" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="title">Daftar Akun Pegawai</div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="akun-details">
+                                    <div class="input-box">
+                                        <span class="details">Email</span>
+                                        <input type="email" placeholder="Masukan Email" required v-model="email" autocomplete="off">
+                                        <span v-if="v$.email.$error" id="error">
+                                            {{ v$.email.$errors[0].$message }}
+                                        </span>
+                                    </div>
+                                    <div class="input-box">
+                                        <span class="details">Password</span>
+                                        <input type="password" placeholder="Masukan Password" required v-model="password" autocomplete="off">
+                                        <span v-if="v$.password.$error" id="error">
+                                            {{ v$.password.$errors[0].$message }}
+                                        </span>
+                                    </div>
+                                    <div class="input-box">
+                                        <span class="details">Jabatan</span>
+                                        <select class="form-select" v-model="id_jabatan" >
+                                            <option v-for="item in jabatan" :key="item.id" :value="item.id">
+                                                {{ item.jabatan }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-submit" v-on:click="addAkun">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 </template>
 
 <script>
+import axios from 'axios'
+import useValidate from '@vuelidate/core'
+import { required, email, minLength } from '@vuelidate/validators'
 import Sidebar from './Sidebar.vue'
 export default {
     name: "A-Akun",
     components : {
         Sidebar
     },
-    mounted() {
-        $(document).ready(function() {
-            $('#babi').DataTable( {
-                "lengthMenu": [ [5, 10, 25, 50, 100, -1], [5, 10, 25, 50, 100, "All"] ],
-                responsive: {
-                    details: {
-                        display: $.fn.dataTable.Responsive.display.modal( {
-                            header: function ( row ) {
-                                var data = row.data();
-                                return 'Details for '+data[0];
-                            }
-
-
-                        } ),
-                        renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
-                            tableClass: 'table'
-                        } ),
-                    }
-                },
-            });
-        });
-
-        let user = localStorage.getItem("user-info");
-        if (!user) {
+    async mounted() {
+        
+        var kuki = $cookies.get("jwt")
+        if (!kuki) {
             this.$router.push({name : 'Home'})
-        } else if (user) {
-            let cnvrt = JSON.parse(user);
-            if (cnvrt.role === "member" || cnvrt.role === "staff" || cnvrt.role === "pimpinan") {
+        }
+        
+        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        if(acc) { // Login        
+            if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
-            }
+            } 
+        } 
+
+        this.getAkun();
+        this.getJabatan();
+    },
+    data() {
+        return {
+            v$: useValidate(),
+            id_jabatan: "",
+            email: "",
+            password: "",
+
+            akun: [],
+            jabatan: []
         }
     },
+    validations() {
+        return {
+            id_jabatan: {  },
+            email: { required, email },
+            password: { required, minLength: minLength(8) },
+        };
+    },
+    methods: {
+        async getJabatan() {
+            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan", {withCredentials: true});
+            this.jabatan = jabatan.data.data;
+        },
+        async getAkun() {
+            let akun = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai", {withCredentials: true});
+            this.akun = akun.data.data;
+            console.log(akun.data.data)
+        },
+        async addAkun() {
+            this.v$.$validate();
+            if (!this.v$.$error) {
+                let result = await axios.post('http://localhost:8080/api/v1/signup', {
+                    role_id: this.id_jabatan,
+                    email: this.email,
+                    password: this.password,
+                });
+                if (result.status === 201) {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Sign Up Successfull!'
+                    })
+                    this.$router.push({name : 'A-Akun'})
+                } 
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Sign Up Failed!'
+                })
+            }
+        },
+        async deletePegawai(id) {
+            let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
+            if (result.status === 200) {
+                location.reload();
+            }
+        }
+    }
 };
 </script>
 
@@ -99,6 +213,10 @@ export default {
 }
 
 /*===== Main =====*/
+#error {
+    color: red;
+}
+
 #main {
   height: 100vh;
   padding: 20px 30px;
@@ -127,5 +245,151 @@ section {
     background: #fff;
     border-radius: 10px;
     padding: 15px;
+}
+
+/* Table Section */
+.card-akun {
+    padding: 10px;
+    background: #fff;
+    border: none;
+    width: 100%;
+}
+
+#btn-akun {
+    width: 250px;
+    height: 50px;
+    font-size: 18px;
+    background: #FFB037;
+    text-align: center;
+    border-radius: 5px;
+    padding: 12px 0;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#btn-akun a {
+    color: #000;
+}
+
+#btn-delete,
+#btn-info {
+    font-size: 20px;
+    margin: 5px;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+#btn-delete:hover,
+#btn-info:hover {
+    color : #FFB037;
+}
+
+#akun {
+    text-align: center;
+}
+
+table input[type="password"] {
+    border: none;
+}
+
+/* Table Section */
+#inputAkun .title {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+
+#inputAkun .title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #fad88d, #FFB037);
+}
+
+form .akun-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+
+form .akun-details .input-box {
+    margin-bottom: 15px;
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+form .input-box span.details {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.akun-details .input-box input, select {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+    border-radius: 5px;
+    padding-left: 15px;
+    border: 1px solid #ccc;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.akun-details .input-box input:focus,
+.akun-details .input-box select:focus {
+    border-color: #FFB037;
+}
+
+form .button{
+    height: 45px;
+    margin: 35px 0;
+}
+  
+form .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #FFB037;
+}
+
+#inputAkun .btn-submit {
+    height: 100%;
+    width: 60%;
+    border-radius: 5px;
+    border: none;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #FFB037;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div #btn-akun:hover,
+#inputAkun .btn-submit:hover {
+    background: #ffc955;
+}
+
+select:focus>option:checked {
+  background: #ffc955 !important;
 }
 </style>

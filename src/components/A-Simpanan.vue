@@ -19,22 +19,26 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Sidebar from './Sidebar.vue'
 export default {
     name: "A-Simpanan",
     components : {
         Sidebar
     },
-    mounted() {
-        let user = localStorage.getItem("user-info");
-        if (!user) {
+    async mounted() {
+        
+        var kuki = $cookies.get("jwt")
+        if (!kuki) {
             this.$router.push({name : 'Home'})
-        } else if (user) {
-            let cnvrt = JSON.parse(user);
-            if (cnvrt.role === "member" || cnvrt.role === "staff" || cnvrt.role === "pimpinan") {
-                this.$router.push({name : 'Home'})
-            }
         }
+        
+        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        if(acc) { // Login        
+            if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
+                this.$router.push({name : 'Home'})
+            } 
+        } 
     }
 };
 </script>
