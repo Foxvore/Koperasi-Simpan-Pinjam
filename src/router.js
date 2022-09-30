@@ -3,7 +3,8 @@ import SignUp from './components/SignUp.vue'
 import Service from './components/Service.vue'
 import Simpan from './components/Simpan.vue'
 import Pinjam from './components/Pinjam.vue'
-import Profile from './components/Profile.vue'
+import M_Profile from './components/M-Profile.vue'
+import P_Profile from './components/P-Profile.vue'
 import Pegawai from './components/Pegawai.vue'
 import Anggota from './components/Anggota.vue'
 import Pengajuan from './components/Pengajuan.vue'
@@ -43,9 +44,14 @@ const routes = [
         path: '/pinjam'
     },
     {
-        name: 'Profile',
-        component: Profile,
-        path: '/profile'
+        name: 'P-Profile',
+        component: P_Profile,
+        path: '/p-profile'
+    },
+    {
+        name: 'M-Profile',
+        component: M_Profile,
+        path: '/m-profile'
     },
     {
         name: 'Pegawai',
