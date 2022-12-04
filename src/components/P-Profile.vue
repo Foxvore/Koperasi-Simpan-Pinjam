@@ -145,16 +145,17 @@ export default {
     methods: {
         async getPegawai() {
             let profile = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai" , {withCredentials: true});
-            this.id = profile.data.data[0].id
-            this.no_pegawai = profile.data.data[0].no_pegawai;
-            this.nama = profile.data.data[0].nama;
-            this.no_telp = profile.data.data[0].no_hp;
-            this.no_ktp = profile.data.data[0].no_ktp;
-            this.jenis_kelamin = profile.data.data[0].gender;
-            this.tempat_lahir = profile.data.data[0].tempat_lahir;
-            this.tanggal_lahir = profile.data.data[0].tanggal_lahir;
-            this.alamat = profile.data.data[0].alamat;
-            // this.jabatan = profile.data.data[0];
+            console.log(profile);
+            this.id = profile.data.data.id
+            this.no_pegawai = profile.data.data.no_pegawai;
+            this.nama = profile.data.data.nama;
+            this.no_telp = profile.data.data.no_hp;
+            this.no_ktp = profile.data.data.no_ktp;
+            this.jenis_kelamin = profile.data.data.gender;
+            this.tempat_lahir = profile.data.data.tempat_lahir;
+            this.tanggal_lahir = profile.data.data.tanggal_lahir;
+            this.alamat = profile.data.data.alamat;
+            this.jabatan = profile.data.data.m_jabatan.jabatan;
         },
         async submitProfile() {
             let result = await axios.post("http://localhost:8080/api/v1/pegawai", {

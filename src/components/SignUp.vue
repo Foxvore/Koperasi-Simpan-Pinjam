@@ -74,19 +74,79 @@ export default {
             confirm: { required, sameAs: sameAs(this.password) }
         };
     },
+    async mounted() {
+        var kuki = $cookies.get("jwt")
+        if (kuki) {
+            this.$router.push({name : 'Home'})
+        }
+    },
     methods : {
         toggleForm() {
             var containers = document.querySelector('.containers')
             containers.classList.toggle('active')
         },
         async signUp() {
-            this.v$.$validate();
-            if (!this.v$.$error) {
-                let result = await axios.post('http://localhost:8080/api/v1/signup', {
+            try {
+                this.v$.$validate();
+                if (!this.v$.$error) {
+                    let result = await axios.post('http://localhost:8080/api/v1/signup', {
+                        email: this.email,
+                        password: this.password,
+                    });
+                    if (result.status === 201) {
+                        const Toast = this.$swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                        })
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Sign Up Successfull!'
+                        })
+                        this.$router.push({name : 'SignUp'})
+                        var containers = document.querySelector('.containers')
+                        containers.classList.remove('active')
+                    } 
+                } else {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Sign Up Failed!'
+                    })
+                }
+            } catch (error) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: error.response.data.message
+                })
+            }
+        },
+        async login() {
+            try {
+                this.v$.$validate();
+                let result = await axios.post(`http://localhost:8080/api/v1/login`, {
                     email: this.email,
                     password: this.password,
-                });
-                if (result.status === 201) {
+                }, {withCredentials: true});
+                if (result.status === 200 && result.data.status === "Success") {
                     const Toast = this.$swal.mixin({
                         toast: true,
                         position: 'top-end',
@@ -97,13 +157,24 @@ export default {
 
                     Toast.fire({
                         icon: 'success',
-                        title: 'Sign Up Successfull!'
+                        title: 'Login Successfull!'
                     })
-                    this.$router.push({name : 'SignUp'})
-                    var containers = document.querySelector('.containers')
-                    containers.classList.remove('active')
-                } 
-            } else {
+                    this.$router.push({name : 'Home'})
+                } else {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Login Failed!'
+                    })
+                }
+            } catch (error) {
                 const Toast = this.$swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -114,42 +185,7 @@ export default {
 
                 Toast.fire({
                     icon: 'error',
-                    title: 'Sign Up Failed!'
-                })
-            }
-        },
-        async login() {
-            this.v$.$validate();
-            let result = await axios.post(`http://localhost:8080/api/v1/login`, {
-                email: this.email,
-                password: this.password,
-            }, {withCredentials: true});
-            if (result.status === 200 && result.data.status === "Success") {
-                const Toast = this.$swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                })
-
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Login Successfull!'
-                })
-                this.$router.push({name : 'Home'})
-            } else {
-                const Toast = this.$swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                })
-
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Login Failed!'
+                    title: error.response.data.message
                 })
             }
         },
@@ -187,12 +223,6 @@ export default {
             }
         },  
     },
-    async mounted() {
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
-        if(acc.status === 200) {
-            this.$router.push({name : 'Home'})
-        }
-    }
 }
 </script>
 

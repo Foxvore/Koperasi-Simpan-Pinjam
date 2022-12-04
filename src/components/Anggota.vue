@@ -34,6 +34,8 @@
                                 <td>{{ item.email }}</td>
                                 <td>{{ item.gender }}</td>
                                 <td class="action">
+                                    <button href="" class="btn-decline"><i class="fa-solid fa-file-circle-xmark"></i></button>
+                                    <button href="" class="btn-accept" ><i class="fa-solid fa-file-circle-check"></i></button>
                                     <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
                                     <!-- <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button> -->
                                 </td>
@@ -83,7 +85,7 @@ export default {
     },
     methods: {
         async getAnggota() {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota");
+            let anggota = await axios.get("http://localhost:8080/api/v1/anggota", {withCredentials: true});
             this.anggota = anggota.data.data;
         },
         async deleteAnggota(id) {
@@ -188,6 +190,12 @@ export default {
 }
 
 /*===== Main Section =====*/
+.btn-decline,
+.btn-accept {
+    border: none;
+    background: transparent;
+}
+
 .btn-decline i,
 .btn-accept i {
     color: #000;

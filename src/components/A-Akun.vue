@@ -19,7 +19,7 @@
                     <div id="btn-akun">
                         <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputAkun"><i class="fa-solid fa-user-lock"></i> Tambah Akun Pegawai</a>
                     </div>
-                    <table id="akun" class="table">
+                    <table id="akun" class="table table-striped responsive nowrap table-hover">
                         <thead>
                             <tr>
                                 <th>Nama</th>
@@ -72,7 +72,7 @@
                                         </span>
                                     </div>
                                     <div class="input-box">
-                                        <span class="details">Jabatan</span>
+                                        <span class="details">Role</span>
                                         <select class="form-select" v-model="id_jabatan" >
                                             <option v-for="item in jabatan" :key="item.id" :value="item.id">
                                                 {{ item.jabatan }}
@@ -292,6 +292,7 @@ section {
 
 table input[type="password"] {
     border: none;
+    background: transparent;
 }
 
 /* Table Section */

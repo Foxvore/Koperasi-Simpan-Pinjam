@@ -13,10 +13,10 @@
         </div>
 
         <section>
-            <!--===== Table Nama Bank =====-->
+            <!--===== Table Daftar Anggota =====-->
             <div class="card card-pegawai">
                 <div class="table-bank">
-                    <table id="bank" class="table">
+                    <table id="bank" class="table table-striped responsive nowrap table-hover">
                         <thead>
                             <tr>
                                 <th>No Anggota</th>
@@ -80,7 +80,7 @@ export default {
     },
     methods: {
         async getAnggota() {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota");
+            let anggota = await axios.get("http://localhost:8080/api/v1/anggota", { withCredentials: true});
             this.anggota = anggota.data.data;
         },
         async deleteAnggota(id) {
@@ -90,7 +90,7 @@ export default {
             }
         },
         async showInfo(id) {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota?search=" + id, {withCredentials: true});
+            let anggota = await axios.get("http://localhost:8080/api/v1/anggota?Id=" + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();

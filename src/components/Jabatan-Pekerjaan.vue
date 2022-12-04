@@ -63,7 +63,7 @@
                                 <div id="btn-pekerjaan">
                                     <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputPekerjaan"><i class="fa-regular fa-id-card"></i> Tambah Pekerjaan</a>
                                 </div>
-                                <table id="pekerjaan" class="table">
+                                <table id="pekerjaan" class="table table-striped responsive nowrap table-hover">
                                     <thead>
                                         <tr>
                                             <th>Pekerjaan</th>
@@ -91,7 +91,7 @@
                                 <div id="btn-jabatan">
                                     <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputJabatan"><i class="fa-solid fa-clipboard-user"></i> Tambah Jabatan</a>
                                 </div>
-                                <table id="jabatan" class="table">
+                                <table id="jabatan" class="table table-striped responsive nowrap table-hover">
                                     <thead>
                                         <tr>
                                             <th>Jabatan</th>

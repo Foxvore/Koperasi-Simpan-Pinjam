@@ -3,14 +3,14 @@
   <!-- ======= Home Section ======= -->
   <section id="home" class="home">
     <div class="h-container">
-      <h3 class="judul">Selamat Datang</h3>
+      <h3 class="judul hidden">Selamat Datang</h3>
       <h2 class="subjudul">
         Daftar sekarang dan nikmati berbagai keuntungan yang bisa kamu dapatkan
         setelah menjadi anggota <b>E-COOP<span>.</span></b>
       </h2>
-      <div class="button">
+      <!-- <div class="button hidden">
         <a href="/signup" class="btn-daftar scrollto">Daftar Sekarang</a>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -190,6 +190,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 export default {
@@ -198,27 +199,30 @@ export default {
     Header,
     Footer
   },
-  mounted() {
+  async mounted() {
     window.scrollTo(0, 0);
-    let user = localStorage.getItem("user-info");
-    const daftar = document.querySelector(".button");
+
+    // const daftar = document.querySelector(".button");
     const subtitle = document.querySelector(".subjudul");
     const title = document.querySelector(".judul");
-    if(user) {
-      daftar.classList.add('hidden')
-      title.classList.remove('hidden')
-      
-      let cnvrt = JSON.parse(user)
-      if(cnvrt.role === "pimpinan" || cnvrt.role === "staff") {
-        subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang jago kalah sama orang semangat - <b>E-COOP<span>.</span></b>"
-      } else if(cnvrt.role === "member") {
-        subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
-      } else if (cnvrt.role === "admin") {
-        this.$router.push({name : 'Dashboard'})
+
+    var kuki = $cookies.get("jwt")
+    if (!kuki) {
+      console.warn("benerin button");
+      // daftar.classList.remove('hidden')
+    } else if (kuki) {
+      var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+      if(acc) { // Login
+        title.classList.remove('hidden')
+        
+        if (acc.data.data.role === 1) { // Admin
+          this.$router.push({name : 'Dashboard'})
+        } else if (acc.data.data.role === 2 || acc.data.data.role === 3) { // Pimpinan & Staff
+          subtitle.innerHTML = "Semangat ya kerjanya, karena sesungguhnya orang pintar kalah sama orang semangat - <b>E-COOP<span>.</span></b>"
+        } else if(acc.data.data.role === 4) { // Member
+          subtitle.innerHTML = "Silahkan nikmati layanan yang tersedia di <b>E-COOP<span>.</span></b> Semoga kami dapat membantu anda."
+        } 
       }
-    } else if (!user) {
-      daftar.classList.remove('hidden')
-      title.classList.add('hidden')
     }
   }
 }

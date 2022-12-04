@@ -13,7 +13,36 @@
         </div>
 
         <section>
-            
+            <!--===== Table Daftar Simpanan =====-->
+            <div class="card card-simpanan">
+                <div class="table-simpanan">
+                    <table id="simpanan" class="table table-striped responsive nowrap table-hover">
+                        <thead>
+                            <tr>
+                                <th>No Simpanan</th>
+                                <th>Tanggal Simpanan</th>
+                                <th>Jenis Simpanan</th>
+                                <th>Jangka Simpanan</th>
+                                <th>Nama Anggota</th>
+                                <th>Target Simpanan</th>
+                                <th>Tersimpan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr v-for="item in simpanan" :key="item.id">
+                                <td>{{ item.no_simpan }}</td>
+                                <td>{{ item.tanggal_simpan }}</td>
+                                <td>{{ item.jenis_simpanan_id }}</td>
+                                <td>{{ item.jangka_simpan + " Bulan" }}</td>
+                                <td>{{ item.created_by }}</td>
+                                <td>{{ "Rp. " + item.total }}</td>
+                                <td>{{ "Rp. " + item.jumlah }}</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </main>
 </template>
@@ -25,6 +54,12 @@ export default {
     name: "A-Simpanan",
     components : {
         Sidebar
+    },
+    data() {
+        return {
+            jenis: "",
+            simpanan: []
+        }
     },
     async mounted() {
         
@@ -39,6 +74,14 @@ export default {
                 this.$router.push({name : 'Home'})
             } 
         } 
+
+        this.getSimpanan();
+    },
+    methods: {
+        async getSimpanan() {
+            let simpan = await axios.get("http://localhost:8080/api/v1/simpan", { withCredentials: true})
+            this.simpanan = simpan.data.data
+        }
     }
 };
 </script>
@@ -82,5 +125,16 @@ export default {
 
 section {
     padding: 20px 0;
+}
+
+table {
+    text-align: center;
+}
+
+.card {
+    padding: 10px;
+    background: #fff;
+    border: none;
+    width: 100%;
 }
 </style>

@@ -35,12 +35,15 @@
                         <div class="tab-pane fade show active" id="v-pills-profile-anggota" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
                             <div class="containers1" id="containers1">
                                 <div class="title">Data Diri</div>
-                                <p class="status">Status : Not Active</p>
+                                <p class="status">Status : {{ s_akun }}</p>
+                                <div class="simpanan-pokok">
+                                    <button class="btn btn-outline-warning form-modal" data-bs-toggle="modal" data-bs-target="#simpananPokok">Bayar Simpanan Pokok</button>
+                                </div>
                                 <div class="content">
                                     <div class="user-details">
                                         <div class="input-box member">
                                             <span class="details">Nomor Anggota</span>
-                                            <input type="text" placeholder="Nomor Pegawai Akan Terisi Otomatis" class="no-anggota" v-model="no_anggota" disabled>
+                                            <input type="text" placeholder="Nomor Anggota Akan Terisi Otomatis" class="no-anggota" v-model="no_anggota" disabled>
                                         </div>
                                         <div class="input-box nama">
                                             <span class="details">Nama</span>
@@ -154,6 +157,41 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal fade" id="simpananPokok" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">Bayar Simpanan Pokok</div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <div class="bank-details">
+                                                    <div class="input-box">
+                                                        <span class="details">Pilih Rekening Koperasi</span>
+                                                        <select class="form-select" v-model="id_koperasi" required>
+                                                            <option v-for="item in b_koperasi" :key="item.id" :value="item.id">
+                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Jumlah Simpanan Pokok</span>
+                                                        <input type="text" placeholder="Jumlah Simpanan Pokok" :value="this.rp + this.pokok">
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Upload Bukti Transfer</span>
+                                                        <input type="file" id="file" name="file" class="input-file form-control form-control-lg" v-on:change="onFileSelected">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-submit" v-on:click="submitSimpananPokok">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-simpan" role="tabpanel" aria-labelledby="v-pills-simpan-tab" tabindex="0">
                             <div class="containers1" id="containers1">
@@ -163,19 +201,28 @@
                                         <div class="user-details">
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Wajib</span>
-                                                <input type="text" value="Rp. 0" disabled>
+                                                <input type="text" value="Rp. 0" readonly>
+                                                <a class="modal-form" data-bs-toggle="modal" data-bs-target="#simpananWajib">
+                                                    <i class="fa-solid fa-circle-plus plus1"></i>
+                                                </a>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Sukarela</span>
-                                                <input type="text" value="Rp. 0" disabled>
+                                                <input type="text" value="Rp. 0" readonly>
+                                                <a class="modal-form" data-bs-toggle="modal" data-bs-target="#simpananSukarela">
+                                                    <i class="fa-solid fa-circle-plus plus2"></i>
+                                                </a>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Berjangka</span>
-                                                <input type="text" value="Rp. 0" disabled>
+                                                <input type="text" value="Rp. 0" readonly>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Simpanan Yang Dapat Ditarik</span>
-                                                <input type="text" value="Rp. 0" disabled>
+                                                <input type="text" value="Rp. 0" readonly>
+                                                <a class="modal-form" data-bs-toggle="modal" data-bs-target="#penarikan">
+                                                    <i class="fa-solid fa-money-bill-transfer tarik"></i>
+                                                </a>
                                             </div>
                                         </div>
                                     </form>
@@ -184,7 +231,6 @@
                                         <table id="simpan" class="table table-hover table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>Id Simpanan</th>
                                                     <th>Status</th>
                                                     <th>Jumlah</th>
                                                     <th>Jangka</th>
@@ -194,17 +240,129 @@
                                                 </tr>
                                             </thead>
                                             <tbody class="table-group-divider">
-                                                <tr>
-                                                    <td>S001</td>
-                                                    <td>Selesai</td>
-                                                    <td>Rp. 15.000.000</td>
-                                                    <td>5 Bulan</td>
-                                                    <td>Rp. 3.000.000</td>
-                                                    <td>Rp. 0.000.000</td>
-                                                    <td><a href="" class="btn-bayar">Simpan</a></td>
+                                                <tr v-for="item in simpanan" :key="item.id">
+                                                    <td>{{ this.status_s }}</td>
+                                                    <td>{{ "Rp. " + item.total }}</td>
+                                                    <td>{{ item.jangka_simpan + " Bulan"}}</td>
+                                                    <td>{{ "Rp. " + (item.total / item.jangka_simpan) }}</td>
+                                                    <td>{{ "Rp. " + (item.total - item.jumlah) }}</td>
+                                                    <td><a class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Simpan</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="simpananBerjangka" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">Simpanan Berjangka Form</div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <div class="simpan-details">
+                                                    <div class="input-box">
+                                                        <span class="details">Pilih Rekening Koperasi</span>
+                                                        <select class="form-select" v-model="id_koperasi" required>
+                                                            <option v-for="item in b_koperasi" :key="item.id" :value="item.id">
+                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Jumlah Disimpan</span>
+                                                        <input type="text" placeholder="Jumlah Yang Harus Dibayarkan" :value="this.jumlah" readonly>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Upload Bukti Transfer</span>
+                                                        <input type="file" id="file" name="file" class="input-file form-control form-control-lg" v-on:change="onFileSelected">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-submit" v-on:click="submitSimpananBerjangka">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="simpananWajib" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">Simpanan Wajib Form</div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <div class="simpan-details">
+                                                    <div class="input-box">
+                                                        <span class="details">Pilih Rekening Koperasi</span>
+                                                        <select class="form-select" v-model="id_koperasi" required>
+                                                            <option v-for="item in b_koperasi" :key="item.id" :value="item.id">
+                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Jumlah Disimpan</span>
+                                                        <input type="text" placeholder="Jumlah Yang Harus Dibayarkan" :value="this.rp + this.wajib" readonly>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Upload Bukti Transfer</span>
+                                                        <input type="file" id="file" name="file" class="input-file form-control form-control-lg" v-on:change="onFileSelected">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-submit" v-on:click="submitSimpananWajib">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="simpananSukarela" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">Simpanan Sukarela Form</div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <div class="simpan-details">
+                                                    <div class="input-box">
+                                                        <span class="details">Pilih Rekening Koperasi</span>
+                                                        <select class="form-select" v-model="id_koperasi" required>
+                                                            <option v-for="item in b_koperasi" :key="item.id" :value="item.id">
+                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Jumlah Disimpan</span>
+                                                        <select class="form-select" v-model="sukarela">
+                                                            <option value="10000">Rp. 10000</option>
+                                                            <option value="25000">Rp. 25000</option>
+                                                            <option value="50000">Rp. 50000</option>
+                                                            <option value="100000">Rp. 100000</option>
+                                                            <option value="250000">Rp. 250000</option>
+                                                            <option value="500000">Rp. 500000</option>
+                                                            <option value="1000000">Rp. 1000000</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Upload Bukti Transfer</span>
+                                                        <input type="file" id="file" name="file" class="input-file form-control form-control-lg" v-on:change="onFileSelected">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-submit" v-on:click="submitSimpananSukarela">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -217,36 +375,21 @@
                                     <table id="pinjam" class="table table-striped responsive nowrap table-hover">
                                         <thead>
                                             <tr>
-                                                <th>Id Pinjaman</th>
                                                 <th>Status</th>
                                                 <th>Jumlah</th>
-                                                <th>Jangka</th>
+                                                <th>Batas Selesai</th>
                                                 <th>Per Bulan</th>
                                                 <th>Menuju Lunas</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody class="table-group-divider">
-                                            <tr>
-                                                <td>P001</td>
-                                                <td>Lunas</td>
-                                                <td>Rp. 15.000.000</td>
-                                                <td>5 Bulan</td>
-                                                <td>Rp. 3.000.000</td>
-                                                <td>Rp. 0.000.000</td>
-                                                <td class="action">
-                                                    <div class="btn-bayar hidden">
-                                                        <a href="">Bayar</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>P002</td>
-                                                <td>Proses</td>
-                                                <td>Rp. 10.000.000</td>
-                                                <td>10 Bulan</td>
-                                                <td>Rp. 1.000.000</td>
-                                                <td>Rp. 3.000.000</td>
+                                            <tr v-for="item in pinjaman" :key="item.id">
+                                                <td>{{ this.status_p }}</td>
+                                                <td>{{ item.jumlah}}</td>
+                                                <td>{{ item.tanggal_pengembalian }}</td>
+                                                <td>{{ item.jumlah / this.bulan }}</td>
+                                                <td>{{  }}</td>
                                                 <td class="action">
                                                     <div class="btn-bayar">
                                                         <a href="">Bayar</a>
@@ -270,10 +413,17 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import moment from 'moment'
 export default {
     name : 'M-Profile',
     data() {
         return {
+            rp: "Rp. ",
+            pokok: 150000,
+            wajib: 15000,
+            sukarela: parseInt(""),
+
+            s_akun: "Silahkan Lengkapi Data Diri",
             id: "",
             nama: "",
             no_ktp: "",
@@ -292,9 +442,22 @@ export default {
             no_rek: "",
             pemilik: "",
 
+            status_s: "",
+            status_p: "",
+
+            id_koperasi: "",
+            id_simpan: "",
+            id_pinjam: "",
+            jumlah: 0,
+            bulan: 0,
+            bukti_transfer: null,
+
+            pekerjaan: [],
             nama_bank: [],
             rekening: [],
-            pekerjaan: []
+            simpanan: [],
+            pinjaman:[],
+            b_koperasi: [],
         };
     },
     async mounted() {
@@ -325,9 +488,12 @@ export default {
             }
         } 
         
-        this.getNamaBank();
         this.getPekerjaan();
         this.getAnggota();
+        this.getNamaBank();
+        this.getSimpananBerjangka();
+        this.getPinjaman();
+        this.getBankKoperasi();
         this.validasi();
     },
     components : {
@@ -355,6 +521,11 @@ export default {
             this.tanggal_lahir = profile.data.data.tanggal_lahir;
             this.alamat = profile.data.data.alamat;
             this.id_pekerjaan = profile.data.data.pekerjaan_id;
+            if (profile.data.data.is_approve === true) {
+                this.s_akun = "Data Diri Telah Disetujui" 
+            } else if (profile.data.data.is_waiting === true) {
+                this.s_akun = "Menunggu Persetujuan"
+            }
         },
         async submitProfile() {
             let result = await axios.post("http://localhost:8080/api/v1/anggota", {
@@ -375,12 +546,10 @@ export default {
                     timer: 1000,
                     timerProgressBar: true,
                 })
-
                 Toast.fire({
                     icon: 'success',
                     title: 'Input Successfull!'
                 })
-                localStorage.setItem("bank-info", JSON.stringify(result.data));
                 setTimeout(location.reload.bind(location), 1000);
             } else {
                 const Toast = this.$swal.mixin({
@@ -461,7 +630,6 @@ export default {
                     icon: 'success',
                     title: 'Input Successfull!'
                 })
-                localStorage.setItem("bank-info", JSON.stringify(result.data));
                 setTimeout(location.reload.bind(location), 1000);
             } else {
                 const Toast = this.$swal.mixin({
@@ -517,6 +685,204 @@ export default {
 
             var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
             modal.show();
+        },
+        async getBankKoperasi() {
+            let r_bank = await axios.get("http://localhost:8080/api/v1/bank?search=2", {withCredentials: true});
+            this.b_koperasi = r_bank.data.data;
+        },
+        async getSimpananBerjangka() {
+            let simpan = await axios.get("http://localhost:8080/api/v1/simpan?filter=4&&search=" + this.id, {withCredentials: true});
+            this.simpanan = simpan.data.data
+            this.id_simpan = simpan.data.data[0].id
+            this.jumlah = simpan.data.data[0].total / simpan.data.data[0].jangka_simpan
+
+            if (simpan.data.data[0].is_done === true) {
+                this.status_s = "Selesai"
+            } else if (simpan.data.data[0].is_done === false) {
+                this.status_s = "Proses"
+            }
+        },
+        async onFileSelected(event) {
+            this.bukti_transfer = event.target.files[0]
+        },
+        async submitSimpananPokok() {
+            try {
+                const fd = new FormData();
+                fd.append('jumlah', this.pokok);
+                fd.append('file', this.bukti_transfer);
+                fd.append('jenis_simpanan_id', 1);
+                fd.append('is_done', 1);
+                let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+                if (result.status === 201) {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Transaksi Berhasil!'
+                    })
+                    setTimeout(location.reload.bind(location), 1000);
+                } else {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Transaksi Gagal!'
+                    })
+                }
+            } catch (error) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: error.response.data.message
+                })
+            }
+        },
+        async submitSimpananBerjangka() {
+            const fd = new FormData();
+            fd.append('jumlah', this.jumlah);
+            fd.append('file', this.bukti_transfer);
+            let result = await axios.put("http://localhost:8080/api/v1/simpan/" + this.id_simpan, fd, { withCredentials: true })
+            if (result.status === 201) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Transaksi Berhasil!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Transaksi Gagal!'
+                })
+            }
+        },
+        async submitSimpananWajib() {
+            const fd = new FormData();
+            fd.append('jumlah', this.wajib);
+            fd.append('file', this.bukti_transfer);
+            fd.append('jenis_simpanan_id', 2);
+            fd.append('is_done', 1);
+            let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+            if (result.status === 201) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Transaksi Berhasil!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Transaksi Gagal!'
+                })
+            }
+        },
+        async submitSimpananSukarela() {
+            const fd = new FormData();
+            fd.append('jumlah', this.sukarela);
+            fd.append('file', this.bukti_transfer);
+            fd.append('jenis_simpanan_id', 3);
+            fd.append('is_done', 1);
+            let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+            if (result.status === 201) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Transaksi Berhasil!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Transaksi Gagal!'
+                })
+            }
+        },
+        async getPinjaman() {
+            try {
+                let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?search=" + this.id, {withCredentials: true});
+                this.pinjaman = pinjam.data.data
+                this.id_pinjam = pinjam.data.data[0].id
+
+                var a = new moment(pinjam.data.data[0].tanggal_pengembalian)
+                var b = new moment(pinjam.data.data[0].tanggal_pinjam)
+
+                this.bulan = a.diff(b, 'months');
+
+                if (pinjam.data.data[0].is_approve === false) {
+                    this.status_p = "Menunggu Persetujuan"
+                } else if (pinjam.data.data[0].is_done === true) {
+                    this.status_p = "Lunas"
+                } else if (pinjam.data.data[0].is_done === false) {
+                    this.status_p = "Proses"
+                }
+            } catch (error) {
+                console.log(error);
+            }
         },
         async validasi() {
             const btn_bank = document.querySelector("#btn-bank")
@@ -638,6 +1004,10 @@ export default {
 
 #containers1 .title,
 #inputBank .title,
+#simpananPokok .title,
+#simpananBerjangka .title,
+#simpananWajib .title,
+#simpananSukarela .title,
 #detailBank .title {
     font-size: 25px;
     font-weight: 500;
@@ -646,6 +1016,10 @@ export default {
   
 #containers1 .title::before,
 #inputBank .title::before,
+#simpananPokok .title::before,
+#simpananBerjangka .title::before,
+#simpananWajib .title::before,
+#simpananSukarela .title::before,
 #detailBank .title::before {
     content: "";
     position: absolute;
@@ -658,7 +1032,8 @@ export default {
 }
 
 .content .user-details,
-.bank-details {
+.content .simpan-details,
+.content .bank-details {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -670,6 +1045,7 @@ export default {
     width: calc(100% / 2 - 20px);
 }
 
+.simpan-details .input-box,
 .bank-details .input-box {
     margin-bottom: 15px;
     width: 90%;
@@ -684,6 +1060,7 @@ export default {
 }
 
 .user-details .input-box input,
+.simpan-details .input-box input,
 .bank-details .input-box input, select{
     height: 45px;
     width: 100%;
@@ -698,6 +1075,7 @@ export default {
 
 .user-details .input-box input:focus,
 .user-details .input-box select:focus,
+.simpan-details .input-box input:focus,
 .bank-details .input-box input:focus,
 .bank-details .input-box select:focus {
     border-color: #FFB037;
@@ -723,7 +1101,11 @@ export default {
     text-align: center;
 }
 
-#inputBank .btn-submit {
+#inputBank .btn-submit,
+#simpananPokok .btn-submit,
+#simpananBerjangka .btn-submit,
+#simpananWajib .btn-submit,
+#simpananSukarela .btn-submit {
     height: 100%;
     width: 60%;
     border-radius: 5px;
@@ -741,7 +1123,10 @@ export default {
   
 .button input:hover,
 div #btn-bank:hover,
-#inputBank .btn-submit:hover {
+#inputBank .btn-submit:hover,
+#simpananBerjangka .btn-submit:hover,
+#simpananWajib .btn-submit:hover,
+#simpananSukarela .btn-submit:hover {
     background: #ffc955;
 }
 
@@ -796,8 +1181,52 @@ div #btn-bank:hover,
   display: none;
 }
 
+table {
+    text-align: center;
+}
+
+.btn-bayar {
+    cursor: pointer;
+}
+
 select:focus>option:checked {
   background: #ffc955 !important;
+}
+
+#v-pills-simpan .input-box .plus1 {
+    position: absolute;
+    top: 415px;
+    right: 670px;
+    cursor: pointer;
+    color: #000;
+}
+
+#v-pills-simpan .input-box .plus2 {
+    position: absolute;
+    top: 415px;
+    right: 160px;
+    cursor: pointer;
+    color: #000;
+}
+
+#v-pills-simpan .input-box .tarik {
+    position: absolute;
+    top: 503px;
+    right: 160px;
+    cursor: pointer;
+    color: #000;
+}
+
+#v-pills-simpan .input-box .plus1:hover,
+#v-pills-simpan .input-box .plus2:hover,
+#v-pills-simpan .input-box .tarik:hover {
+    color: #FFB037;
+}
+
+.simpanan-pokok {
+    position: absolute;
+    right: 150px;
+    top: 320px;
 }
 
 /*===== Large Laptop/PC Responsive  */

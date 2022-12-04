@@ -58,7 +58,7 @@
                                             <i class="bi bi-safe2-fill"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>0 Record</h6>
+                                            <h6>{{ data_simpanan }} Record</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                             <i class="fa-solid fa-hand-holding-dollar"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>0 Record</h6>
+                                            <h6>{{ data_pinjaman }} Record</h6>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                 <div id="btn-rekening">
                                     <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputRekening"><i class="bi bi-safe2"></i> Tambah Bank Koperasi</a>
                                 </div>
-                                <table id="bank" class="table">
+                                <table id="bank" class="table table-striped responsive nowrap table-hover">
                                     <thead>
                                         <tr>
                                             <th>Bank Koperasi</th>
@@ -157,7 +157,7 @@
                                 <div id="btn-bank">
                                     <a class="form-modal" data-bs-toggle="modal" data-bs-target="#inputBank"><i class="bi bi-safe2"></i> Tambah Nama Bank</a>
                                 </div>
-                                <table id="bank" class="table">
+                                <table id="bank" class="table table-striped responsive nowrap table-hover">
                                     <thead>
                                         <tr>
                                             <th>Daftar Nama Bank</th>
@@ -270,8 +270,8 @@ export default {
         this.getNamaBank();
         this.getDataPegawai();
         this.getDataAnggota();
-        // this.getDataSimpanan();
-        // this.getDataPinjaman();
+        this.getDataSimpanan();
+        this.getDataPinjaman();
         this.getDataRekening();
         this.getDataNamaBank();
     },
@@ -285,12 +285,12 @@ export default {
 
             rekening: [],
             nama_bank: [],
-            data_pegawai: [],
-            data_anggota: [],
-            // nama_simpanan: [],
-            // nama_pinjaman: [],
-            data_rekening: [],
-            data_nama_bank: []
+            data_pegawai: "",
+            data_anggota: "",
+            data_simpanan: "",
+            data_pinjaman: "",
+            data_rekening: "",
+            data_nama_bank: ""
         };
     },
     methods: {
@@ -299,15 +299,15 @@ export default {
             this.data_pegawai = pegawai.data.totalRows;
         },
         async getDataAnggota() {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota");
+            let anggota = await axios.get("http://localhost:8080/api/v1/anggota", { withCredentials: true});
             this.data_anggota = anggota.data.totalRows;
         },
         async getDataSimpanan() {
-            let simpanan = await axios.get("");
+            let simpanan = await axios.get("http://localhost:8080/api/v1/simpan", { withCredentials: true});
             this.data_simpanan = simpanan.data.totalRows;
         },
         async getDataPinjaman() {
-            let pinjaman = await axios.get("");
+            let pinjaman = await axios.get("http://localhost:8080/api/v1/pinjam", { withCredentials: true});
             this.data_pinjaman = pinjaman.data.totalRows;
         },
         async getDataRekening() {

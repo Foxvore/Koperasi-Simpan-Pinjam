@@ -13,10 +13,10 @@
         </div>
 
         <section>
-            <!--===== Table Nama Bank =====-->
+            <!--===== Table Daftar Pegawai =====-->
             <div class="card card-pegawai">
                 <div class="table-bank">
-                    <table id="bank" class="table">
+                    <table id="bank" class="table table-striped responsive nowrap table-hover">
                         <thead>
                             <tr>
                                 <th>No Pegawai</th>
@@ -31,14 +31,18 @@
                         <tbody class="table-group-divider">
                             <tr v-for="item in pegawai" :key="item.id">
                                 <td>{{ item.no_pegawai }}</td>
-                                <td>{{ item.m_jabatan.jabatan }}</td>
+                                <td>{{ item.m_jabatan?.jabatan ?? 'Kosong' }}</td>
                                 <td>{{ item.nama }}</td>
                                 <td>{{ item.no_hp }}</td>
                                 <td>{{ item.email }}</td>
                                 <td>{{ item.gender }}</td>
                                 <td class="action">
+                                    <div id="jabatan" class="jabatan">
+                                        <button id="btn-pimpinan" v-on:click="pimpinan"><i class="fa-solid fa-p"></i></button>
+                                        <button id="btn-staff" v-on:click="staff"><i class="fa-solid fa-s"></i></button>
+                                    </div>
                                     <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
-                                    <!-- <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button> -->
+                                    <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -72,16 +76,33 @@ export default {
         } 
 
         this.getPegawai();
+        this.getJabatan();
     },
     data() {
         return {
-            pegawai: []
+            pegawai: [],
+
+            id_jabatan: "",
+            position: [],
+            jabatan: ""
         }
     },
     methods: {
+        async getJabatan() {
+            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan", {withCredentials: true});
+            this.position = jabatan.data.data;
+
+        },
         async getPegawai() {
             let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai");
             this.pegawai = pegawai.data.data;
+
+            var jabatan1 = document.querySelector("#btn-pimpinan")
+            console.log(jabatan1);
+
+            if (pegawai.data.data[1].jabatan_id) {
+                
+            }
         },
         async deletePegawai(id) {
             let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
@@ -181,6 +202,10 @@ section {
     padding: 15px;
 }
 
+div .hidden {
+    display: none;
+}
+
 /* Table Section */
 .card-pegawai {
     padding: 10px;
@@ -189,6 +214,13 @@ section {
     width: 100%;
 }
 
+.jabatan {
+    display: inline;
+}
+
+#btn-pimpinan,
+#btn-staff,
+#btn-delete,
 #btn-info {
     font-size: 20px;
     margin: 5px;
@@ -197,12 +229,14 @@ section {
     border: none;
     background: transparent;
 }
-
+#btn-pimpinan:hover,
+#btn-staff:hover,
+#btn-delete:hover,
 #btn-info:hover {
     color : #FFB037;
 }
 
-.action {
+table {
     text-align: center;
 }
 </style>

@@ -78,7 +78,7 @@
                                 <div class="row gy-4">
                                     <div class="col-lg-12 details order-2 order-lg-1">
                                         <h3>Simpanan Pokok</h3>
-                                        <p class="fst-italic">Simpanan pokok adalah sejumlah uang yang telah di tentukan koperasi dan wajib dibayarkan oleh anggota kepada koperasi pada saat masuk menjadi anggota. [E-Coop menetapkan sebesar Rp. ]</p>
+                                        <p class="fst-italic">Simpanan pokok adalah sejumlah uang yang telah di tentukan koperasi dan wajib dibayarkan oleh anggota kepada koperasi pada saat masuk menjadi anggota. [E-Coop menetapkan sebesar Rp. 150.000 ]</p>
                                         <p>Simpanan pokok tidak dapat diambil selama yang bersangkutan menjadi anggota.</p>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                 <div class="row gy-4">
                                     <div class="col-lg-12 details order-2 order-lg-1">
                                         <h3>Simpanan Wajib</h3>
-                                        <p class="fst-italic">Simpanan wajib adalah sejumlah simpanan dengan jumlah yang telah ditentukan oleh koperasi yang wajib dibayarkan oleh anggota setiap bulannya. [E-Coop menetapkan sebesar Rp. ]</p>
+                                        <p class="fst-italic">Simpanan wajib adalah sejumlah simpanan dengan jumlah yang telah ditentukan oleh koperasi yang wajib dibayarkan oleh anggota setiap bulannya. [E-Coop menetapkan sebesar Rp. 15.000 ]</p>
                                         <p>Simpanan wajib tidak dapat diambil selama yang bersangkutan menjadi anggota.</p>
                                     </div>
                                 </div>
@@ -288,22 +288,25 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 export default {
   name : "Service",
-  mounted() {
+  async mounted() {
     window.scrollTo(0,0)
 
-    let user = localStorage.getItem("user-info");
-    if (user) {
-      let cnvrt = JSON.parse(user);
-      if (cnvrt.role === "pimpinan" || cnvrt.role === "staff") {
-        this.$router.push({name : 'Home'})
-      } else if (cnvrt.role === "admin") {
-        this.$router.push({name : 'Dashboard'})
-      }
-    }
+    var kuki = $cookies.get("jwt")
+    if (kuki) {
+      var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+      if(acc) { // Login        
+        if (acc.data.data.role === 1 ) { // Admin
+          this.$router.push({name : 'Dashboard'})
+        } else if (acc.data.data.role === 2 || acc.data.data.role === 3) { // Pimpinan & Staff
+          this.$router.push({name : 'Home'})
+        }
+      } 
+    } 
   },
   components : {
     Header,

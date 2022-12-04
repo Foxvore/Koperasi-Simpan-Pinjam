@@ -21,13 +21,16 @@
             <router-link to="/simpan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Simpan</router-link>
           </li>
 					<li class="pengajuan">
-            <router-link to="/pengajuan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Transaksi</router-link>
+            <router-link to="/pengajuan" class="nav-link scrollto"><i class="bi bi-safe-fill"></i>&nbsp;Pengajuan Pinjaman</router-link>
           </li>
 					<li class="pinjam">
             <router-link to="/pinjam" class="nav-link scrollto"><i class="fa-solid fa-hand-holding-dollar"></i>&nbsp;Pinjam</router-link>
           </li>
-					<li class="profile">
-            <router-link to="/profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link>
+					<li class="profile-pegawai">
+            <router-link to="/p-profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link>
+          </li>
+					<li class="profile-anggota">
+            <router-link to="/m-profile" class="nav-link scrollto"><i class="fa-solid fa-user-gear"></i>&nbsp;Profile</router-link>
           </li>
 					<li class="sign-up">
             <router-link to="/signup" class="nav-link scrollto"><i class="bi bi-door-closed-fill"></i>&nbsp;Sign In</router-link>
@@ -43,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'Header',
   created () {
@@ -70,9 +74,9 @@ export default {
         confirmButtonText: 'Iya',
         cancelButtonText: 'Tidak',
         reverseButtons: true
-      }).then((result) => {
+      }).then(async(result) => {
         if (result.isConfirmed) {
-          localStorage.clear();
+          await axios.get("http://localhost:8080/api/v1/logout", {withCredentials: true});
           const Toast = this.$swal.mixin({
             toast: true,
             position: 'top-end',
@@ -106,36 +110,44 @@ export default {
       }
     }
   },
-  mounted() {
-    let user = localStorage.getItem("user-info");
+  async mounted() {
+    var kuki = 0;
     var service = document.querySelector('.service')
     var simpan = document.querySelector('.simpan')
     var pinjam = document.querySelector('.pinjam')
-    var profile = document.querySelector('.profile')
+    var p_profile = document.querySelector('.profile-pegawai')
+    var m_profile = document.querySelector('.profile-anggota')
     var signup = document.querySelector('.sign-up')
     var logout = document.querySelector('.logout')
     var anggota = document.querySelector('.anggota')
     var pegawai = document.querySelector('.pegawai')
     var pengajuan = document.querySelector('.pengajuan')
-    if (user) {
-      signup.classList.add('hidden')
-      let cnvrt = JSON.parse(user);
-      if (cnvrt.role === "member") {
-        anggota.classList.add('hidden')
-        pegawai.classList.add('hidden')
-        pengajuan.classList.add('hidden')
-      } else if (cnvrt.role === "pimpinan") {
-        service.classList.add('hidden')
-        simpan.classList.add('hidden')
-        pinjam.classList.add('hidden')
-      } else if (cnvrt.role === "staff") {
-        service.classList.add('hidden')
-        simpan.classList.add('hidden')
-        pinjam.classList.add('hidden')
-        pegawai.classList.add('hidden')
+
+    if (this.$cookies.get("jwt")) {
+      var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+      if (acc) {
+        signup.classList.add('hidden')
+        if (acc.data.data.role === 2) { // Pimpinan
+          service.classList.add('hidden')
+          simpan.classList.add('hidden')
+          pinjam.classList.add('hidden')
+          m_profile.classList.add('hidden')
+        } else if (acc.data.data.role === 3) { // Staff
+          service.classList.add('hidden')
+          simpan.classList.add('hidden')
+          pinjam.classList.add('hidden')
+          pegawai.classList.add('hidden')
+          m_profile.classList.add('hidden')
+        } else if (acc.data.data.role === 4) { // Member
+          anggota.classList.add('hidden')
+          pegawai.classList.add('hidden')
+          pengajuan.classList.add('hidden')
+          p_profile.classList.add('hidden')
+        }
       }
-    } else if (!user) {
-      profile.classList.add('hidden')
+    } else if(kuki === 0) { // Not Login
+      p_profile.classList.add('hidden')
+      m_profile.classList.add('hidden')
       logout.classList.add('hidden')
       pengajuan.classList.add('hidden')
       anggota.classList.add('hidden')
