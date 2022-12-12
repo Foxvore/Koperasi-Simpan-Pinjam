@@ -884,7 +884,6 @@ export default {
                     timer: 1000,
                     timerProgressBar: true,
                 })
-
                 Toast.fire({
                     icon: 'success',
                     title: 'Transaksi Berhasil!'
