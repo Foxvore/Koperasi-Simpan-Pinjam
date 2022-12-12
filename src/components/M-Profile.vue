@@ -216,6 +216,9 @@
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Berjangka</span>
                                                 <input type="text" value="Rp. 0" readonly>
+                                                <a class="modal-form" data-bs-toggle="modal" data-bs-target="#simpananSukarela">
+                                                    <i class="fa-solid fa-circle-plus plus3"></i>
+                                                </a>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Simpanan Yang Dapat Ditarik</span>
@@ -257,7 +260,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <div class="title">Simpanan Berjangka Form</div>
+                                            <div class="title">Form Simpanan Berjangka</div>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form>
@@ -292,7 +295,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <div class="title">Simpanan Wajib Form</div>
+                                            <div class="title">Form Simpanan Wajib</div>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form>
@@ -327,7 +330,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <div class="title">Simpanan Sukarela Form</div>
+                                            <div class="title">Form Simpanan Sukarela</div>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form>
@@ -367,6 +370,45 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="penarikan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="title">Form Penarikan</div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form>
+                                            <div class="modal-body">
+                                                <div class="simpan-details">
+                                                    <div class="input-box">
+                                                        <span class="details">Pilih Rekening Tujuan Penarikan</span>
+                                                        <select class="form-select" v-model="id_rekening_tujuan" required>
+                                                            <option v-for="item in rekening" :key="item.id" :value="item.id">
+                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Jumlah Penarikan</span>
+                                                        <input type="number" placeholder="Minimal Rp. 10.000, Contoh: 10000" v-model="jumlah">
+                                                    </div>
+                                                    <div class="input-box">
+                                                        <span class="details">Tarik Dari Simpanan</span>
+                                                        <select class="form-select" v-model="id_rekening_tujuan" required>
+                                                            <!-- <option v-for="item in rekening" :key="item.id" :value="item.id">
+                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                            </option> -->
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-submit" v-on:click="submitPenarikan">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="tab-pane fade" id="v-pills-pinjam" role="tabpanel" aria-labelledby="v-pills-pinjam-tab" tabindex="0">
                             <div class="containers1" id="containers1">
                                 <div class="title">Pinjamanmu</div>
@@ -448,8 +490,9 @@ export default {
             id_koperasi: "",
             id_simpan: "",
             id_pinjam: "",
-            jumlah: 0,
+            jumlah: null,
             bulan: 0,
+            id_rekening_tujuan: "",
             bukti_transfer: null,
 
             pekerjaan: [],
@@ -862,6 +905,57 @@ export default {
                 })
             }
         },
+        async submitPenarikan() {
+            if (this.jumlah < 10000) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Jumlah Penarikan Minimal Rp. 10.000!'
+                })
+            } else if (this.jumlah >= 10000) {
+                let result = await axios.post("http://localhost:8080/api/v1/transaksi", {
+                    jenis_transaksi_id: 1,
+                    jumlah: this.jumlah,
+                    jenis_simpanan_id: this.jenis_simpanan,
+                    bank_id: this.id_rekening_tujuan
+                }, { withCredentials: true })
+                if (result.status === 201) {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Transaksi Berhasil!'
+                    })
+                    setTimeout(location.reload.bind(location), 1000);
+                } else {
+                    const Toast = this.$swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Transaksi Gagal!'
+                    })
+                }
+            }
+        },
         async getPinjaman() {
             try {
                 let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?search=" + this.id, {withCredentials: true});
@@ -1105,7 +1199,8 @@ export default {
 #simpananPokok .btn-submit,
 #simpananBerjangka .btn-submit,
 #simpananWajib .btn-submit,
-#simpananSukarela .btn-submit {
+#simpananSukarela .btn-submit,
+#penarikan .btn-submit {
     height: 100%;
     width: 60%;
     border-radius: 5px;
@@ -1205,6 +1300,14 @@ select:focus>option:checked {
     position: absolute;
     top: 415px;
     right: 160px;
+    cursor: pointer;
+    color: #000;
+}
+
+#v-pills-simpan .input-box .plus3 {
+    position: absolute;
+    top: 503px;
+    right: 670px;
     cursor: pointer;
     color: #000;
 }
