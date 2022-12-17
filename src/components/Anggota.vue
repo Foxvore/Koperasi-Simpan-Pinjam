@@ -34,8 +34,8 @@
                                 <td>{{ item.email }}</td>
                                 <td>{{ item.gender }}</td>
                                 <td class="action">
-                                    <button href="" class="btn-decline"><i class="fa-solid fa-file-circle-xmark"></i></button>
-                                    <button href="" class="btn-accept" ><i class="fa-solid fa-file-circle-check"></i></button>
+                                    <button href="" class="btn-decline"><i class="fa-solid fa-file-circle-xmark" v-on:click="decline(item.id)"></i></button>
+                                    <button href="" class="btn-accept" ><i class="fa-solid fa-file-circle-check" v-on:click="accept(item.id)"></i></button>
                                     <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
                                     <!-- <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button> -->
                                 </td>
@@ -88,10 +88,72 @@ export default {
             let anggota = await axios.get("http://localhost:8080/api/v1/anggota", {withCredentials: true});
             this.anggota = anggota.data.data;
         },
-        async deleteAnggota(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/anggota/" + id);
+        async decline(id) {
+            let result = await axios.put("http://localhost:8080/api/v1/anggota/" + id, {
+                is_staff: 0,
+            }, { withCredentials: true });
+            console.log(result);
             if (result.status === 200) {
-                this.getAnggota();
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Anggota Ditolak!'
+                })
+                // setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Penolakan Gagal!'
+                })
+            }
+        },
+        async accept(id) {
+            let result = await axios.put("http://localhost:8080/api/v1/anggota/" + id, {
+                is_staff: 1,
+            }, { withCredentials: true });
+            console.log(result);
+            if (result.status === 200) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Anggota Diterima!'
+                })
+                // setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Penolakan Gagal!'
+                })
             }
         },
         async showInfo(id) {
