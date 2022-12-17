@@ -38,8 +38,8 @@
                                 <td>{{ item.gender }}</td>
                                 <td class="action">
                                     <div id="jabatan" class="jabatan">
-                                        <button id="btn-pimpinan" v-on:click="pimpinan"><i class="fa-solid fa-p"></i></button>
-                                        <button id="btn-staff" v-on:click="staff"><i class="fa-solid fa-s"></i></button>
+                                        <button id="btn-pimpinan" v-on:click="pimpinan(item.id, item.email)"><i class="fa-solid fa-p"></i></button>
+                                        <button id="btn-staff" v-on:click="staff(item.id, item.email)"><i class="fa-solid fa-s"></i></button>
                                     </div>
                                     <button id="btn-info" v-on:click="showInfo(item.id)"><i class="fa-solid fa-circle-info"></i></button>
                                     <button id="btn-delete" v-on:click="deletePegawai(item.id)"><i class="fa-solid fa-trash"></i></button>
@@ -96,13 +96,6 @@ export default {
         async getPegawai() {
             let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai");
             this.pegawai = pegawai.data.data;
-
-            var jabatan1 = document.querySelector("#btn-pimpinan")
-            console.log(jabatan1);
-
-            if (pegawai.data.data[1].jabatan_id) {
-                
-            }
         },
         async deletePegawai(id) {
             let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
@@ -149,6 +142,74 @@ export default {
 
             var modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
             modal.show();
+        },
+        async pimpinan(id, email) {
+            let result = await axios.put("http://localhost:8080/api/v1/pegawai/" + id, {
+                email: email,
+                jabatan_id: 1,
+            }, { withCredentials: true });
+            if (result.status === 200) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Input Successfull!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Input Failed!'
+                })
+            }
+        },
+        async staff(id, email) {
+            let result = await axios.put("http://localhost:8080/api/v1/pegawai/" + id, {
+                email: email,
+                jabatan_id: 2,
+            }, { withCredentials: true });
+            if (result.status === 200) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Input Successfull!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Input Failed!'
+                })
+            }
         }
     }
 };
