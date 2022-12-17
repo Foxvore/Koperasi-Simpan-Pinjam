@@ -43,7 +43,7 @@
                                     <div class="user-details">
                                         <div class="input-box member">
                                             <span class="details">Nomor Anggota</span>
-                                            <input type="text" placeholder="Nomor Anggota Akan Terisi Otomatis" class="no-anggota" v-model="no_anggota" disabled>
+                                            <input type="text" placeholder="Nomor Anggota Akan Terisi Otomatis" class="no-anggota" v-model="no_anggota" readonly>
                                         </div>
                                         <div class="input-box nama">
                                             <span class="details">Nama</span>
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="input-box email">
                                             <span class="details">Email</span>
-                                            <input type="email" placeholder="Masukan Email" v-model="email" disabled>
+                                            <input type="email" placeholder="Masukan Email" v-model="email" readonly>
                                         </div>
                                         <div class="input-box jk">
                                             <span class="details">Jenis Kelamin</span>
@@ -250,7 +250,7 @@
                                                     <td>{{ "Rp. " + (item.total / item.jangka_simpan) }}</td>
                                                     <td>{{ "Rp. " + (item.total - item.jumlah) }}</td>
                                                     <td>
-                                                        <a id="btn-bayar-simpanan" class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Simpan</a>
+                                                        <a class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Simpan</a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -435,9 +435,7 @@
                                                 <td>{{ item.jumlah / this.bulan }}</td>
                                                 <td>{{  }}</td>
                                                 <td class="action">
-                                                    <div class="btn-bayar-pinjaman">
-                                                        <a href="">Bayar</a>
-                                                    </div>
+                                                    <a class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Bayar</a>
                                                 </td>
                                             </tr>
                                         </tbody>

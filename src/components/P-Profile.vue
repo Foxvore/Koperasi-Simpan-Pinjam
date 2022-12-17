@@ -26,7 +26,7 @@
                             <div class="user-details">
                                 <div class="input-box staff">
                                     <span class="details">Nomor Pegawai</span>
-                                    <input type="text" placeholder="Nomor Anggota Akan Terisi Otomatis" class="no-anggota" v-model="no_pegawai" disabled>
+                                    <input type="text" placeholder="Nomor Anggota Akan Terisi Otomatis" class="no-anggota" v-model="no_pegawai" readonly>
                                 </div>
                                 <div class="input-box nama">
                                     <span class="details">Nama</span>
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="input-box email">
                                     <span class="details">Email</span>
-                                    <input type="email" placeholder="Masukan Email" v-model="email" disabled>
+                                    <input type="email" placeholder="Masukan Email" v-model="email" readonly>
                                 </div>
                                 <div class="input-box jk">
                                     <span class="details">Jenis Kelamin</span>
@@ -65,7 +65,7 @@
                                 </div>
                                 <div class="input-box jabatan">
                                     <span class="details">Jabatan</span>
-                                    <input type="text" placeholder="Jabatan Akan Di Isi Oleh Admin" v-model="jabatan" disabled>
+                                    <input type="text" placeholder="Jabatan Akan Di Isi Oleh Admin" v-model="jabatan" readonly>
                                 </div>
                             </div>
                             <div class="button" id="btn_submit">
