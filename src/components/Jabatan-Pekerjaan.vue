@@ -366,6 +366,7 @@ export default {
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+                                <p>Id : ${jabatan.data.data[0].id} </p>
                                 <p>Jabatan : ${jabatan.data.data[0].jabatan} </p>
                                 <p>Deskripsi : ${jabatan.data.data[0].desc} </p>
                             </div>
