@@ -249,7 +249,9 @@
                                                     <td>{{ item.jangka_simpan + " Bulan"}}</td>
                                                     <td>{{ "Rp. " + (item.total / item.jangka_simpan) }}</td>
                                                     <td>{{ "Rp. " + (item.total - item.jumlah) }}</td>
-                                                    <td><a class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Simpan</a></td>
+                                                    <td>
+                                                        <a id="btn-bayar-simpanan" class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Simpan</a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -433,7 +435,7 @@
                                                 <td>{{ item.jumlah / this.bulan }}</td>
                                                 <td>{{  }}</td>
                                                 <td class="action">
-                                                    <div class="btn-bayar">
+                                                    <div class="btn-bayar-pinjaman">
                                                         <a href="">Bayar</a>
                                                     </div>
                                                 </td>
@@ -1279,7 +1281,8 @@ table {
     text-align: center;
 }
 
-.btn-bayar {
+.btn-bayar-simpanan,
+.btn-bayar-pinjaman {
     cursor: pointer;
 }
 
