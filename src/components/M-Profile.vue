@@ -495,6 +495,10 @@ export default {
             id_rekening_tujuan: "",
             bukti_transfer: null,
 
+            simpanan_wajib: 0,
+            simpanan_sukarela: 0,
+            simpanan_berjangka:0,
+
             pekerjaan: [],
             nama_bank: [],
             rekening: [],
@@ -730,11 +734,11 @@ export default {
             modal.show();
         },
         async getBankKoperasi() {
-            let r_bank = await axios.get("http://localhost:8080/api/v1/bank?search=2", {withCredentials: true});
+            const r_bank = await axios.get("http://localhost:8080/api/v1/bank?search=2", {withCredentials: true});
             this.b_koperasi = r_bank.data.data;
         },
         async getSimpananBerjangka() {
-            let simpan = await axios.get("http://localhost:8080/api/v1/simpan?filter=4&&search=" + this.id, {withCredentials: true});
+            const simpan = await axios.get("http://localhost:8080/api/v1/simpan?filter=4&isD=0&search=" + this.id, { withCredentials: true })
             this.simpanan = simpan.data.data
             this.id_simpan = simpan.data.data[0].id
             this.jumlah = simpan.data.data[0].total / simpan.data.data[0].jangka_simpan
@@ -745,6 +749,12 @@ export default {
                 this.status_s = "Proses"
             }
         },
+        // async getSimpananBerjangka() {
+
+        // },
+        // async getSimpananBerjangka() {
+
+        // },
         async onFileSelected(event) {
             this.bukti_transfer = event.target.files[0]
         },
