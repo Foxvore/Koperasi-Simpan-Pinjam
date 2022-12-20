@@ -34,37 +34,8 @@
                             <td>{{ this.bulan }} Bulan</td>
                             <td>{{ item.tujuan }}</td>
                             <td>
-                                <button href="" class="btn-decline form-modal" data-bs-toggle="modal" data-bs-target="#tolakPengajuan(item.id)"><i class="fa-solid fa-file-circle-xmark"></i></button>
-                                <button href="" class="btn-accept" v-on:click="terima1(item.id)"><i class="fa-solid fa-file-circle-check"></i></button>
+                                <button href="" class="btn-accept" v-on:click="ajukan(item.id)"><i class="fa-solid fa-file-circle-check"></i></button>
                             </td>
-
-                            <div class="modal fade" id="tolakPengajuan({{item.id}})" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="title">Form Penolakan</div>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form>
-                                            <div class="modal-body">
-                                                <div class="form-details">
-                                                    <div class="input-box">
-                                                        <span class="details">Id Pinjaman</span>
-                                                        <input type="number" placeholder="Masukan Id Pinjaman" :value="item.id" required>
-                                                    </div>
-                                                    <div class="input-box">
-                                                        <span class="details">Alasan Penolakan</span>
-                                                        <input type="text" placeholder="Masukan Alasan" v-model="alasan" required>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-submit" v-on:click="tolak1">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
                         </tr>
                     </tbody>
                 </table>
@@ -91,8 +62,8 @@
                             <td>{{ item.t_pinjam.tanggal_pinjam }}</td>
                             <td>{{ item.tanggal_persetujuan}}</td>
                             <td>
-                                <button href="" class="btn-decline form-modal" data-bs-toggle="modal" data-bs-target="#tolakPengajuan"><i class="fa-solid fa-file-circle-xmark"></i></button>
-                                <button href="" class="btn-accept" v-on:click="terima2"><i class="fa-solid fa-file-circle-check"></i></button>
+                                <button href="" class="btn-decline" v-on:click="tolak(item.id)"><i class="fa-solid fa-file-circle-xmark"></i></button>
+                                <button href="" class="btn-accept" v-on:click="terima(item.id)"><i class="fa-solid fa-file-circle-check"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -122,7 +93,6 @@ export default {
             permohonan: [],
 
             id_pegawai: 0,
-            alasan: "",
         }
     },
     async mounted() {
@@ -155,11 +125,11 @@ export default {
     methods: {
         async getPegawai() {
             var pegawai = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai", {withCredentials: true})
-            this.id_pegawai = pegawai.data.data[0].id
+            this.id_pegawai = pegawai.data.data.id
         },
         async getPinjaman() {
             try {
-                let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam", {withCredentials: true}); 
+                const pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?isA=0", {withCredentials: true}); 
                 this.pinjaman = pinjam.data.data
                 this.id_pinjam = pinjam.data.data[0].id
 
@@ -176,12 +146,12 @@ export default {
             this.permohonan = permohonan.data.data
 
         },
-        async terima1(id) {
-            let result = await axios.post("http://localhost:8080/api/v1/permohonan", {
+        async ajukan(id) {
+            const result = await axios.post("http://localhost:8080/api/v1/permohonan", {
                 pinjam_id: id,
                 alasan: "Diterima Staff",
                 cond: 1
-            }, {withCredentials: true} )
+            }, { withCredentials: true } )
             if (result.status === 201) {
                 const Toast = this.$swal.mixin({
                     toast: true,
@@ -212,14 +182,13 @@ export default {
                 })
             }
         },
-        async tolak1() {
-            let result = await axios.post("http://localhost:8080/api/v1/permohonan", {
-                pinjam_id: this.id_pinjam,
-                staff_id: this.id_pegawai,
-                alasan: this.alasan,
-                cond: 2
+        async terima(id) {
+            const result = await axios.put("http://localhost:8080/api/v1/permohonan/" + id, {
+                alasan: "Diterima Pimpinan",
+                cond: 2,
             }, {withCredentials: true} )
-            if (result.status === 201) {
+            console.log(result.status);
+            if (result.status === 200) {
                 const Toast = this.$swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -230,7 +199,41 @@ export default {
 
                 Toast.fire({
                     icon: 'success',
-                    title: 'Input Successfull!'
+                    title: 'Pinjaman Diterima!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Input Failed!'
+                })
+            }
+        },
+        async tolak(id){
+            const result = await axios.put("http://localhost:8080/api/v1/permohonan/" + id, {
+                alasan: "Ditolak Pimpinan",
+                cond: 3,
+            }, {withCredentials: true} )
+            if (result.status === 200) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Pinjaman Ditolak!'
                 })
                 localStorage.setItem("bank-info", JSON.stringify(result.data));
                 setTimeout(location.reload.bind(location), 1000);
@@ -248,7 +251,7 @@ export default {
                     title: 'Input Failed!'
                 })
             }
-        },
+        }
     },
 };
 </script>
