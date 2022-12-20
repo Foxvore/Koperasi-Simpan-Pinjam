@@ -22,7 +22,6 @@
                     <table id="akun" class="table table-striped responsive nowrap table-hover">
                         <thead>
                             <tr>
-                                <th>Nama</th>
                                 <th>Email</th>
                                 <th>Password</th>
                                 <th>Role</th>
@@ -31,14 +30,13 @@
                         </thead>
                         <tbody class="table-group-divider">
                             <tr v-for="item in akun" :key="item.id">
-                                <td>{{ item.nama }}</td>
-                                <td>{{ item.m_akun.email }}</td>
+                                <td>{{ item.email }}</td>
                                 <td>
-                                    <input type="password" :value="item.m_akun.password" readonly>
+                                    <input type="password" :value="item.password" readonly>
                                 </td>
-                                <td>{{ item.m_akun.m_role.role }}</td>
+                                <td>{{ item.role_id }}</td>
                                 <td class="action">
-                                    <button id="btn-delete" v-on:click="deleteRekening(item.id)"><i class="fa-solid fa-trash"></i></button>
+                                    <button id="btn-delete" v-on:click="deleteAkun(item.id)"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -143,9 +141,9 @@ export default {
             this.jabatan = jabatan.data.data;
         },
         async getAkun() {
-            let akun = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai", {withCredentials: true});
+            let akun = await axios.get("http://localhost:8080/api/v1/userData", {withCredentials: true});
             this.akun = akun.data.data;
-            console.log(akun.data.data)
+            // console.log(akun.data.data)
         },
         async addAkun() {
             this.v$.$validate();
@@ -166,9 +164,10 @@ export default {
 
                     Toast.fire({
                         icon: 'success',
-                        title: 'Sign Up Successfull!'
+                        title: 'Submit Successfull!'
                     })
                     this.$router.push({name : 'A-Akun'})
+                    setTimeout(location.reload.bind(location), 1000);
                 } 
             } else {
                 const Toast = this.$swal.mixin({
@@ -181,11 +180,11 @@ export default {
 
                 Toast.fire({
                     icon: 'error',
-                    title: 'Sign Up Failed!'
+                    title: 'Submit Failed!'
                 })
             }
         },
-        async deletePegawai(id) {
+        async deleteAkun(id) {
             let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
             if (result.status === 200) {
                 location.reload();
