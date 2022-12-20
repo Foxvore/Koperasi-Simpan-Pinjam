@@ -93,7 +93,7 @@
                                         <input type="submit" value="Ajukan Perubahan Data Diri" class="submit" v-on:click="submitProfile">
                                     </div>
                                     <div class="button hidden" id="btn_edit">
-                                        <input class="submit" value="Edit Data Diri" v-on:click="editProfile(this.id)">
+                                        <input class="submit" value="Edit Data Diri" v-on:click="editProfile(this.id_anggota)">
                                     </div>
                                     <hr class="hr">
                                     <div class="table-bank">
@@ -201,28 +201,28 @@
                                         <div class="user-details">
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Wajib</span>
-                                                <input type="text" value="Rp. 0" readonly>
+                                                <input type="text" :value="this.rp + this.saldo_wajib" readonly>
                                                 <a class="modal-form" data-bs-toggle="modal" data-bs-target="#simpananWajib">
                                                     <i class="fa-solid fa-circle-plus plus1"></i>
                                                 </a>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Sukarela</span>
-                                                <input type="text" value="Rp. 0" readonly>
+                                                <input type="text" :value="this.rp + this.saldo_sukarela" readonly>
                                                 <a class="modal-form" data-bs-toggle="modal" data-bs-target="#simpananSukarela">
                                                     <i class="fa-solid fa-circle-plus plus2"></i>
                                                 </a>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Total Simpanan Berjangka</span>
-                                                <input type="text" value="Rp. 0" readonly>
-                                                <a class="modal-form" data-bs-toggle="modal" data-bs-target="#simpananSukarela">
+                                                <input type="text" :value="this.rp + this.saldo_berjangka" readonly>
+                                                <router-link to="/simpan">
                                                     <i class="fa-solid fa-circle-plus plus3"></i>
-                                                </a>
+                                                </router-link>
                                             </div>
                                             <div class="input-box">
                                                 <span class="details">Simpanan Yang Dapat Ditarik</span>
-                                                <input type="text" value="Rp. 0" readonly>
+                                                <input type="text" :value="this.rp + (this.saldo_sukarela + this.saldo_berjangka)" readonly>
                                                 <a class="modal-form" data-bs-toggle="modal" data-bs-target="#penarikan">
                                                     <i class="fa-solid fa-money-bill-transfer tarik"></i>
                                                 </a>
@@ -373,44 +373,47 @@
                             </div>
                         </div>
                         <div class="modal fade" id="penarikan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="title">Form Penarikan</div>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form>
-                                            <div class="modal-body">
-                                                <div class="simpan-details">
-                                                    <div class="input-box">
-                                                        <span class="details">Pilih Rekening Tujuan Penarikan</span>
-                                                        <select class="form-select" v-model="id_rekening_tujuan" required>
-                                                            <option v-for="item in rekening" :key="item.id" :value="item.id">
-                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="input-box">
-                                                        <span class="details">Jumlah Penarikan</span>
-                                                        <input type="number" placeholder="Minimal Rp. 10.000, Contoh: 10000" v-model="jumlah">
-                                                    </div>
-                                                    <div class="input-box">
-                                                        <span class="details">Tarik Dari Simpanan</span>
-                                                        <select class="form-select" v-model="id_rekening_tujuan" required>
-                                                            <!-- <option v-for="item in rekening" :key="item.id" :value="item.id">
-                                                                {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
-                                                            </option> -->
-                                                        </select>
-                                                    </div>
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="title">Form Penarikan</div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form>
+                                        <div class="modal-body">
+                                            <div class="simpan-details">
+                                                <div class="input-box">
+                                                    <span class="details">Pilih Rekening Tujuan Penarikan</span>
+                                                    <select class="form-select" v-model="id_rekening_tujuan" required>
+                                                        <option v-for="item in rekening" :key="item.id" :value="item.id">
+                                                            {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-box">
+                                                    <span class="details">Jumlah Penarikan</span>
+                                                    <input type="number" placeholder="Minimal Rp. 10.000, Contoh: 10000" v-model="jumlah_penarikan">
+                                                </div>
+                                                <div class="input-box">
+                                                    <span class="details">Tarik Dari Simpanan</span>
+                                                    <select class="form-select" v-model="jenis_simpanan" required>
+                                                        <option :value="3">Simpanan Sukarela</option>
+                                                        <option :value="4">Simpanan Berjangka</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-box">
+                                                    <span class="details">Upload Foto KTP</span>
+                                                    <input type="file" id="file" name="file" class="input-file form-control form-control-lg" v-on:change="onFileSelected" required>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-submit" v-on:click="submitPenarikan">Submit</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-submit" v-on:click="submitPenarikan">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
                         <div class="tab-pane fade" id="v-pills-pinjam" role="tabpanel" aria-labelledby="v-pills-pinjam-tab" tabindex="0">
                             <div class="containers1" id="containers1">
                                 <div class="title">Pinjamanmu</div>
@@ -435,11 +438,46 @@
                                                 <td>{{ item.jumlah / this.bulan }}</td>
                                                 <td>{{  }}</td>
                                                 <td class="action">
-                                                    <a class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#simpananBerjangka">Bayar</a>
+                                                    <a class="btn-bayar form-modal" data-bs-toggle="modal" data-bs-target="#pengembalian">Bayar</a>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="pengembalian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="title">Form Pengembalian</div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form>
+                                        <div class="modal-body">
+                                            <div class="simpan-details">
+                                                <div class="input-box">
+                                                    <span class="details">Pilih Rekening Koperasi</span>
+                                                    <select class="form-select" v-model="id_koperasi" required>
+                                                        <option v-for="item in b_koperasi" :key="item.id" :value="item.id">
+                                                            {{ item.namaBank.nama_bank + " - " + item.no_rek }} 
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-box">
+                                                    <span class="details">Jumlah Pengembalian</span>
+                                                    <input type="text" placeholder="Jumlah Yang Harus Dibayarkan" :value="this.jumlah" readonly>
+                                                </div>
+                                                <div class="input-box">
+                                                    <span class="details">Upload Bukti Transfer</span>
+                                                    <input type="file" id="file" name="file" class="input-file form-control form-control-lg" v-on:change="onFileSelected">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-submit" v-on:click="submitPengembalian()">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -466,7 +504,7 @@ export default {
             sukarela: parseInt(""),
 
             s_akun: "Silahkan Lengkapi Data Diri",
-            id: "",
+            id_anggota: "",
             nama: "",
             no_ktp: "",
             no_telp: "",
@@ -491,13 +529,15 @@ export default {
             id_simpan: "",
             id_pinjam: "",
             jumlah: null,
+            jumlah_penarikan: null,
             bulan: 0,
             id_rekening_tujuan: "",
             bukti_transfer: null,
+            jenis_simpanan: null,
 
-            simpanan_wajib: 0,
-            simpanan_sukarela: 0,
-            simpanan_berjangka:0,
+            saldo_wajib: 0,
+            saldo_sukarela: 0,
+            saldo_berjangka: 0,
 
             pekerjaan: [],
             nama_bank: [],
@@ -539,6 +579,9 @@ export default {
         this.getAnggota();
         this.getNamaBank();
         this.getSimpananBerjangka();
+        this.getSaldoWajib();
+        this.getSaldoSukarela();
+        this.getSaldoBerjangka();
         this.getPinjaman();
         this.getBankKoperasi();
         this.validasi();
@@ -557,8 +600,8 @@ export default {
             this.pekerjaan = job.data.data;
         },
         async getAnggota() {
-            let profile = await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
-            this.id = profile.data.data.id
+            const profile = await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            this.id_anggota = profile.data.data.id
             this.no_anggota = profile.data.data.no_anggota;
             this.nama = profile.data.data.nama;
             this.no_telp = profile.data.data.no_hp;
@@ -738,23 +781,32 @@ export default {
             this.b_koperasi = r_bank.data.data;
         },
         async getSimpananBerjangka() {
-            const simpan = await axios.get("http://localhost:8080/api/v1/simpan?filter=4&isD=0&search=" + this.id, { withCredentials: true })
+            const simpan = await axios.get("http://localhost:8080/api/v1/simpan?filter=4&isD=0&search=" + this.id_anggota, { withCredentials: true })
             this.simpanan = simpan.data.data
-            this.id_simpan = simpan.data.data[0].id
-            this.jumlah = simpan.data.data[0].total / simpan.data.data[0].jangka_simpan
+            this.id_simpan = simpan.data.data.id
+            this.jumlah = simpan.data.data.total / simpan.data.data.jangka_simpan
 
-            if (simpan.data.data[0].is_done === true) {
+            if (simpan.data.data.is_done === true) {
                 this.status_s = "Selesai"
-            } else if (simpan.data.data[0].is_done === false) {
+            } else if (simpan.data.data.is_done === false) {
                 this.status_s = "Proses"
             }
         },
-        // async getSimpananBerjangka() {
-
-        // },
-        // async getSimpananBerjangka() {
-
-        // },
+        async getSaldoWajib() {
+            await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            const sWajib = await axios.get("http://localhost:8080/api/v1/saldo/simpanan?type=w&id=" + this.id_anggota, { withCredentials: true })
+            this.saldo_wajib = sWajib.data.data;
+        },
+        async getSaldoSukarela() {
+            await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            const sSukarela = await axios.get("http://localhost:8080/api/v1/saldo/simpanan?type=s&id=" + this.id_anggota, { withCredentials: true })
+            this.saldo_sukarela = sSukarela.data.data;
+        },
+        async getSaldoBerjangka() {
+            await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            const sBerjangka = await axios.get("http://localhost:8080/api/v1/saldo/simpanan?type=b&id=" + this.id_anggota, { withCredentials: true })
+            this.saldo_berjangka = sBerjangka.data.data;
+        },
         async onFileSelected(event) {
             this.bukti_transfer = event.target.files[0]
         },
@@ -929,45 +981,115 @@ export default {
                     title: 'Jumlah Penarikan Minimal Rp. 10.000!'
                 })
             } else if (this.jumlah >= 10000) {
-                let result = await axios.post("http://localhost:8080/api/v1/transaksi", {
-                    jenis_transaksi_id: 1,
-                    jumlah: this.jumlah,
-                    jenis_simpanan_id: this.jenis_simpanan,
-                    bank_id: this.id_rekening_tujuan
-                }, { withCredentials: true })
-                if (result.status === 201) {
-                    const Toast = this.$swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 1000,
-                        timerProgressBar: true,
-                    })
+                console.log(this.jenis_simpanan);
+                if (this.jenis_simpanan === 3) { //penarikan sukarela
+                    if (this.jumlah_penarikan >= this.saldo_sukarela) {
+                        const fd = new FormData();
+                        fd.append('jenis_transaksi_id', 1);
+                        fd.append('jumlah', this.jumlah_penarikan);
+                        fd.append('file', this.bukti_transfer);
+                        fd.append('jenis_simpanan_id', this.jenis_simpanan);
+                        fd.append('bank_id', this.id_rekening_tujuan);
+                        let result = await axios.post("http://localhost:8080/api/v1/transaksi", fd, { withCredentials: true })
+                        if (result.status === 201) {
+                            const Toast = this.$swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                            })
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Transaksi Berhasil!'
-                    })
-                    setTimeout(location.reload.bind(location), 1000);
-                } else {
-                    const Toast = this.$swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                    })
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Transaksi Berhasil!'
+                            })
+                            setTimeout(location.reload.bind(location), 1000);
+                        } else {
+                            const Toast = this.$swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                            })
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Transaksi Gagal!'
-                    })
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Transaksi Gagal!'
+                            })
+                        }
+                    } else if (this.jumlah_penarikan <= this.saldo_sukarela) {
+                        const Toast = this.$swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                        })
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Saldo Tidak Mencukupi!'
+                        })
+                    }
+                } else if (this.jenis_simpanan === 4) { //penarikan berjangka
+                    if (this.jumlah_penarikan >= this.saldo_berjangka) {
+                        const fd = new FormData();
+                        fd.append('jenis_transaksi_id', 1);
+                        fd.append('jumlah', this.jumlah_penarikan);
+                        fd.append('file', this.bukti_transfer);
+                        fd.append('jenis_simpanan_id', this.jenis_simpanan);
+                        fd.append('bank_id', this.id_rekening_tujuan);
+                        let result = await axios.post("http://localhost:8080/api/v1/transaksi", fd, { withCredentials: true })
+                        if (result.status === 201) {
+                            const Toast = this.$swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 1000,
+                                timerProgressBar: true,
+                            })
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Transaksi Berhasil!'
+                            })
+                            setTimeout(location.reload.bind(location), 1000);
+                        } else {
+                            const Toast = this.$swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                            })
+
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Transaksi Gagal!'
+                            })
+                        }
+                    } else if (this.jumlah_penarikan <= this.saldo_berjangka) {
+                        const Toast = this.$swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                        })
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Saldo Tidak Mencukupi!'
+                        })
+                    }
                 }
             }
         },
         async getPinjaman() {
             try {
-                let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?search=" + this.id, {withCredentials: true});
+                let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?isD=0&search=" + this.id_anggota, {withCredentials: true});
                 this.pinjaman = pinjam.data.data
                 this.id_pinjam = pinjam.data.data[0].id
 
@@ -975,6 +1097,8 @@ export default {
                 var b = new moment(pinjam.data.data[0].tanggal_pinjam)
 
                 this.bulan = a.diff(b, 'months');
+
+                this.jumlah = pinjam.data.data[0].jumlah / this.bulan
 
                 if (pinjam.data.data[0].is_approve === false) {
                     this.status_p = "Menunggu Persetujuan"
@@ -985,6 +1109,43 @@ export default {
                 }
             } catch (error) {
                 console.log(error);
+            }
+        },
+        async submitPengembalian() {
+            const fd = new FormData();
+            fd.append('pinjaman_id', this.id_pinjam);
+            fd.append('bank_id', this.id_koperasi);
+            fd.append('jumlah', this.jumlah);
+            fd.append('jenis_transaksi_id', 2);
+            fd.append('file', this.bukti_transfer);
+            let result = await axios.post("http://localhost:8080/api/v1/transaksi", fd, { withCredentials: true })
+            if (result.status === 201) {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Transaksi Berhasil!'
+                })
+                setTimeout(location.reload.bind(location), 1000);
+            } else {
+                const Toast = this.$swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                })
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Transaksi Gagal!'
+                })
             }
         },
         async validasi() {
@@ -1111,7 +1272,9 @@ export default {
 #simpananBerjangka .title,
 #simpananWajib .title,
 #simpananSukarela .title,
-#detailBank .title {
+#detailBank .title,
+#penarikan .title,
+#pengembalian .title {
     font-size: 25px;
     font-weight: 500;
     position: relative;
@@ -1123,7 +1286,9 @@ export default {
 #simpananBerjangka .title::before,
 #simpananWajib .title::before,
 #simpananSukarela .title::before,
-#detailBank .title::before {
+#detailBank .title::before,
+#pengembalian .title::before,
+#penarikan .title::before {
     content: "";
     position: absolute;
     left: 0;
@@ -1209,7 +1374,8 @@ export default {
 #simpananBerjangka .btn-submit,
 #simpananWajib .btn-submit,
 #simpananSukarela .btn-submit,
-#penarikan .btn-submit {
+#penarikan .btn-submit,
+#pengembalian .btn-submit {
     height: 100%;
     width: 60%;
     border-radius: 5px;
@@ -1289,8 +1455,7 @@ table {
     text-align: center;
 }
 
-.btn-bayar-simpanan,
-.btn-bayar-pinjaman {
+.btn-bayar {
     cursor: pointer;
 }
 
