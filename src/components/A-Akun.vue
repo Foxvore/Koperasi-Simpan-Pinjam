@@ -141,7 +141,7 @@ export default {
             this.jabatan = jabatan.data.data;
         },
         async getAkun() {
-            let akun = await axios.get("http://localhost:8080/api/v1/userData", {withCredentials: true});
+            let akun = await axios.get("http://localhost:8080/api/v1/userStaff", {withCredentials: true});
             this.akun = akun.data.data;
             // console.log(akun.data.data)
         },
