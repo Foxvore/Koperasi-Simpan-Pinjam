@@ -1,85 +1,117 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div id="app">
+		<router-view /> 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	</div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script>
+export default {
+  name: 'App',
+}
+</script>
+
+<style>
+/*===== Tag =====*/
+body, ul, li, p {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+a {
+  text-decoration: none;
+  color: #FFB037;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
+a:hover {
+  color: #ffc955;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", sans-serif;
+}
+
+span {
+  color: #FFB037;
+}
+
+#main h2 {
   text-align: center;
-  margin-top: 2rem;
+  color: black;
+  text-shadow: 2px 2px 2px #9A9A9A;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+/*===== Custom Scrollbar =====*/
+::-webkit-scrollbar {
+  width: 5px;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+::-webkit-scrollbar-thumb {
+  background-color: #FFB037;
+  border-radius: 10px;
 }
 
-nav a:first-of-type {
-  border: 0;
+/*===== Back to top button =====*/
+.back-to-top {
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  right: 15px;
+  bottom: 15px;
+  z-index: 996;
+  background: #FFB037;
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  transition: all 0.4s;
+}
+
+.back-to-top i {
+  font-size: 28px;
+  color: #000000;
+  line-height: 0;
+}
+
+.back-to-top:hover {
+  background: #FFB037;
+  color: #000000;
+}
+
+.back-to-top.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/*===== Sections General =====*/
+section {
+  padding: 60px 0;
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.section-title h3 {
+  margin: 15px 0 0 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.section-title p {
+  margin: 15px auto 0 auto;
+  font-weight: 600;
 }
 
 @media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+  .section-title p {
+    width: 50%;
   }
 }
 </style>
