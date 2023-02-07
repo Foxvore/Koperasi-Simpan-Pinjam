@@ -454,27 +454,6 @@ section {
   background-color: #F1F1F1;
 }
 
-#list { /* Layanan */
-  background-color: #F1F1F1;
-}
-
-#simpanan {
-  background-color: #FFFFFF;
-  overflow: hidden;
-}
-
-#simpan {
-  background-color: #FFFFFF;
-}
-
-#pinjaman {
-  background-color: #F1F1F1;
-}
-
-#pinjam {
-  background-color: #F1F1F1;
-}
-
 /*Responsive Section*/
 @media screen and (min-width: 320px) and (max-width: 430px) { /* Phone */
   /*Homepage*/

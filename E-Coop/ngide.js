@@ -429,10 +429,3 @@ spBulan.addEventListener('input', function() {
     jpBulan.innerHTML = this.value + " Bulan";
     jkPinjam.value = this.value + " Bulan";
 })
-
-// Perhitungan Simpanan
-const bBonus = document.getElementById("b-bonus");
-const tBonus = document.getElementById("t-bonus");
-const sAkhir = document.getElementById("s-akhir");
-
-// Perhitungan Pinjaman
