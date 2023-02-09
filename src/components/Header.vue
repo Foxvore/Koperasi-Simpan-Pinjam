@@ -185,6 +185,7 @@ export default {
 #header.header-inner-pages {
   background: rgba(27, 26, 23, 0.7);
   padding: 12px 0;
+  backdrop-filter: blur(5px);
 }
 
 /*===== Desktop Navigation =====*/
