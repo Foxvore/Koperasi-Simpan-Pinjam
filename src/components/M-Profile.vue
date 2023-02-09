@@ -36,9 +36,6 @@
                             <div class="containers1" id="containers1">
                                 <div class="title">Data Diri</div>
                                 <p class="status">Status : {{ s_akun }}</p>
-                                <div class="simpanan-pokok">
-                                    <button class="btn btn-outline-warning form-modal" data-bs-toggle="modal" data-bs-target="#simpananPokok">Bayar Simpanan Pokok</button>
-                                </div>
                                 <div class="content">
                                     <div class="user-details">
                                         <div class="input-box member">
@@ -197,6 +194,9 @@
                             <div class="containers1" id="containers1">
                                 <div class="title">Simpananmu</div>
                                 <div class="content">
+                                <div class="simpanan-pokok">
+                                    <button class="btn btn-outline-warning form-modal" data-bs-toggle="modal" data-bs-target="#simpananPokok">Bayar Simpanan Pokok</button>
+                                </div>
                                     <form action="#">
                                         <div class="user-details">
                                             <div class="input-box">
