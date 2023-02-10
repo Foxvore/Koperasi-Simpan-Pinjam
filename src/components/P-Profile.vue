@@ -89,6 +89,7 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import { baseAPI } from "../api.js"
 export default {
     name : 'P-Profile',
     components : {
@@ -119,7 +120,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
         
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         this.email = acc.data.data.email
         if(acc) { // Login
             if (acc.data.data.role === 1) { // Admin
@@ -144,7 +145,7 @@ export default {
     },
     methods: {
         async getPegawai() {
-            let profile = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai" , {withCredentials: true});
+            let profile = await axios.get(`${baseAPI}/userInfo/pegawai` , {withCredentials: true});
             console.log(profile);
             this.id = profile.data.data.id
             this.no_pegawai = profile.data.data.no_pegawai;
@@ -158,7 +159,7 @@ export default {
             this.jabatan = profile.data.data.m_jabatan.jabatan;
         },
         async submitProfile() {
-            let result = await axios.post("http://localhost:8080/api/v1/pegawai", {
+            let result = await axios.post(`${baseAPI}/pegawai`, {
                 nama: this.nama,
                 no_hp: this.no_telp,
                 no_ktp: this.no_ktp,
@@ -198,7 +199,7 @@ export default {
             }
         },
         async editProfile(id) {
-            let result = await axios.put("http://localhost:8080/api/v1/pegawai/" + id, {
+            let result = await axios.put(`${baseAPI}/pegawai/` + id, {
                 nama: this.nama,
                 no_hp: this.no_telp,
                 no_ktp: this.no_ktp,
@@ -241,7 +242,7 @@ export default {
             const btn_submit = document.querySelector("#btn_submit")
             const btn_edit = document.querySelector("#btn_edit")
 
-            var akun = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai", {withCredentials: true})
+            var akun = await axios.get(`${baseAPI}/userInfo/pegawai`, {withCredentials: true})
             if (akun.status === 200) {
                 btn_submit.classList.add("hidden")
                 btn_edit.classList.remove("hidden")

@@ -193,6 +193,7 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import { baseAPI } from "../api.js"
 export default {
   name: "Home",
   components : {
@@ -211,7 +212,7 @@ export default {
       console.warn("benerin button");
       // daftar.classList.remove('hidden')
     } else if (kuki) {
-      var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+      var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
       if(acc) { // Login
         title.classList.remove('hidden')
         

@@ -291,6 +291,7 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import { baseAPI } from "../api.js"
 export default {
   name : "Service",
   async mounted() {
@@ -298,7 +299,7 @@ export default {
 
     var kuki = $cookies.get("jwt")
     if (kuki) {
-      var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+      var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
       if(acc) { // Login        
         if (acc.data.data.role === 1 ) { // Admin
           this.$router.push({name : 'Dashboard'})

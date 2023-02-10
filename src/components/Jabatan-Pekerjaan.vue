@@ -178,6 +178,7 @@
 <script>
 import axios from 'axios'
 import Sidebar from './Sidebar.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: "Jabatan-Pekerjaan",
     components : {
@@ -190,7 +191,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
         
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
@@ -217,15 +218,15 @@ export default {
     },
     methods: {
         async getDataPekerjaan() {
-            let pekerjaan = await axios.get("http://localhost:8080/api/v1/pekerjaan");
+            let pekerjaan = await axios.get(`${baseAPI}/pekerjaan`);
             this.data_pekerjaan = pekerjaan.data.totalRows;
         },
         async getPekerjaan() {
-            let pekerjaan = await axios.get("http://localhost:8080/api/v1/pekerjaan");
+            let pekerjaan = await axios.get(`${baseAPI}/pekerjaan`);
             this.job = pekerjaan.data.data;
         },
         async submitPekerjaan() {
-            let result = await axios.post('http://localhost:8080/api/v1/pekerjaan', {
+            let result = await axios.post(`${baseAPI}/pekerjaan`, {
                 pekerjaan: this.pekerjaan,
                 desc: this.desc
             }, {withCredentials: true});
@@ -260,14 +261,14 @@ export default {
             }
         },
         async deletePekerjaan(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/pekerjaan/" + id, {withCredentials: true});
+            let result = await axios.delete(`${baseAPI}/pekerjaan/` + id, {withCredentials: true});
             if (result.status === 200) {
                 location.reload();
                 this.getPekerjaan();
             }
         },
         async showPekerjaan(id) {
-            let pekerjaan = await axios.get("http://localhost:8080/api/v1/pekerjaan?search=" + id, {withCredentials: true});
+            let pekerjaan = await axios.get(`${baseAPI}/pekerjaan?search=` + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();
@@ -300,15 +301,15 @@ export default {
             modal.show();
         },
         async getDataJabatan() {
-            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan", {withCredentials: true});
+            let jabatan = await axios.get(`${baseAPI}/jabatan`, {withCredentials: true});
             this.data_jabatan = jabatan.data.totalRows;
         },
         async getJabatan() {
-            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan", {withCredentials: true});
+            let jabatan = await axios.get(`${baseAPI}/jabatan`, {withCredentials: true});
             this.position = jabatan.data.data;
         },
         async submitJabatan() {
-            let result = await axios.post("http://localhost:8080/api/v1/jabatan", {
+            let result = await axios.post(`${baseAPI}/jabatan`, {
                 jabatan: this.jabatan,
                 desc: this.desc
             }, {withCredentials: true});
@@ -343,14 +344,14 @@ export default {
             }
         },
         async deleteJabatan(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/jabatan/" + id, {withCredentials: true});
+            let result = await axios.delete(`${baseAPI}/jabatan/` + id, {withCredentials: true});
             if (result.status === 200) {
                 location.reload();
                 this.getJabatan();
             }
         },
         async showJabatan(id) {
-            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan?search=" + id, {withCredentials: true});
+            let jabatan = await axios.get(`${baseAPI}/jabatan?search=` + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();

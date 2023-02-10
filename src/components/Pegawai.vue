@@ -51,6 +51,7 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: 'Pegawai',
     components: {
@@ -65,7 +66,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
 
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 1 ) { // Admin
                 this.$router.push({name : 'Dashboard'})
@@ -83,17 +84,17 @@ export default {
     },
     methods: {
         async getPegawai() {
-            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai");
+            let pegawai = await axios.get(`${baseAPI}/pegawai`);
             this.pegawai = pegawai.data.data;
         },
         async deletePegawai(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
+            let result = await axios.delete(`${baseAPI}/pegawai/` + id);
             if (result.status === 200) {
                 this.getPegawai();
             }
         },
         async showInfo(id) {
-            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai?search=" + id, {withCredentials: true});
+            let pegawai = await axios.get(`${baseAPI}/pegawai?search=` + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();

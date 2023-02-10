@@ -48,6 +48,7 @@
 <script>
 import axios from 'axios'
 import Sidebar from './Sidebar.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: "A-Pinjaman",
     components : {
@@ -65,7 +66,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
         
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
@@ -76,7 +77,7 @@ export default {
     },
     methods: {
         async getPinjaman() {
-            let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam", { withCredentials: true})
+            let pinjam = await axios.get(`${baseAPI}/pinjam`, { withCredentials: true})
             this.pinjaman = pinjam.data.data
         }
     }

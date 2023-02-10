@@ -158,6 +158,7 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import { baseAPI } from "../api.js"
 export default {
     name : 'Simpan',
     components : {
@@ -201,7 +202,7 @@ export default {
     },
     methods: {
         async getUserInfo(){
-            var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+            var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
             if(acc) { // Login
                 if (acc.data.data.role === 1 ) { // Admin
                     this.$router.push({name : 'Dashboard'})
@@ -297,7 +298,7 @@ export default {
             this.bulan = ssBulan.value;
         },
         async getAnggota() {
-            let profile = await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            let profile = await axios.get(`${baseAPI}/anggota/info` , {withCredentials: true});
             this.id = profile.data.data.id
             this.no_anggota = profile.data.data.no_anggota;
             this.nama = profile.data.data.nama;
@@ -318,7 +319,7 @@ export default {
             fd.append('jumlah', 0);
             fd.append('total', this.jumlah);
             fd.append('jangka_simpan', this.bulan)
-            let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+            let result = await axios.post(`${baseAPI}/simpan`, fd, { withCredentials: true })
             if (result.status === 201) {
                 const Toast = this.$swal.mixin({
                     toast: true,
@@ -454,7 +455,7 @@ export default {
     height: 5px;
     background: linear-gradient(to right, #fad88d, #FFB037);
     transition: backgound 450ms ease-in;
-    -webkit-appearance: none;
+    appearance: none;
     border-radius: 25px;
     box-shadow: 2px 8px 13px -3px rgba(116, 114, 114, 0.75);
 }

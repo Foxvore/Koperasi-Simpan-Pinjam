@@ -247,6 +247,7 @@
 <script>
 import axios from 'axios'
 import Sidebar from './Sidebar.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: "Dashboard",
     components : {
@@ -259,7 +260,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
 
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
@@ -295,35 +296,35 @@ export default {
     },
     methods: {
         async getDataPegawai() {
-            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai");
+            let pegawai = await axios.get(`${baseAPI}/pegawai`);
             this.data_pegawai = pegawai.data.totalRows;
         },
         async getDataAnggota() {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota", { withCredentials: true});
+            let anggota = await axios.get(`${baseAPI}/anggota`, { withCredentials: true});
             this.data_anggota = anggota.data.totalRows;
         },
         async getDataSimpanan() {
-            let simpanan = await axios.get("http://localhost:8080/api/v1/simpan", { withCredentials: true});
+            let simpanan = await axios.get(`${baseAPI}/simpan`, { withCredentials: true});
             this.data_simpanan = simpanan.data.totalRows;
         },
         async getDataPinjaman() {
-            let pinjaman = await axios.get("http://localhost:8080/api/v1/pinjam", { withCredentials: true});
+            let pinjaman = await axios.get(`${baseAPI}/pinjam`, { withCredentials: true});
             this.data_pinjaman = pinjaman.data.totalRows;
         },
         async getDataRekening() {
-            let r_bank = await axios.get("http://localhost:8080/api/v1/bank?search=2", {withCredentials: true});
+            let r_bank = await axios.get(`${baseAPI}/bank?search=2`, {withCredentials: true});
             this.data_rekening = r_bank.data.totalRows;
         },
         async getDataNamaBank() {
-            let n_bank = await axios.get("http://localhost:8080/api/v1/namaBank");
+            let n_bank = await axios.get(`${baseAPI}/namaBank`);
             this.data_nama_bank = n_bank.data.totalRows;
         },
         async getNamaBank() {
-            let n_bank = await axios.get("http://localhost:8080/api/v1/namaBank");
+            let n_bank = await axios.get(`${baseAPI}/namaBank`);
             this.nama_bank = n_bank.data.data;
         },
         async submitNamaBank() {
-            let result = await axios.post('http://localhost:8080/api/v1/namaBank', {
+            let result = await axios.post(`${baseAPI}/namaBank`, {
                 nama_bank: this.nama
             }, {withCredentials: true});
             if (result.status === 201) {
@@ -357,17 +358,17 @@ export default {
             }
         },
         async deleteNamaBank(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/namaBank/" + id, {withCredentials: true});
+            let result = await axios.delete(`${baseAPI}/namaBank/` + id, {withCredentials: true});
             if (result.status === 200) {
                 location.reload();
             }
         },
         async getRekening() {
-            let r_bank = await axios.get("http://localhost:8080/api/v1/bank?search=2", {withCredentials: true});
+            let r_bank = await axios.get(`${baseAPI}/bank?search=2`, {withCredentials: true});
             this.rekening = r_bank.data.data;
         },
         async submitRekening() {
-            let result = await axios.post("http://localhost:8080/api/v1/bank", {
+            let result = await axios.post(`${baseAPI}/bank`, {
                 nama_bank_id: this.id_bank,
                 no_rek: this.no_rek,
                 nama_pemilik_bank: this.pemilik, 
@@ -404,13 +405,13 @@ export default {
             }
         },
         async deleteRekening(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/bank/" + id, {withCredentials: true});
+            let result = await axios.delete(`${baseAPI}/bank/` + id, {withCredentials: true});
             if (result.status === 200) {
                 location.reload();
             }
         },
         async showInfo(id) {
-            let a_bank = await axios.get("http://localhost:8080/api/v1/bank?Id=" + id, {withCredentials: true});
+            let a_bank = await axios.get(`${baseAPI}/bank?Id=` + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();

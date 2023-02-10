@@ -57,6 +57,7 @@
 import axios from 'axios'
 import useValidate from '@vuelidate/core'
 import { required, email, minLength, sameAs } from '@vuelidate/validators'
+import { baseAPI } from "../api.js"
 export default {
     name : 'SignUp',
     data() {
@@ -89,7 +90,7 @@ export default {
             try {
                 this.v$.$validate();
                 if (!this.v$.$error) {
-                    let result = await axios.post('http://localhost:8080/api/v1/signup', {
+                    let result = await axios.post(`${baseAPI}/signup`, {
                         email: this.email,
                         password: this.password,
                     });
@@ -142,7 +143,7 @@ export default {
         async login() {
             try {
                 this.v$.$validate();
-                let result = await axios.post(`http://localhost:8080/api/v1/login`, {
+                let result = await axios.post(`${baseAPI}/login`, {
                     email: this.email,
                     password: this.password,
                 }, {withCredentials: true});

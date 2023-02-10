@@ -53,6 +53,7 @@
 import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: 'Anggota',
     components : {
@@ -67,7 +68,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
 
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 1 ) { // Admin
                 this.$router.push({name : 'Dashboard'})
@@ -85,11 +86,11 @@ export default {
     },
     methods: {
         async getAnggota() {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota", {withCredentials: true});
+            let anggota = await axios.get(`${baseAPI}/anggota`, {withCredentials: true});
             this.anggota = anggota.data.data;
         },
         async decline(id) {
-            let result = await axios.put("http://localhost:8080/api/v1/anggota/" + id, {
+            let result = await axios.put(`${baseAPI}/anggota/` + id, {
                 is_staff: 0,
             }, { withCredentials: true });
             console.log(result);
@@ -123,7 +124,7 @@ export default {
             }
         },
         async accept(id) {
-            let result = await axios.put("http://localhost:8080/api/v1/anggota/" + id, {
+            let result = await axios.put(`${baseAPI}/anggota/` + id, {
                 is_staff: 1,
             }, { withCredentials: true });
             console.log(result);
@@ -157,7 +158,7 @@ export default {
             }
         },
         async showInfo(id) {
-            let anggota = await axios.get("http://localhost:8080/api/v1/anggota?search=" + id, {withCredentials: true});
+            let anggota = await axios.get(`${baseAPI}/anggota?search=` + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();

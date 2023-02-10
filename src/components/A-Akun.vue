@@ -95,6 +95,7 @@ import axios from 'axios'
 import useValidate from '@vuelidate/core'
 import { required, email, minLength } from '@vuelidate/validators'
 import Sidebar from './Sidebar.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: "A-Akun",
     components : {
@@ -107,7 +108,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
         
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
@@ -137,18 +138,18 @@ export default {
     },
     methods: {
         async getJabatan() {
-            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan", {withCredentials: true});
+            let jabatan = await axios.get(`${baseAPI}/jabatan`, {withCredentials: true});
             this.jabatan = jabatan.data.data;
         },
         async getAkun() {
-            let akun = await axios.get("http://localhost:8080/api/v1/userStaff", {withCredentials: true});
+            let akun = await axios.get(`${baseAPI}/userStaff`, {withCredentials: true});
             this.akun = akun.data.data;
             // console.log(akun.data.data)
         },
         async addAkun() {
             this.v$.$validate();
             if (!this.v$.$error) {
-                let result = await axios.post('http://localhost:8080/api/v1/signup', {
+                let result = await axios.post(`${baseAPI}/signup`, {
                     role_id: this.id_jabatan,
                     email: this.email,
                     password: this.password,
@@ -185,7 +186,7 @@ export default {
             }
         },
         async deleteAkun(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
+            let result = await axios.delete(`${baseAPI}/pegawai/` + id);
             if (result.status === 200) {
                 location.reload();
             }

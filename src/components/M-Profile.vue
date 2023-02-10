@@ -494,6 +494,7 @@ import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import moment from 'moment'
+import { baseAPI } from "../api.js"
 export default {
     name : 'M-Profile',
     data() {
@@ -565,7 +566,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
         
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         this.email = acc.data.data.email
         if(acc) { // Login
             if (acc.data.data.role === 1) { // Admin
@@ -592,15 +593,15 @@ export default {
     },
     methods: {
         async getNamaBank () {
-            let n_bank = await axios.get("http://localhost:8080/api/v1/namaBank");
+            let n_bank = await axios.get(`${baseAPI}/namaBank`);
             this.nama_bank = n_bank.data.data;
         },
         async getPekerjaan() {
-            let job = await axios.get("http://localhost:8080/api/v1/pekerjaan");
+            let job = await axios.get(`${baseAPI}/pekerjaan`);
             this.pekerjaan = job.data.data;
         },
         async getAnggota() {
-            const profile = await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            const profile = await axios.get(`${baseAPI}/anggota/info` , {withCredentials: true});
             this.id_anggota = profile.data.data.id
             this.no_anggota = profile.data.data.no_anggota;
             this.nama = profile.data.data.nama;
@@ -618,7 +619,7 @@ export default {
             }
         },
         async submitProfile() {
-            let result = await axios.post("http://localhost:8080/api/v1/anggota", {
+            let result = await axios.post(`${baseAPI}/anggota`, {
                 nama: this.nama,
                 no_hp: this.no_telp,
                 no_ktp: this.no_ktp,
@@ -657,7 +658,7 @@ export default {
             }
         },
         async editProfile(id) {
-            let result = await axios.put("http://localhost:8080/api/v1/anggota/" + id, {
+            let result = await axios.put(`${baseAPI}/anggota/` + id, {
                 nama: this.nama,
                 no_hp: this.no_telp,
                 no_ktp: this.no_ktp,
@@ -698,9 +699,9 @@ export default {
             }
         },
         async submitBank() {
-            let profile = await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
+            let profile = await axios.get(`${baseAPI}/anggota/info` , {withCredentials: true});
             var id = profile.data.data.id
-            let result = await axios.post('http://localhost:8080/api/v1/bank', {
+            let result = await axios.post(`${baseAPI}/bank`, {
                 nama_bank_id: this.id_bank,
                 no_rek: this.no_rek,
                 nama_pemilik_bank: this.pemilik, 
@@ -737,13 +738,13 @@ export default {
             }
         },
         async deleteBank(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/bank/" + id, { withCredentials: true });
+            let result = await axios.delete(`${baseAPI}/bank/` + id, { withCredentials: true });
             if (result.status === 200) {
                 location.reload();
             }
         },
         async showBank(id) {
-            let a_bank = await axios.get("http://localhost:8080/api/v1/bank?Id=" + id, { withCredentials: true });
+            let a_bank = await axios.get(`${baseAPI}/bank?Id=` + id, { withCredentials: true });
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();
@@ -777,11 +778,11 @@ export default {
             modal.show();
         },
         async getBankKoperasi() {
-            const r_bank = await axios.get("http://localhost:8080/api/v1/bank?search=2", {withCredentials: true});
+            const r_bank = await axios.get(`${baseAPI}/bank?search=2`, {withCredentials: true});
             this.b_koperasi = r_bank.data.data;
         },
         async getSimpananBerjangka() {
-            const simpan = await axios.get("http://localhost:8080/api/v1/simpan?filter=4&isD=0&search=" + this.id_anggota, { withCredentials: true })
+            const simpan = await axios.get(`${baseAPI}/simpan?filter=4&isD=0&search=` + this.id_anggota, { withCredentials: true })
             this.simpanan = simpan.data.data
             this.id_simpan = simpan.data.data.id
             this.jumlah = simpan.data.data.total / simpan.data.data.jangka_simpan
@@ -793,18 +794,18 @@ export default {
             }
         },
         async getSaldoWajib() {
-            await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
-            const sWajib = await axios.get("http://localhost:8080/api/v1/saldo/simpanan?type=w&id=" + this.id_anggota, { withCredentials: true })
+            await axios.get(`${baseAPI}/anggota/info` , {withCredentials: true});
+            const sWajib = await axios.get(`${baseAPI}/saldo/simpanan?type=w&id=` + this.id_anggota, { withCredentials: true })
             this.saldo_wajib = sWajib.data.data;
         },
         async getSaldoSukarela() {
-            await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
-            const sSukarela = await axios.get("http://localhost:8080/api/v1/saldo/simpanan?type=s&id=" + this.id_anggota, { withCredentials: true })
+            await axios.get(`${baseAPI}/anggota/info` , {withCredentials: true});
+            const sSukarela = await axios.get(`${baseAPI}/saldo/simpanan?type=s&id=` + this.id_anggota, { withCredentials: true })
             this.saldo_sukarela = sSukarela.data.data;
         },
         async getSaldoBerjangka() {
-            await axios.get("http://localhost:8080/api/v1/anggota/info" , {withCredentials: true});
-            const sBerjangka = await axios.get("http://localhost:8080/api/v1/saldo/simpanan?type=b&id=" + this.id_anggota, { withCredentials: true })
+            await axios.get(`${baseAPI}/anggota/info` , {withCredentials: true});
+            const sBerjangka = await axios.get(`${baseAPI}/saldo/simpanan?type=b&id=` + this.id_anggota, { withCredentials: true })
             this.saldo_berjangka = sBerjangka.data.data;
         },
         async onFileSelected(event) {
@@ -817,7 +818,7 @@ export default {
                 fd.append('file', this.bukti_transfer);
                 fd.append('jenis_simpanan_id', 1);
                 fd.append('is_done', 1);
-                let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+                let result = await axios.post(`${baseAPI}/simpan`, fd, { withCredentials: true })
                 if (result.status === 201) {
                     const Toast = this.$swal.mixin({
                         toast: true,
@@ -865,7 +866,7 @@ export default {
             const fd = new FormData();
             fd.append('jumlah', this.jumlah);
             fd.append('file', this.bukti_transfer);
-            let result = await axios.put("http://localhost:8080/api/v1/simpan/" + this.id_simpan, fd, { withCredentials: true })
+            let result = await axios.put(`${baseAPI}/simpan/` + this.id_simpan, fd, { withCredentials: true })
             if (result.status === 201) {
                 const Toast = this.$swal.mixin({
                     toast: true,
@@ -901,7 +902,7 @@ export default {
             fd.append('file', this.bukti_transfer);
             fd.append('jenis_simpanan_id', 2);
             fd.append('is_done', 1);
-            let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+            let result = await axios.post(`${baseAPI}/simpan`, fd, { withCredentials: true })
             if (result.status === 201) {
                 const Toast = this.$swal.mixin({
                     toast: true,
@@ -937,7 +938,7 @@ export default {
             fd.append('file', this.bukti_transfer);
             fd.append('jenis_simpanan_id', 3);
             fd.append('is_done', 1);
-            let result = await axios.post("http://localhost:8080/api/v1/simpan", fd, { withCredentials: true })
+            let result = await axios.post(`${baseAPI}/simpan`, fd, { withCredentials: true })
             if (result.status === 201) {
                 const Toast = this.$swal.mixin({
                     toast: true,
@@ -990,7 +991,7 @@ export default {
                         fd.append('file', this.bukti_transfer);
                         fd.append('jenis_simpanan_id', this.jenis_simpanan);
                         fd.append('bank_id', this.id_rekening_tujuan);
-                        let result = await axios.post("http://localhost:8080/api/v1/transaksi", fd, { withCredentials: true })
+                        let result = await axios.post(`${baseAPI}/transaksi`, fd, { withCredentials: true })
                         if (result.status === 201) {
                             const Toast = this.$swal.mixin({
                                 toast: true,
@@ -1019,7 +1020,7 @@ export default {
                                 title: 'Transaksi Gagal!'
                             })
                         }
-                    } else if (this.jumlah_penarikan <= this.saldo_sukarela) {
+                    } else if (this.jumlah_penarikan > this.saldo_sukarela) {
                         const Toast = this.$swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -1041,7 +1042,7 @@ export default {
                         fd.append('file', this.bukti_transfer);
                         fd.append('jenis_simpanan_id', this.jenis_simpanan);
                         fd.append('bank_id', this.id_rekening_tujuan);
-                        let result = await axios.post("http://localhost:8080/api/v1/transaksi", fd, { withCredentials: true })
+                        let result = await axios.post(`${baseAPI}/transaksi`, fd, { withCredentials: true })
                         if (result.status === 201) {
                             const Toast = this.$swal.mixin({
                                 toast: true,
@@ -1070,7 +1071,7 @@ export default {
                                 title: 'Transaksi Gagal!'
                             })
                         }
-                    } else if (this.jumlah_penarikan <= this.saldo_berjangka) {
+                    } else if (this.jumlah_penarikan > this.saldo_berjangka) {
                         const Toast = this.$swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -1089,7 +1090,7 @@ export default {
         },
         async getPinjaman() {
             try {
-                let pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?isD=0&search=" + this.id_anggota, {withCredentials: true});
+                let pinjam = await axios.get(`${baseAPI}/pinjam?isD=0&search=` + this.id_anggota, {withCredentials: true});
                 this.pinjaman = pinjam.data.data
                 this.id_pinjam = pinjam.data.data[0].id
 
@@ -1118,7 +1119,7 @@ export default {
             fd.append('jumlah', this.jumlah);
             fd.append('jenis_transaksi_id', 2);
             fd.append('file', this.bukti_transfer);
-            let result = await axios.post("http://localhost:8080/api/v1/transaksi", fd, { withCredentials: true })
+            let result = await axios.post(`${baseAPI}/transaksi`, fd, { withCredentials: true })
             if (result.status === 201) {
                 const Toast = this.$swal.mixin({
                     toast: true,
@@ -1153,13 +1154,13 @@ export default {
             const btn_profile = document.querySelector("#btn_profile")
             const btn_edit = document.querySelector("#btn_edit")
 
-            var akun = await axios.get("http://localhost:8080/api/v1/anggota/info", {withCredentials: true})
+            var akun = await axios.get(`${baseAPI}/anggota/info`, {withCredentials: true})
             var no_anggota = akun.data.data.no_anggota;
             if (akun.status === 200) {
                 btn_profile.classList.add("hidden")
                 btn_edit.classList.remove("hidden")
                 btn_bank.classList.remove("hidden")
-                let member = await axios.get("http://localhost:8080/api/v1/anggota?search=" + no_anggota, {withCredentials: true});
+                let member = await axios.get(`${baseAPI}/anggota?search=` + no_anggota, {withCredentials: true});
                 this.rekening = member.data.data[0].bank;
             } 
         }

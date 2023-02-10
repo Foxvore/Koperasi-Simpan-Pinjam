@@ -79,6 +79,7 @@ import axios from 'axios'
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import moment from 'moment'
+import { baseAPI } from "../api.js"
 export default {
     name: 'Pengajuan',
     components : {
@@ -105,7 +106,7 @@ export default {
 
         var pimpinan = document.querySelector(".pimpinan")
         var staff = document.querySelector(".staff") 
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 1 ) { // Admin
                 this.$router.push({name : 'Dashboard'})
@@ -124,12 +125,12 @@ export default {
     },
     methods: {
         async getPegawai() {
-            var pegawai = await axios.get("http://localhost:8080/api/v1/userInfo/pegawai", {withCredentials: true})
+            var pegawai = await axios.get(`${baseAPI}/userInfo/pegawai`, {withCredentials: true})
             this.id_pegawai = pegawai.data.data.id
         },
         async getPinjaman() {
             try {
-                const pinjam = await axios.get("http://localhost:8080/api/v1/pinjam?isA=0", {withCredentials: true}); 
+                const pinjam = await axios.get(`${baseAPI}/pinjam?isA=0`, {withCredentials: true}); 
                 this.pinjaman = pinjam.data.data
                 this.id_pinjam = pinjam.data.data[0].id
 
@@ -142,12 +143,12 @@ export default {
             }
         },
         async getPermohonan() {
-            let permohonan =  await axios.get("http://localhost:8080/api/v1/permohonan?isW=1", { withCredentials: true})
+            let permohonan =  await axios.get(`${baseAPI}/permohonan?isW=1`, { withCredentials: true})
             this.permohonan = permohonan.data.data
 
         },
         async ajukan(id) {
-            const result = await axios.post("http://localhost:8080/api/v1/permohonan", {
+            const result = await axios.post(`${baseAPI}/permohonan`, {
                 pinjam_id: id,
                 alasan: "Diterima Staff",
                 cond: 1
@@ -183,7 +184,7 @@ export default {
             }
         },
         async terima(id) {
-            const result = await axios.put("http://localhost:8080/api/v1/permohonan/" + id, {
+            const result = await axios.put(`${baseAPI}/permohonan/` + id, {
                 alasan: "Diterima Pimpinan",
                 cond: 2,
             }, {withCredentials: true} )
@@ -218,7 +219,7 @@ export default {
             }
         },
         async tolak(id){
-            const result = await axios.put("http://localhost:8080/api/v1/permohonan/" + id, {
+            const result = await axios.put(`${baseAPI}/permohonan` + id, {
                 alasan: "Ditolak Pimpinan",
                 cond: 3,
             }, {withCredentials: true} )

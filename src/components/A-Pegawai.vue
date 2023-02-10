@@ -56,6 +56,7 @@
 <script>
 import axios from 'axios'
 import Sidebar from './Sidebar.vue'
+import { baseAPI } from "../api.js"
 export default {
     name: "A-Pegawai",
     components : {
@@ -68,7 +69,7 @@ export default {
             this.$router.push({name : 'Home'})
         }
         
-        var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+        var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
         if(acc) { // Login        
             if (acc.data.data.role === 2 || acc.data.data.role === 3 || acc.data.data.role === 4 ) { // Pimpinan, Staff & Member
                 this.$router.push({name : 'Home'})
@@ -89,22 +90,22 @@ export default {
     },
     methods: {
         async getJabatan() {
-            let jabatan = await axios.get("http://localhost:8080/api/v1/jabatan", {withCredentials: true});
+            let jabatan = await axios.get(`${baseAPI}/jabatan`, {withCredentials: true});
             this.position = jabatan.data.data;
 
         },
         async getPegawai() {
-            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai");
+            let pegawai = await axios.get(`${baseAPI}/pegawai`);
             this.pegawai = pegawai.data.data;
         },
         async deletePegawai(id) {
-            let result = await axios.delete("http://localhost:8080/api/v1/pegawai/" + id);
+            let result = await axios.delete(`${baseAPI}/pegawai/` + id);
             if (result.status === 200) {
                 this.getPegawai();
             }
         },
         async showInfo(id) {
-            let pegawai = await axios.get("http://localhost:8080/api/v1/pegawai?search=" + id, {withCredentials: true});
+            let pegawai = await axios.get(`${baseAPI}/pegawai?search=` + id, {withCredentials: true});
             var modalWrap = null;
             if (modalWrap !== null) {
                 modalWrap.remove();
@@ -144,7 +145,7 @@ export default {
             modal.show();
         },
         async pimpinan(id, email) {
-            let result = await axios.put("http://localhost:8080/api/v1/pegawai/" + id, {
+            let result = await axios.put(`${baseAPI}/pegawai/` + id, {
                 email: email,
                 jabatan_id: 1,
             }, { withCredentials: true });
@@ -178,7 +179,7 @@ export default {
             }
         },
         async staff(id, email) {
-            let result = await axios.put("http://localhost:8080/api/v1/pegawai/" + id, {
+            let result = await axios.put(`${baseAPI}/pegawai/` + id, {
                 email: email,
                 jabatan_id: 2,
             }, { withCredentials: true });

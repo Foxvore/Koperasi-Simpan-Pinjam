@@ -47,6 +47,7 @@
 
 <script>
 import axios from 'axios'
+import { baseAPI } from "../api.js"
 export default {
   name: 'Header',
   created () {
@@ -76,7 +77,7 @@ export default {
         reverseButtons: true
       }).then(async(result) => {
         if (result.isConfirmed) {
-          await axios.get("http://localhost:8080/api/v1/logout", {withCredentials: true});
+          await axios.get(`${baseAPI}/logout`, {withCredentials: true});
           const Toast = this.$swal.mixin({
             toast: true,
             position: 'top-end',
@@ -111,7 +112,6 @@ export default {
     }
   },
   async mounted() {
-    var kuki = 0;
     var service = document.querySelector('.service')
     var simpan = document.querySelector('.simpan')
     var pinjam = document.querySelector('.pinjam')
@@ -124,7 +124,7 @@ export default {
     var pengajuan = document.querySelector('.pengajuan')
 
     if (this.$cookies.get("jwt")) {
-      var acc = await axios.get("http://localhost:8080/api/v1/userInfo", {withCredentials: true});
+      var acc = await axios.get(`${baseAPI}/userInfo`, {withCredentials: true});
       if (acc) {
         signup.classList.add('hidden')
         if (acc.data.data.role === 2) { // Pimpinan
@@ -145,7 +145,7 @@ export default {
           p_profile.classList.add('hidden')
         }
       }
-    } else if(kuki === 0) { // Not Login
+    } else {
       p_profile.classList.add('hidden')
       m_profile.classList.add('hidden')
       logout.classList.add('hidden')

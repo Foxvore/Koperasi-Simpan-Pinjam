@@ -71,6 +71,7 @@
 
 <script>
 import axios from 'axios'
+import { baseAPI } from "../api.js"
 export default {
     name: "Sidebar",
     methods: {
@@ -86,7 +87,7 @@ export default {
           reverseButtons: true
         }).then(async(result) => {
             if (result.isConfirmed) {
-              await axios.get("http://localhost:8080/api/v1/logout", {withCredentials: true});
+              await axios.get(`${baseAPI}/logout`, {withCredentials: true});
               const Toast = this.$swal.mixin({
                   toast: true,
                   position: 'top-end',
